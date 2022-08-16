@@ -1,4 +1,5 @@
 import { createGlobalStyle } from 'styled-components'
+import { palette } from './palette'
 
 const GlobalStyles = createGlobalStyle`
 @font-face {
@@ -11,6 +12,7 @@ html,
 body,
 #root {
   height: 100%;
+  background-color: ${palette.backgroundColor};
 }
 * {
   box-sizing: border-box;
