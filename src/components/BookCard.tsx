@@ -1,14 +1,8 @@
 import React from 'react'
-import DetailPage from '../pages/DetailPage/DetailPage'
+import { useNavigate } from 'react-router-dom'
+import styled from 'styled-components'
 
-type BookInfoType = {
-	thumbnail: string
-	title: string
-	authors: string
-	contents: string
-	datetime: string
-	publisher: string
-}
+import { BookInfoType } from '../types/bookType'
 
 export default function BookCard({
 	thumbnail,
@@ -18,10 +12,29 @@ export default function BookCard({
 	datetime,
 	publisher,
 }: BookInfoType) {
+	const navigate = useNavigate()
+
+	const moveToDetailPage = () => {
+		navigate('/detail', {
+			state: {
+				thumbnail,
+				title,
+				authors,
+				contents,
+				datetime,
+				publisher,
+			},
+		})
+	}
+
 	return (
-		<div>
-			<img src={thumbnail} />
+		<BookCardContainer onClick={moveToDetailPage}>
+			<img src={thumbnail} alt={title} />
 			<p>{title}</p>
-		</div>
+		</BookCardContainer>
 	)
 }
+
+const BookCardContainer = styled.li`
+	cursor: pointer;
+`

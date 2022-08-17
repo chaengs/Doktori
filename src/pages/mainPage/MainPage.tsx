@@ -36,18 +36,15 @@ export default function MainPage() {
 			{result && (
 				<ul>
 					{result.map((data, index) => (
-						<>
-							{/* <li key={`${data.isbn}_${index}`}>{data.title}</li> */}
-							<BookCard
-								key={`${data.isbn}_${index}`}
-								thumbnail={data.thumbnail}
-								title={data.title}
-								authors={data.authors}
-								contents={data.contents}
-								datetime={data.datetime}
-								publisher={data.publisher}
-							/>
-						</>
+						<BookCard
+							key={`${data.isbn}_${index}`}
+							thumbnail={data.thumbnail}
+							title={data.title}
+							authors={data.authors}
+							contents={data.contents}
+							datetime={data.datetime}
+							publisher={data.publisher}
+						/>
 					))}
 				</ul>
 			)}
