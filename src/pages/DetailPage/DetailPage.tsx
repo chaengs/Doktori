@@ -1,12 +1,22 @@
 import React from 'react'
-import { useLocation } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 import { BookInfoType } from '../../types/bookType'
-import { firebaseDB } from '../../Firebase'
-import { collection } from 'firebase/firestore'
+
 export default function DetailPage() {
 	const { state } = useLocation()
 	const { thumbnail, title, authors, contents, datetime, publisher } = state as BookInfoType
 
+	const navigate = useNavigate()
+
+	const moveToReviewEditor = () => {
+		navigate('/reviewedit', {
+			state: {
+				bookThumbnail: thumbnail,
+				bookTitle: title,
+				bookAuthors: authors,
+			},
+		})
+	}
 	return (
 		<section>
 			<h1>{title}</h1>
@@ -15,6 +25,7 @@ export default function DetailPage() {
 			<p>{contents}</p>
 			<p>{datetime}</p>
 			<p>{publisher}</p>
+			<button onClick={moveToReviewEditor}>리뷰 작성하기</button>
 		</section>
 	)
 }
