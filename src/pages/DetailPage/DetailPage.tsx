@@ -1,6 +1,8 @@
 import React from 'react'
 import { useLocation } from 'react-router-dom'
 import { BookInfoType } from '../../types/bookType'
+import { firebaseDB } from '../../Firebase'
+import { collection } from 'firebase/firestore'
 export default function DetailPage() {
 	const { state } = useLocation()
 	const { thumbnail, title, authors, contents, datetime, publisher } = state as BookInfoType
