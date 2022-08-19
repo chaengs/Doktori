@@ -17,9 +17,6 @@ export default function ReviewEditPage() {
 	const [Content, setContent] = useState('')
 	const [reviews, setReviews] = useState<testType | any>([]) // 나중에 타입 바꾸기
 
-	const titleRef = useRef<HTMLInputElement>(null)
-	const contentRef = useRef<HTMLTextAreaElement>(null)
-
 	const reviewsCollectionRef = collection(firebaseDB, 'test')
 
 	const createReview = async () => {
@@ -46,27 +43,29 @@ export default function ReviewEditPage() {
 		</p>
 	))
 	return (
-		<div>
-			<input
-				type='text'
-				placeholder='글제목'
-				ref={titleRef}
-				onChange={(event) => {
-					setReviewTitle(event.target.value)
-				}}
-			/>
-			<textarea
-				placeholder='리뷰작성'
-				ref={contentRef}
-				onChange={(event) => {
-					setContent(event.target.value)
-				}}
-			/>
-			<button onClick={createReview}>리뷰 올리기</button>
-			{reviews && reviewList}
-			<p>{bookTitle}</p>
-			<p>{bookAuthors}</p>
-			<img src={bookThumbnail} />
-		</div>
+		<>
+			<section>
+				<p>{bookTitle}</p>
+				<p>{bookAuthors}</p>
+				<img src={bookThumbnail} />
+			</section>
+			<section>
+				<input
+					type='text'
+					placeholder='글제목'
+					onChange={(event) => {
+						setReviewTitle(event.target.value)
+					}}
+				/>
+				<textarea
+					placeholder='리뷰작성'
+					onChange={(event) => {
+						setContent(event.target.value)
+					}}
+				/>
+				<button onClick={createReview}>리뷰 올리기</button>
+				{reviews && reviewList}
+			</section>
+		</>
 	)
 }

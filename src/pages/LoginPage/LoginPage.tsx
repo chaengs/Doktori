@@ -22,9 +22,6 @@ export default function LoginPage() {
 		}
 	}
 
-	const logout = async () => {
-		await signOut(firebaseAuth)
-	}
 	return (
 		<div>
 			<h3> Login </h3>
@@ -42,7 +39,6 @@ export default function LoginPage() {
 			/>
 
 			<button onClick={login}> Login</button>
-			<button onClick={logout}> Sign Out </button>
 		</div>
 	)
 }
