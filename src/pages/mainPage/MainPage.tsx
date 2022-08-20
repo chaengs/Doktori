@@ -18,7 +18,7 @@ export default function MainPage() {
 		setResult(data)
 	}
 
-	const getInutValue = () => {
+	const inutValueHandler = () => {
 		setInputValue(inputRef.current.value)
 	}
 
@@ -30,7 +30,7 @@ export default function MainPage() {
 
 	return (
 		<>
-			<form onSubmit={getInutValue}>
+			<form onSubmit={inutValueHandler}>
 				<input type='text' placeholder='도서명 또는 작가를 검색하세요.' ref={inputRef} />
 			</form>
 			{result && (

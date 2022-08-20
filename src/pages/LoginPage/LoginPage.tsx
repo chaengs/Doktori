@@ -1,20 +1,26 @@
-import React, { useState } from 'react'
-import { signInWithEmailAndPassword, onAuthStateChanged, signOut } from 'firebase/auth'
+import React, { useEffect, useState } from 'react'
+import { signInWithEmailAndPassword } from 'firebase/auth'
 import { firebaseAuth } from '../../Firebase'
 import { userInfoType } from '../../types/userInfoType'
+import { useNavigate } from 'react-router-dom'
 
 export default function LoginPage() {
+	const navigate = useNavigate()
+
 	const [loginEmail, setLoginEmail] = useState('')
 	const [loginPassword, setLoginPassword] = useState('')
+	// const [isLoggedIn, setIsLoggedIn] = useState(false)
 
 	const login = async () => {
 		try {
 			const { user } = await signInWithEmailAndPassword(firebaseAuth, loginEmail, loginPassword)
-			console.log(user)
 			const { email, uid } = user as userInfoType
 			console.log('로그인 성공')
+
 			localStorage.setItem('email', email)
 			localStorage.setItem('uid', uid)
+
+			navigate('/')
 		} catch (error) {
 			if (error instanceof Error) {
 				console.log(error.message)
@@ -22,9 +28,6 @@ export default function LoginPage() {
 		}
 	}
 
-	const logout = async () => {
-		await signOut(firebaseAuth)
-	}
 	return (
 		<div>
 			<h3> Login </h3>
@@ -42,7 +45,6 @@ export default function LoginPage() {
 			/>
 
 			<button onClick={login}> Login</button>
-			<button onClick={logout}> Sign Out </button>
 		</div>
 	)
 }
