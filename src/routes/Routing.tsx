@@ -13,9 +13,9 @@ function Routing() {
 	return (
 		<BrowserRouter>
 			<Routes>
+				<Route path='/' element={<LandingPage />} />
 				<Route element={<Header />}>
 					{/* <Route path='/' element={<LandingPage />} /> */}
-					<Route path='/' element={<LandingPage />} />
 					<Route path={Path.main} element={<MainPage />} />
 					<Route path={Path.Login} element={<LoginPage />} />
 					<Route path={Path.Register} element={<RegisterPage />} />
