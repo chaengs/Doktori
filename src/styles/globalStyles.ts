@@ -3,8 +3,8 @@ import { palette } from './palette'
 
 const GlobalStyles = createGlobalStyle`
 @font-face {
-    font-family: 'GmarketSansMedium';
-    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff') format('woff');
+    font-family: '777Balsamtint';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_nine_@1.1/777Balsamtint.woff') format('woff');
     font-weight: normal;
     font-style: normal;
 }
@@ -113,6 +113,7 @@ time,
 mark,
 audio,
 input,
+textarea,
 button,
 video {
   margin: 0;
@@ -120,7 +121,7 @@ video {
   border: 0;
   font-size: 100%;
   vertical-align: baseline;
-  font-family: 'GmarketSansMedium';
+  font-family: '777Balsamtint';
 }
 /* HTML5 display-role reset for older browsers */
 article,

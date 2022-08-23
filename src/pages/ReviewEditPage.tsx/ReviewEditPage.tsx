@@ -14,7 +14,7 @@ import { palette } from 'styles/palette'
 export default function ReviewEditPage() {
 	//BookCard 컴포넌트에서 prop 받아옴
 	const { state } = useLocation()
-	const { bookThumbnail, bookTitle, bookAuthors, bookIsbn } = state as ReviewBookType
+	const { bookThumbnail, bookTitle, bookAuthors, bookIsbn, publisher } = state as ReviewBookType
 
 	const [reviewTitle, setReviewTitle] = useState('')
 	const [content, setContent] = useState('')
@@ -46,7 +46,7 @@ export default function ReviewEditPage() {
 			bookAuthors: bookAuthors,
 			bookIsbn: bookIsbn,
 			writer: writer,
-			title: reviewTitle,
+			// title: reviewTitle,
 			contents: content,
 			score: score,
 			registerDate: getStringDate(new Date()),
@@ -71,30 +71,12 @@ export default function ReviewEditPage() {
 			<BookInfoContainer>
 				<img src={bookThumbnail} alt={bookTitle} />
 				<div>
-					<p>{bookTitle}</p>
-					<p>{bookAuthors}</p>
+					<BookTitle>{bookTitle}</BookTitle>
+					<p>{bookAuthors} 지음</p>
+					<p>{publisher} 펴냄</p>
 				</div>
 			</BookInfoContainer>
 			<ReviewEditorContainer>
-				<input
-					className='input_date'
-					type='date'
-					value={date}
-					onChange={(e) => setDate(e.target.value)}
-				/>
-				<input
-					type='text'
-					placeholder='글제목'
-					onChange={(event) => {
-						setReviewTitle(event.target.value)
-					}}
-				/>
-				<textarea
-					placeholder='리뷰작성'
-					onChange={(event) => {
-						setContent(event.target.value)
-					}}
-				/>
 				<ScoreBox>
 					{[1, 2, 3, 4, 5].map((el) => (
 						<GiAcorn
@@ -106,33 +88,126 @@ export default function ReviewEditPage() {
 						/>
 					))}
 				</ScoreBox>
-				<button onClick={createReview}>리뷰 올리기</button>
-				{reviews && reviewList}
+				<DateBox>
+					<p>완독 날짜</p>
+					<DateInput
+						className='input_date'
+						type='date'
+						value={date}
+						onChange={(e) => setDate(e.target.value)}
+					/>
+				</DateBox>
+				{/* <ContentInput
+					type='text'
+					placeholder=''
+					onChange={(event) => {
+						setReviewTitle(event.target.value)
+					}}
+				/> */}
+				<ContentInput
+					placeholder='독서는 즐거우셨나요? 여러분의 감상을 적어주세요.'
+					onChange={(event) => {
+						setContent(event.target.value)
+					}}
+				/>
+				<SubmitButton onClick={createReview}>독후감 작성 완료</SubmitButton>
+				{/* {reviews && reviewList} */}
 			</ReviewEditorContainer>
 		</ReviewContainer>
 	)
 }
 
-const ReviewContainer = styled.article``
+const ReviewContainer = styled.article`
+	width: 80%;
+	height: 80%;
+	background-color: ${palette.backgroundWhiteColor};
+	border-radius: 20px;
+	box-shadow: 0px 0px 5px 10px rgba(0, 0, 0, 0.2);
+	margin: 0 auto;
+	padding: 100px;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	position: relative;
+	top: 5%;
+`
 
-const BookInfoContainer = styled.section``
+const BookInfoContainer = styled.section`
+	font-size: 20px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	img {
+		width: 100px;
+		height: auto;
+	}
 
-const BookDescription = styled.div``
+	div {
+		margin-left: 20px;
+	}
 
-const ReviewEditorContainer = styled.section``
+	p {
+		margin-bottom: 10px;
+	}
+`
+
+const BookTitle = styled.p`
+	font-size: 30px;
+`
+
+const ReviewEditorContainer = styled.section`
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+`
 const ScoreBox = styled.div`
-	text-align: center;
-	border: none;
+	/* text-align: center; */
 	.acorn {
+		font-size: 30px;
+		opacity: 0.3;
 		margin: 20px 10px 20px 0;
-		opacity: 0.2;
 		/* color: #999; */
 		cursor: pointer;
-		font-size: 30px;
 	}
 
 	.green {
 		color: ${palette.mainColor};
 		opacity: 1;
 	}
+`
+const DateBox = styled.div`
+	display: flex;
+	align-items: center;
+	margin-bottom: 20px;
+	p {
+		font-size: 20px;
+		margin-right: 10px;
+	}
+`
+const DateInput = styled.input`
+	width: auto;
+	height: 40px;
+	font-size: 18px;
+	border: 2px solid ${palette.mainColor};
+	border-radius: 7px;
+	padding: 5px;
+`
+
+const ContentInput = styled.textarea`
+	width: 700px;
+	height: 30vh;
+	font-size: 20px;
+	padding: 10px;
+	border: 2px solid ${palette.mainColor};
+	border-radius: 7px;
+`
+const SubmitButton = styled.button`
+	width: 140px;
+	height: 40px;
+	color: #fff;
+	font-size: 20px;
+	font-weight: bold;
+	background-color: ${palette.buttonColor};
+	border-radius: 7px;
+	margin-top: 20px;
 `
