@@ -5,6 +5,7 @@ export interface BookInfoType {
 	contents: string
 	datetime: string
 	publisher: string
+	isbn: string
 }
 // interface ReviewType {
 // 	bookAuthors: string
@@ -23,4 +24,5 @@ interface ReviewBookType {
 	bookThumbnail: string
 	bookTitle: string
 	bookAuthors: string
+	bookIsbn: string
 }

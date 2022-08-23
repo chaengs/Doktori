@@ -44,6 +44,7 @@ export default function MainPage() {
 							contents={data.contents}
 							datetime={data.datetime}
 							publisher={data.publisher}
+							isbn={data.isbn}
 						/>
 					))}
 				</ul>

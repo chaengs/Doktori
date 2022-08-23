@@ -4,7 +4,7 @@ import { BookInfoType } from '../../types/bookType'
 
 export default function DetailPage() {
 	const { state } = useLocation()
-	const { thumbnail, title, authors, contents, datetime, publisher } = state as BookInfoType
+	const { thumbnail, title, authors, contents, datetime, publisher, isbn } = state as BookInfoType
 
 	const navigate = useNavigate()
 
@@ -14,6 +14,7 @@ export default function DetailPage() {
 				bookThumbnail: thumbnail,
 				bookTitle: title,
 				bookAuthors: authors,
+				bookIsbn: isbn,
 			},
 		})
 	}
