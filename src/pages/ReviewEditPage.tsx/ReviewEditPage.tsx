@@ -1,11 +1,15 @@
-import { addDoc, collection, getDocs, query, where } from 'firebase/firestore'
 import React, { useEffect, useState } from 'react'
 import { useLocation } from 'react-router-dom'
+import styled from 'styled-components'
 import { firebaseDB } from '../../Firebase'
+import { addDoc, collection, getDocs, query, where } from 'firebase/firestore'
 
 import { ReviewBookType } from '../../types/bookType'
 import { ReviewType } from '../../types/bookType'
 import { getStringDate } from 'util/getStringDate'
+
+import { GiAcorn } from 'react-icons/gi'
+import { palette } from 'styles/palette'
 
 export default function ReviewEditPage() {
 	//BookCard 컴포넌트에서 prop 받아옴
@@ -16,6 +20,9 @@ export default function ReviewEditPage() {
 	const [content, setContent] = useState('')
 	const [reviews, setReviews] = useState<ReviewType | any>([]) // 나중에 타입 바꾸기
 	const [date, setDate] = useState<string | number | readonly string[]>(getStringDate(new Date()))
+
+	const [hovered, setHovered] = useState(0)
+	const [score, setScore] = useState(0)
 
 	const reviewsCollectionRef = collection(firebaseDB, 'bookReviews')
 
@@ -41,6 +48,7 @@ export default function ReviewEditPage() {
 			writer: writer,
 			title: reviewTitle,
 			contents: content,
+			score: score,
 			registerDate: getStringDate(new Date()),
 			finishDate: date,
 			writerId: writerId,
@@ -51,7 +59,6 @@ export default function ReviewEditPage() {
 
 	useEffect(() => {
 		getReview()
-		reviewList
 	}, [])
 
 	const reviewList = reviews.map((review: ReviewType) => (
@@ -60,13 +67,15 @@ export default function ReviewEditPage() {
 		</p>
 	))
 	return (
-		<>
-			<section>
-				<p>{bookTitle}</p>
-				<p>{bookAuthors}</p>
-				<img src={bookThumbnail} />
-			</section>
-			<section>
+		<ReviewContainer>
+			<BookInfoContainer>
+				<img src={bookThumbnail} alt={bookTitle} />
+				<div>
+					<p>{bookTitle}</p>
+					<p>{bookAuthors}</p>
+				</div>
+			</BookInfoContainer>
+			<ReviewEditorContainer>
 				<input
 					className='input_date'
 					type='date'
@@ -86,9 +95,44 @@ export default function ReviewEditPage() {
 						setContent(event.target.value)
 					}}
 				/>
+				<ScoreBox>
+					{[1, 2, 3, 4, 5].map((el) => (
+						<GiAcorn
+							className={`acorn ${(score >= el || hovered >= el) && 'green'}`}
+							key={el}
+							onMouseEnter={() => setHovered(el)}
+							onMouseLeave={() => setHovered(0)}
+							onClick={() => setScore(el)}
+						/>
+					))}
+				</ScoreBox>
 				<button onClick={createReview}>리뷰 올리기</button>
 				{reviews && reviewList}
-			</section>
-		</>
+			</ReviewEditorContainer>
+		</ReviewContainer>
 	)
 }
+
+const ReviewContainer = styled.article``
+
+const BookInfoContainer = styled.section``
+
+const BookDescription = styled.div``
+
+const ReviewEditorContainer = styled.section``
+const ScoreBox = styled.div`
+	text-align: center;
+	border: none;
+	.acorn {
+		margin: 20px 10px 20px 0;
+		opacity: 0.2;
+		/* color: #999; */
+		cursor: pointer;
+		font-size: 30px;
+	}
+
+	.green {
+		color: ${palette.mainColor};
+		opacity: 1;
+	}
+`
