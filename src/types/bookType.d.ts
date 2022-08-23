@@ -26,4 +26,5 @@ interface ReviewBookType {
 	bookTitle: string
 	bookAuthors: string
 	bookIsbn: string
+	publisher: string
 }

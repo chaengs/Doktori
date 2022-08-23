@@ -1,6 +1,7 @@
 export const palette: { [key: string]: string } = {
 	mainColor: '#606c38',
-	buttonColor: '#dda15e',
-	backgroundColor: '#fefae0',
+	buttonColor: '#895737',
+	backgroundWhiteColor: '#fefae0',
+	backgroundColor: '#606c38',
 	fontColor: '#fefae0',
 }

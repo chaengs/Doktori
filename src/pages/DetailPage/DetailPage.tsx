@@ -15,6 +15,7 @@ export default function DetailPage() {
 				bookTitle: title,
 				bookAuthors: authors,
 				bookIsbn: isbn,
+				publisher,
 			},
 		})
 	}
