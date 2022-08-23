@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
-import { firebaseDB } from '../../Firebase'
+import { firebaseAuth, firebaseDB } from '../../Firebase'
 import { addDoc, collection, getDocs, query, where } from 'firebase/firestore'
 
 import { ReviewBookType } from '../../types/bookType'
@@ -10,16 +10,17 @@ import { getStringDate } from 'util/getStringDate'
 
 import { GiAcorn } from 'react-icons/gi'
 import { palette } from 'styles/palette'
+import { create } from 'domain'
 
 export default function ReviewEditPage() {
 	//BookCard 컴포넌트에서 prop 받아옴
 	const { state } = useLocation()
 	const { bookThumbnail, bookTitle, bookAuthors, bookIsbn, publisher } = state as ReviewBookType
 
-	const [reviewTitle, setReviewTitle] = useState('')
 	const [content, setContent] = useState('')
 	const [reviews, setReviews] = useState<ReviewType | any>([]) // 나중에 타입 바꾸기
 	const [date, setDate] = useState<string | number | readonly string[]>(getStringDate(new Date()))
+	const [buttonActive, setButtonActive] = useState<boolean>(true)
 
 	const [hovered, setHovered] = useState(0)
 	const [score, setScore] = useState(0)
@@ -27,6 +28,7 @@ export default function ReviewEditPage() {
 	const reviewsCollectionRef = collection(firebaseDB, 'bookReviews')
 
 	const navigate = useNavigate()
+	const textareaInput = useRef() as React.MutableRefObject<HTMLTextAreaElement>
 
 	// 조건에 맞는 리뷰 가져옴
 	const getReview = async () => {
@@ -37,10 +39,19 @@ export default function ReviewEditPage() {
 		setReviews(newData)
 	}
 
+	//유효성검사에 따른 버튼 활성화 (독후감 10자 이상, 점수 필수)
+	useEffect(() => {
+		if (content.length > 10 && score > 0) {
+			setButtonActive(true)
+			setButtonActive(false)
+		} else {
+			setButtonActive(true)
+		}
+	}, [content, score])
+
 	const createReview = async () => {
-		//localstorage에서 유저정보 받아옴
-		const writerId = localStorage.getItem('uid')
-		const writer = localStorage.getItem('email')
+		const writerId = firebaseAuth.currentUser?.email //firebaseAuth.currentUser.uid
+		const writer = firebaseAuth.currentUser?.uid
 		try {
 			await addDoc(reviewsCollectionRef, {
 				bookThumbnail: bookThumbnail,
@@ -62,13 +73,7 @@ export default function ReviewEditPage() {
 				console.log(error.message)
 			}
 		}
-
-		// getReview()
 	}
-
-	useEffect(() => {
-		getReview()
-	}, [])
 
 	const reviewList = reviews.map((review: ReviewType) => (
 		<p key={review.id}>
@@ -106,21 +111,20 @@ export default function ReviewEditPage() {
 						onChange={(e) => setDate(e.target.value)}
 					/>
 				</DateBox>
-				{/* <ContentInput
-					type='text'
-					placeholder=''
-					onChange={(event) => {
-						setReviewTitle(event.target.value)
-					}}
-				/> */}
 				<ContentInput
-					placeholder='독서는 즐거우셨나요? 여러분의 감상을 적어주세요.'
+					placeholder='독서는 즐거우셨나요? 여러분의 감상을 적어주세요. (10자 이상)'
 					onChange={(event) => {
 						setContent(event.target.value)
 					}}
+					ref={textareaInput}
 				/>
-				<SubmitButton onClick={createReview}>독후감 작성 완료</SubmitButton>
-				{/* {reviews && reviewList} */}
+				<SubmitButton
+					onClick={createReview}
+					disabled={buttonActive}
+					className={buttonActive ? 'buttonOff' : 'buttonOn'}
+				>
+					독후감 작성 완료
+				</SubmitButton>
 			</ReviewEditorContainer>
 		</ReviewContainer>
 	)
@@ -170,12 +174,10 @@ const ReviewEditorContainer = styled.section`
 	align-items: center;
 `
 const ScoreBox = styled.div`
-	/* text-align: center; */
 	.acorn {
 		font-size: 30px;
 		opacity: 0.3;
-		margin: 20px 10px 20px 0;
-		/* color: #999; */
+		margin: 10px 10px 15px 0;
 		cursor: pointer;
 	}
 
@@ -187,7 +189,7 @@ const ScoreBox = styled.div`
 const DateBox = styled.div`
 	display: flex;
 	align-items: center;
-	margin-bottom: 20px;
+	margin-bottom: 15px;
 	p {
 		font-size: 20px;
 		margin-right: 10px;
@@ -216,7 +218,14 @@ const SubmitButton = styled.button`
 	color: #fff;
 	font-size: 20px;
 	font-weight: bold;
-	background-color: ${palette.buttonColor};
 	border-radius: 7px;
 	margin-top: 20px;
+	background-color: ${palette.buttonOnColor};
+
+	&.buttonOff {
+		opacity: 0.3;
+	}
+	&.buttonOn {
+		opacity: 1;
+	}
 `

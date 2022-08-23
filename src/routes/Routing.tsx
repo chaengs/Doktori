@@ -5,9 +5,10 @@ import RegisterPage from '../pages/\bRegisterPage/RegisterPage'
 import DetailPage from '../pages/DetailPage/DetailPage'
 import LandingPage from '../pages/landingPage/LandingPage'
 import LoginPage from '../pages/LoginPage/LoginPage'
-import MainPage from '../pages/mainPage/MainPage'
+import MainPage from '../pages/SearchPage/SearchPage'
 import ReviewEditPage from '../pages/ReviewEditPage.tsx/ReviewEditPage'
 import Path from './Path'
+import SearchPage from '../pages/SearchPage/SearchPage'
 
 function Routing() {
 	return (
@@ -17,6 +18,7 @@ function Routing() {
 				<Route element={<Header />}>
 					{/* <Route path='/' element={<LandingPage />} /> */}
 					<Route path={Path.main} element={<MainPage />} />
+					<Route path={Path.search} element={<SearchPage />} />
 					<Route path={Path.Login} element={<LoginPage />} />
 					<Route path={Path.Register} element={<RegisterPage />} />
 					<Route path={Path.detail} element={<DetailPage />} />

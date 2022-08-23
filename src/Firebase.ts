@@ -1,5 +1,4 @@
 import { initializeApp } from 'firebase/app'
-import { getAnalytics } from 'firebase/analytics'
 import { getFirestore } from '@firebase/firestore'
 import { getAuth } from 'firebase/auth'
 
@@ -12,16 +11,6 @@ const firebaseConfig = {
 	appId: process.env.REACT_APP_FIREBASE_APPID,
 	measurementId: process.env.REACT_APP_FIREBASE_MEASUREMENTID,
 }
-
-// const firebaseConfig = {
-// 	apiKey: 'AIzaSyC_ufVTHBVa_5Yl6WPzL9n1XvMCIfLzX_k',
-// 	authDomain: 'bookdive-718c5.firebaseapp.com',
-// 	projectId: 'bookdive-718c5',
-// 	storageBucket: 'bookdive-718c5.appspot.com',
-// 	messagingSenderId: '508070106646',
-// 	appId: '1:508070106646:web:08432ebcd3227b86958737',
-// 	measurementId: 'G-T3W7MXH365',
-// }
 
 export const firebaseApp = initializeApp(firebaseConfig)
 export const firebaseDB = getFirestore(firebaseApp)
