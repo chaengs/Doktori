@@ -41,7 +41,8 @@ export default function ReviewEditPage() {
 			writer: writer,
 			title: reviewTitle,
 			contents: content,
-			date: date,
+			registerDate: getStringDate(new Date()),
+			finishDate: date,
 			writerId: writerId,
 		})
 
