@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { useLocation } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
 import { firebaseDB } from '../../Firebase'
 import { addDoc, collection, getDocs, query, where } from 'firebase/firestore'
@@ -26,6 +26,8 @@ export default function ReviewEditPage() {
 
 	const reviewsCollectionRef = collection(firebaseDB, 'bookReviews')
 
+	const navigate = useNavigate()
+
 	// 조건에 맞는 리뷰 가져옴
 	const getReview = async () => {
 		const dateByQuery = query(reviewsCollectionRef, where('bookIsbn', '==', bookIsbn))
@@ -39,22 +41,29 @@ export default function ReviewEditPage() {
 		//localstorage에서 유저정보 받아옴
 		const writerId = localStorage.getItem('uid')
 		const writer = localStorage.getItem('email')
+		try {
+			await addDoc(reviewsCollectionRef, {
+				bookThumbnail: bookThumbnail,
+				bookTitle: bookTitle,
+				bookAuthors: bookAuthors,
+				bookIsbn: bookIsbn,
+				writer: writer,
+				// title: reviewTitle,
+				contents: content,
+				score: score,
+				registerDate: getStringDate(new Date()),
+				finishDate: date,
+				writerId: writerId,
+			})
+			alert('당신의 다독을 응원할게요!')
+			navigate('/main')
+		} catch (error) {
+			if (error instanceof Error) {
+				console.log(error.message)
+			}
+		}
 
-		await addDoc(reviewsCollectionRef, {
-			bookThumbnail: bookThumbnail,
-			bookTitle: bookTitle,
-			bookAuthors: bookAuthors,
-			bookIsbn: bookIsbn,
-			writer: writer,
-			// title: reviewTitle,
-			contents: content,
-			score: score,
-			registerDate: getStringDate(new Date()),
-			finishDate: date,
-			writerId: writerId,
-		})
-
-		getReview()
+		// getReview()
 	}
 
 	useEffect(() => {
