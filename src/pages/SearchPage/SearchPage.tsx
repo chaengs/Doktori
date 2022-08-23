@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react'
 import BookCard from '../../components/BookCard'
 import { bookSearch } from '../../library/api/api'
 
-export default function MainPage() {
+export default function SearchPage() {
 	const [result, setResult] = useState<any[]>()
 	const [inputValue, setInputValue] = useState('')
 	const inputRef = useRef() as React.MutableRefObject<HTMLInputElement>
