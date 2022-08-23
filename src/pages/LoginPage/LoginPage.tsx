@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { signInWithEmailAndPassword } from 'firebase/auth'
 import { firebaseAuth } from '../../Firebase'
 import { userInfoType } from '../../types/userInfoType'
@@ -9,7 +9,6 @@ export default function LoginPage() {
 
 	const [loginEmail, setLoginEmail] = useState('')
 	const [loginPassword, setLoginPassword] = useState('')
-	// const [isLoggedIn, setIsLoggedIn] = useState(false)
 
 	const login = async () => {
 		try {

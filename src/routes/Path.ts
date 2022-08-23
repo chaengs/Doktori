@@ -5,7 +5,7 @@ enum Path {
 	detail = 'detail',
 	Login = 'login',
 	Register = 'register',
-	ReviewEdit = 'reviewedit',
+	ReviewEditor = 'revieweditor',
 }
 
 export default Path
