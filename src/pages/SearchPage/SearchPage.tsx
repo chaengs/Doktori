@@ -13,7 +13,6 @@ export default function SearchPage() {
 			query: query,
 		}
 		const searchData = await bookSearch(params)
-		// const data = JSON.stringify(searchData)
 		const data = searchData.data.documents
 		setResult(data)
 	}

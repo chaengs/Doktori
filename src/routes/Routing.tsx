@@ -16,13 +16,12 @@ function Routing() {
 			<Routes>
 				<Route path='/' element={<LandingPage />} />
 				<Route element={<Header />}>
-					{/* <Route path='/' element={<LandingPage />} /> */}
 					<Route path={Path.main} element={<MainPage />} />
 					<Route path={Path.search} element={<SearchPage />} />
 					<Route path={Path.Login} element={<LoginPage />} />
 					<Route path={Path.Register} element={<RegisterPage />} />
 					<Route path={Path.detail} element={<DetailPage />} />
-					<Route path={Path.ReviewEdit} element={<ReviewEditPage />} />
+					<Route path={Path.ReviewEditor} element={<ReviewEditPage />} />
 				</Route>
 			</Routes>
 		</BrowserRouter>

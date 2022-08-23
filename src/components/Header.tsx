@@ -13,19 +13,23 @@ export default function Header() {
 		localStorage.removeItem('uid')
 		await signOut(firebaseAuth)
 	}
+	const loginCheck = firebaseAuth.currentUser?.email
 
 	return (
 		<>
 			<HeaderContainer>
-				<LogoContainer>
+				<LogoContainer onClick={() => navigate('/main')}>
 					<LogoImg src={logo} />
 					<TitleStyle>독토리</TitleStyle>
 				</LogoContainer>
-				{localStorage.getItem('email') ? (
-					<LogInButton onClick={logout}>로그아웃</LogInButton>
-				) : (
-					<LogInButton onClick={() => navigate('/login')}>로그인</LogInButton>
-				)}
+				<ButtonContainer>
+					<BookButton onClick={() => navigate('/search')}>책 검색</BookButton>
+					{loginCheck ? (
+						<LogInButton onClick={logout}>로그아웃</LogInButton>
+					) : (
+						<LogInButton onClick={() => navigate('/login')}>로그인</LogInButton>
+					)}
+				</ButtonContainer>
 			</HeaderContainer>
 			<Outlet />
 		</>
@@ -44,6 +48,7 @@ const LogoContainer = styled.div`
 	margin-left: 40px;
 	display: flex;
 	align-items: center;
+	cursor: pointer;
 `
 
 const LogoImg = styled.img`
@@ -57,9 +62,21 @@ const TitleStyle = styled.p`
 	font-family: Cafe24Ssurround;
 	font-size: 26px;
 `
+const ButtonContainer = styled.div`
+	display: flex;
+	align-items: center;
+`
+
+const BookButton = styled.button`
+	font-size: 20px;
+	font-weight: bold;
+	color: ${palette.fontColor};
+	margin-right: 40px;
+`
 
 const LogInButton = styled.button`
-	color: ${palette.fontColor};
+	font-size: 20px;
 	font-weight: bold;
+	color: ${palette.fontColor};
 	margin-right: 40px;
 `
