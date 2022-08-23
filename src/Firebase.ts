@@ -13,8 +13,6 @@ const firebaseConfig = {
 	measurementId: process.env.REACT_APP_FIREBASE_MEASUREMENTID,
 }
 
-console.log(process.env.REACT_APP_FIREBASE_APIKEY)
-
 // const firebaseConfig = {
 // 	apiKey: 'AIzaSyC_ufVTHBVa_5Yl6WPzL9n1XvMCIfLzX_k',
 // 	authDomain: 'bookdive-718c5.firebaseapp.com',
