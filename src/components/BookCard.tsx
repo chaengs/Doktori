@@ -11,6 +11,7 @@ export default function BookCard({
 	contents,
 	datetime,
 	publisher,
+	isbn,
 }: BookInfoType) {
 	const navigate = useNavigate()
 
@@ -23,6 +24,7 @@ export default function BookCard({
 				contents,
 				datetime,
 				publisher,
+				isbn,
 			},
 		})
 	}
