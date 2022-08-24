@@ -17,7 +17,7 @@ export default function BookCard({
 	const navigate = useNavigate()
 
 	const moveToDetailPage = () => {
-		navigate('/detail', {
+		navigate('/bookdetail', {
 			state: {
 				thumbnail,
 				title,

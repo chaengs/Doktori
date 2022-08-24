@@ -14,10 +14,10 @@ interface ReviewType {
 	bookAuthors: string
 	bookIsbn: string
 	writer: string
-	title: string
 	contents: string
-	date: string
-	// score: number
+	score: number
+	registerDate: string
+	finishDate: string
 	writerId: string
 }
 

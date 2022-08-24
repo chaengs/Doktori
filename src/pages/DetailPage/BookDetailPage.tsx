@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
 import { palette } from 'styles/palette'
@@ -6,8 +6,10 @@ import { BookInfoType, ReviewType } from '../../types/bookType'
 import { collection } from 'firebase/firestore'
 import { firebaseDB } from '../../Firebase'
 import useSearchDB from 'hooks/useSearchDB'
+import ReviewCard from 'components/ReviewCard'
 
-export default function DetailPage() {
+export default function BookDetailPage() {
+	const [reviewCheck, setReviewCheck] = useState(false)
 	const { state } = useLocation()
 	const { thumbnail, title, authors, contents, datetime, publisher, isbn } = state as BookInfoType
 
@@ -30,13 +32,17 @@ export default function DetailPage() {
 
 	//useSearchDB 커스텀 훅으로 쿼리 검색
 	const reviewsCollectionRef = collection(firebaseDB, 'bookReviews')
-	const reviews = useSearchDB(reviewsCollectionRef, isbn)
+	const reviewList = useSearchDB(reviewsCollectionRef, isbn)
+	useEffect(() => {
+		if (reviewList) {
+			if (reviewList.length > 0) {
+				setReviewCheck(true)
+			} else {
+				setReviewCheck(false)
+			}
+		}
+	}, [reviewList])
 
-	const reviewList = reviews.map((review: ReviewType) => (
-		<p key={review.id}>
-			제목: {review.title} 내용: {review.contents}
-		</p>
-	))
 	return (
 		<BookInfoContainer>
 			<BookInfoBox>
@@ -52,6 +58,27 @@ export default function DetailPage() {
 				</div>
 			</BookInfoBox>
 			<ReviewButton onClick={moveToReviewEditor}>리뷰 작성하기</ReviewButton>
+			<ReviewListTitle>다른 독자들의 감상을 살펴보세요.</ReviewListTitle>
+			{reviewCheck ? (
+				reviewList.map((review: ReviewType) => (
+					<ReviewCard
+						key={review.id}
+						bookThumbnail={review.bookThumbnail}
+						bookTitle={review.bookTitle}
+						bookAuthors={review.bookAuthors}
+						bookIsbn={review.bookIsbn}
+						writer={review.writer}
+						contents={review.contents}
+						score={review.score}
+						registerDate={review.registerDate}
+						finishDate={review.finishDate}
+						writerId={review.writerId}
+						id={review.id}
+					/>
+				))
+			) : (
+				<NoReview>등록된 독후감이 없습니다. 가장 먼저 감상을 적어보세요.</NoReview>
+			)}
 		</BookInfoContainer>
 	)
 }
@@ -76,7 +103,6 @@ const BookInfoBox = styled.section`
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	/* width: 100%; */
 	top: 5%;
 	img {
 		width: 200px;
@@ -104,5 +130,20 @@ const ReviewButton = styled.button`
 	font-weight: bold;
 	border-radius: 7px;
 	margin-top: 20px;
-	background-color: ${palette.buttonOnColor};
+	background-color: ${palette.buttonColor};
+`
+const ReviewListTitle = styled.p`
+	text-align: center;
+	font-size: 25px;
+	margin-top: 10px;
+	padding-top: 10px;
+	display: block;
+`
+
+const NoReview = styled.p`
+	background-color: #f5ebe0;
+	text-align: center;
+	font-size: 18px;
+	margin-top: 30px;
+	padding-top: 10px;
 `

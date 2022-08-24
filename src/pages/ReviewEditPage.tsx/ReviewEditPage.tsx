@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
 import { firebaseAuth, firebaseDB } from '../../Firebase'
-import { addDoc, collection, getDocs, query, where } from 'firebase/firestore'
+import { addDoc, collection } from 'firebase/firestore'
 
 import { ReviewBookType } from '../../types/bookType'
 import { ReviewType } from '../../types/bookType'
@@ -17,7 +17,6 @@ export default function ReviewEditPage() {
 	const { bookThumbnail, bookTitle, bookAuthors, bookIsbn, publisher } = state as ReviewBookType
 
 	const [content, setContent] = useState('')
-	const [reviews, setReviews] = useState<ReviewType | any>([]) // 나중에 타입 바꾸기
 	const [date, setDate] = useState<string | number | readonly string[]>(getStringDate(new Date()))
 	const [buttonActive, setButtonActive] = useState<boolean>(true)
 
@@ -40,8 +39,8 @@ export default function ReviewEditPage() {
 	}, [content, score])
 
 	const createReview = async () => {
-		const writerId = firebaseAuth.currentUser?.email
-		const writer = firebaseAuth.currentUser?.uid
+		const writer = firebaseAuth.currentUser?.email
+		const writerId = firebaseAuth.currentUser?.uid
 		try {
 			await addDoc(reviewsCollectionRef, {
 				bookThumbnail: bookThumbnail,
@@ -204,7 +203,7 @@ const SubmitButton = styled.button`
 	font-weight: bold;
 	border-radius: 7px;
 	margin-top: 20px;
-	background-color: ${palette.buttonOnColor};
+	background-color: ${palette.buttonColor};
 
 	&.buttonOff {
 		opacity: 0.3;
