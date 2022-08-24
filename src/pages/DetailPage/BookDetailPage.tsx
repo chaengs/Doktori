@@ -48,7 +48,9 @@ export default function BookDetailPage() {
 			<BookInfoBox>
 				<img src={thumbnail} alt={title} />
 				<div>
-					<Title>{title}</Title>
+					<Title>
+						<strong>{title}</strong>
+					</Title>
 					<p>{authors} 지음</p>
 					<p>{publisher} 펴냄</p>
 					<p>
