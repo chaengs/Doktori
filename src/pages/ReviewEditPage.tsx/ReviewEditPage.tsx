@@ -10,7 +10,6 @@ import { getStringDate } from 'util/getStringDate'
 
 import { GiAcorn } from 'react-icons/gi'
 import { palette } from 'styles/palette'
-import { create } from 'domain'
 
 export default function ReviewEditPage() {
 	//BookCard 컴포넌트에서 prop 받아옴
@@ -137,7 +136,6 @@ const ReviewContainer = styled.article`
 	border-radius: 20px;
 	box-shadow: 0px 0px 5px 10px rgba(0, 0, 0, 0.2);
 	margin: 0 auto;
-	padding: 100px;
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
@@ -150,8 +148,9 @@ const BookInfoContainer = styled.section`
 	display: flex;
 	justify-content: center;
 	align-items: center;
+	margin-bottom: 10px;
 	img {
-		width: 100px;
+		width: 120px;
 		height: auto;
 	}
 
