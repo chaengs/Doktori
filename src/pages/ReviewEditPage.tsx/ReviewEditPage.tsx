@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
 import { firebaseAuth, firebaseDB } from '../../Firebase'
-import { addDoc, collection, getDocs, query, where } from 'firebase/firestore'
+import { addDoc, collection } from 'firebase/firestore'
 
 import { ReviewBookType } from '../../types/bookType'
 import { ReviewType } from '../../types/bookType'
@@ -17,7 +17,6 @@ export default function ReviewEditPage() {
 	const { bookThumbnail, bookTitle, bookAuthors, bookIsbn, publisher } = state as ReviewBookType
 
 	const [content, setContent] = useState('')
-	const [reviews, setReviews] = useState<ReviewType | any>([]) // 나중에 타입 바꾸기
 	const [date, setDate] = useState<string | number | readonly string[]>(getStringDate(new Date()))
 	const [buttonActive, setButtonActive] = useState<boolean>(true)
 
@@ -28,15 +27,6 @@ export default function ReviewEditPage() {
 
 	const navigate = useNavigate()
 	const textareaInput = useRef() as React.MutableRefObject<HTMLTextAreaElement>
-
-	// 조건에 맞는 리뷰 가져옴
-	const getReview = async () => {
-		const dateByQuery = query(reviewsCollectionRef, where('bookIsbn', '==', bookIsbn))
-		const data = await getDocs(dateByQuery)
-		// console.log(data)
-		const newData = data.docs.map((doc) => ({ ...doc.data(), id: doc.id }))
-		setReviews(newData)
-	}
 
 	//유효성검사에 따른 버튼 활성화 (독후감 10자 이상, 점수 필수)
 	useEffect(() => {
@@ -49,8 +39,8 @@ export default function ReviewEditPage() {
 	}, [content, score])
 
 	const createReview = async () => {
-		const writerId = firebaseAuth.currentUser?.email //firebaseAuth.currentUser.uid
-		const writer = firebaseAuth.currentUser?.uid
+		const writer = firebaseAuth.currentUser?.email
+		const writerId = firebaseAuth.currentUser?.uid
 		try {
 			await addDoc(reviewsCollectionRef, {
 				bookThumbnail: bookThumbnail,
@@ -58,7 +48,6 @@ export default function ReviewEditPage() {
 				bookAuthors: bookAuthors,
 				bookIsbn: bookIsbn,
 				writer: writer,
-				// title: reviewTitle,
 				contents: content,
 				score: score,
 				registerDate: getStringDate(new Date()),
@@ -74,11 +63,6 @@ export default function ReviewEditPage() {
 		}
 	}
 
-	const reviewList = reviews.map((review: ReviewType) => (
-		<p key={review.id}>
-			제목: {review.title} 내용: {review.contents}
-		</p>
-	))
 	return (
 		<ReviewContainer>
 			<BookInfoContainer>
@@ -219,7 +203,7 @@ const SubmitButton = styled.button`
 	font-weight: bold;
 	border-radius: 7px;
 	margin-top: 20px;
-	background-color: ${palette.buttonOnColor};
+	background-color: ${palette.buttonColor};
 
 	&.buttonOff {
 		opacity: 0.3;

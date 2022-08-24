@@ -2,10 +2,10 @@ enum Path {
 	landing = '/',
 	main = 'main',
 	search = 'search',
-	detail = 'detail',
-	Login = 'login',
-	Register = 'register',
-	ReviewEditor = 'revieweditor',
+	bookDetail = 'bookdetail',
+	login = 'login',
+	register = 'register',
+	reviewEditor = 'revieweditor',
 }
 
 export default Path
