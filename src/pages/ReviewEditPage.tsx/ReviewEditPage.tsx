@@ -29,15 +29,6 @@ export default function ReviewEditPage() {
 	const navigate = useNavigate()
 	const textareaInput = useRef() as React.MutableRefObject<HTMLTextAreaElement>
 
-	// 조건에 맞는 리뷰 가져옴
-	const getReview = async () => {
-		const dateByQuery = query(reviewsCollectionRef, where('bookIsbn', '==', bookIsbn))
-		const data = await getDocs(dateByQuery)
-		// console.log(data)
-		const newData = data.docs.map((doc) => ({ ...doc.data(), id: doc.id }))
-		setReviews(newData)
-	}
-
 	//유효성검사에 따른 버튼 활성화 (독후감 10자 이상, 점수 필수)
 	useEffect(() => {
 		if (content.length > 10 && score > 0) {
@@ -49,7 +40,7 @@ export default function ReviewEditPage() {
 	}, [content, score])
 
 	const createReview = async () => {
-		const writerId = firebaseAuth.currentUser?.email //firebaseAuth.currentUser.uid
+		const writerId = firebaseAuth.currentUser?.email
 		const writer = firebaseAuth.currentUser?.uid
 		try {
 			await addDoc(reviewsCollectionRef, {
@@ -58,7 +49,6 @@ export default function ReviewEditPage() {
 				bookAuthors: bookAuthors,
 				bookIsbn: bookIsbn,
 				writer: writer,
-				// title: reviewTitle,
 				contents: content,
 				score: score,
 				registerDate: getStringDate(new Date()),
@@ -74,11 +64,6 @@ export default function ReviewEditPage() {
 		}
 	}
 
-	const reviewList = reviews.map((review: ReviewType) => (
-		<p key={review.id}>
-			제목: {review.title} 내용: {review.contents}
-		</p>
-	))
 	return (
 		<ReviewContainer>
 			<BookInfoContainer>
