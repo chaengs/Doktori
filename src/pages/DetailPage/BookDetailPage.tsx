@@ -54,6 +54,7 @@ export default function BookDetailPage() {
 					<p>
 						{newDatetimeYear}년 {newDatetimeMonth}월 출간
 					</p>
+					<p>ISBN {isbn}</p>
 					<p>{contents} ...</p>
 				</div>
 			</BookInfoBox>
@@ -66,13 +67,13 @@ export default function BookDetailPage() {
 						bookThumbnail={review.bookThumbnail}
 						bookTitle={review.bookTitle}
 						bookAuthors={review.bookAuthors}
-						bookIsbn={review.bookIsbn}
 						writer={review.writer}
 						contents={review.contents}
 						score={review.score}
 						registerDate={review.registerDate}
 						finishDate={review.finishDate}
 						writerId={review.writerId}
+						publisher={publisher}
 						id={review.id}
 					/>
 				))
@@ -141,9 +142,9 @@ const ReviewListTitle = styled.p`
 `
 
 const NoReview = styled.p`
-	background-color: #f5ebe0;
-	text-align: center;
 	font-size: 18px;
+	text-align: center;
+	background-color: ${palette.textBackgroundColor};
 	margin-top: 30px;
 	padding-top: 10px;
 `

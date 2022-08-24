@@ -5,4 +5,5 @@ export const palette: { [key: string]: string } = {
 	backgroundWhiteColor: '#fefae0',
 	backgroundColor: '#606c38',
 	fontColor: '#fefae0',
+	textBackgroundColor: '#e9edc9',
 }

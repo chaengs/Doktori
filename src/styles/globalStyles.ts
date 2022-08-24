@@ -3,8 +3,8 @@ import { palette } from './palette'
 
 const GlobalStyles = createGlobalStyle`
 @font-face {
-    font-family: '777Balsamtint';
-    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_nine_@1.1/777Balsamtint.woff') format('woff');
+    font-family: 'NanumSquareRound';
+    src: url('https://hangeul.pstatic.net/hangeul_static/css/nanum-square-round.css" rel="stylesheet');
     font-weight: normal;
     font-style: normal;
 }
@@ -121,7 +121,7 @@ video {
   border: 0;
   font-size: 100%;
   vertical-align: baseline;
-  font-family: '777Balsamtint';
+  font-family: 'NanumSquareRound';
 }
 /* HTML5 display-role reset for older browsers */
 article,
@@ -140,7 +140,7 @@ section {
 body {
   line-height: 1;
   margin: 0;
-  font-family: 'GmarketSansMedium';
+  font-family: 'NanumSquareRound';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   /* 폰트 사이즈 정의 */

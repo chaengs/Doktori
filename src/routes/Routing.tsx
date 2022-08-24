@@ -9,6 +9,7 @@ import MainPage from '../pages/SearchPage/SearchPage'
 import ReviewEditPage from '../pages/ReviewEditPage.tsx/ReviewEditPage'
 import Path from './Path'
 import SearchPage from '../pages/SearchPage/SearchPage'
+import ReviewDetailPage from 'pages/DetailPage/ReviewDetailPage'
 
 function Routing() {
 	return (
@@ -21,6 +22,7 @@ function Routing() {
 					<Route path={Path.login} element={<LoginPage />} />
 					<Route path={Path.register} element={<RegisterPage />} />
 					<Route path={Path.bookDetail} element={<BookDetailPage />} />
+					<Route path={Path.reviewDetail} element={<ReviewDetailPage />} />
 					<Route path={Path.reviewEditor} element={<ReviewEditPage />} />
 				</Route>
 			</Routes>
