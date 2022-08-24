@@ -30,7 +30,7 @@ export default function ReviewEditPage() {
 
 	//유효성검사에 따른 버튼 활성화 (독후감 10자 이상, 점수 필수)
 	useEffect(() => {
-		if (content.length > 10 && score > 0) {
+		if (content.length > 10 && content.length < 500 && score > 0) {
 			setButtonActive(true)
 			setButtonActive(false)
 		} else {
@@ -95,7 +95,7 @@ export default function ReviewEditPage() {
 					/>
 				</DateBox>
 				<ContentInput
-					placeholder='독서는 즐거우셨나요? 여러분의 감상을 적어주세요. (10자 이상)'
+					placeholder='독서는 즐거우셨나요? 여러분의 감상을 적어주세요. (10자 이상, 500자 이하)'
 					onChange={(event) => {
 						setContent(event.target.value)
 					}}
