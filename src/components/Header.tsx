@@ -22,12 +22,13 @@ export default function Header() {
 					<TitleStyle>독토리</TitleStyle>
 				</LogoContainer>
 				<ButtonContainer>
-					<BookButton onClick={() => navigate('/search')}>책 검색</BookButton>
+					<LinkButton onClick={() => navigate('/search')}>책 검색</LinkButton>
 					{isLoggedIn ? (
-						<LogInButton onClick={logoutHandler}>로그아웃</LogInButton>
+						<LinkButton onClick={logoutHandler}>로그아웃</LinkButton>
 					) : (
-						<LogInButton onClick={() => navigate('/login')}>로그인</LogInButton>
+						<LinkButton onClick={() => navigate('/login')}>로그인</LinkButton>
 					)}
+					{!isLoggedIn && <LinkButton onClick={() => navigate('/register')}>회원가입</LinkButton>}
 				</ButtonContainer>
 			</HeaderContainer>
 			<Outlet />
@@ -65,14 +66,7 @@ const ButtonContainer = styled.div`
 	align-items: center;
 `
 
-const BookButton = styled.button`
-	font-size: 20px;
-	font-weight: bold;
-	color: ${palette.fontColor};
-	margin-right: 40px;
-`
-
-const LogInButton = styled.button`
+const LinkButton = styled.button`
 	font-size: 20px;
 	font-weight: bold;
 	color: ${palette.fontColor};

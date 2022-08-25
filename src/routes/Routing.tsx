@@ -31,7 +31,7 @@ function Routing() {
 						element={isLoggedIn ? <Navigate to={'/main'} /> : <LoginPage />}
 					/>
 					<Route
-						path={Path.login}
+						path={Path.register}
 						element={isLoggedIn ? <Navigate to={'/main'} /> : <RegisterPage />}
 					/>
 					{/* 로그인 상태로만 접근 가능 */}

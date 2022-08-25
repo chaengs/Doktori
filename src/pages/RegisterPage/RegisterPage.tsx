@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { firebaseAuth, firebaseDB } from '../../firebase-config'
-import { collection } from 'firebase/firestore'
+import { addDoc, collection } from 'firebase/firestore'
 import { createUserWithEmailAndPassword } from 'firebase/auth'
 
 export default function RegisterPage() {
@@ -11,17 +11,21 @@ export default function RegisterPage() {
 	const usersCollectionRef = collection(firebaseDB, 'users')
 
 	const register = async () => {
-		try {
-			const user = await createUserWithEmailAndPassword(
-				firebaseAuth,
-				registerEmail,
-				registerPassword,
-			)
-		} catch (error) {
-			if (error instanceof Error) {
-				console.log(error.message)
-			}
-		}
+		await createUserWithEmailAndPassword(firebaseAuth, registerEmail, registerPassword)
+			.then((userCredential) => {
+				const user = userCredential.user
+				addDoc(usersCollectionRef, {
+					email: registerEmail,
+					password: registerPassword,
+					nickname: nickname,
+					uid: user.uid,
+				})
+			})
+			.catch((error) => {
+				if (error instanceof Error) {
+					console.log(error.message)
+				}
+			})
 	}
 
 	return (
