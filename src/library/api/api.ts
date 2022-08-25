@@ -29,6 +29,5 @@ const Kakao = axios.create({
 })
 
 export const bookSearch = (params: params) => {
-	console.log
 	return Kakao.get('/v3/search/book', { params })
 }

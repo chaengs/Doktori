@@ -1,16 +1,20 @@
-import { AdminAuthContext } from 'context/AdminAuthContext'
 import React, { useContext, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
+import { AdminAuthContext } from 'context/AdminAuthContext'
 
 export default function LoginPage() {
+	const navigate = useNavigate()
 	const { login } = useContext(AdminAuthContext)
 
 	const [loginEmail, setLoginEmail] = useState('')
 	const [loginPassword, setLoginPassword] = useState('')
 
-	const loginHandler = () => {
-		login(loginEmail, loginPassword)
+	const loginHandler = async () => {
+		event?.preventDefault()
+		await login(loginEmail, loginPassword)
+		alert('로그인 되었습니다.')
+		navigate('/main', { replace: true })
 	}
-
 	return (
 		<div>
 			<h3> Login </h3>

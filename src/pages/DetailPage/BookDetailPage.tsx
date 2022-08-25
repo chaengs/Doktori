@@ -4,7 +4,7 @@ import styled from 'styled-components'
 import { palette } from 'styles/palette'
 import { BookInfoType, ReviewType } from '../../types/bookType'
 import { collection } from 'firebase/firestore'
-import { firebaseDB } from '../../firebase-config'
+import { firebaseDB } from '../../firebase-config'
 import useSearchDB from 'hooks/useSearchDB'
 import ReviewCard from 'components/ReviewCard'
 

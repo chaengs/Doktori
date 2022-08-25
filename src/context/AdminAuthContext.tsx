@@ -1,7 +1,6 @@
-import { firebaseAuth } from 'firebase-config'
+import { firebaseAuth } from 'firebase-config'
 import { signInWithEmailAndPassword, signOut } from 'firebase/auth'
-import React, { createContext, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import React, { createContext, useEffect, useState } from 'react'
 
 interface AdminAuthContextType {
 	isLoggedIn: boolean
@@ -11,7 +10,7 @@ interface AdminAuthContextType {
 
 export const AdminAuthContext = createContext<AdminAuthContextType>({
 	isLoggedIn: false,
-	login: (email: string, password: string) => {
+	login: () => {
 		return
 	},
 	logout: () => {
@@ -24,17 +23,20 @@ interface ImportChildren {
 }
 
 export function AdminAuthProvider({ children }: ImportChildren) {
-	// const navigate = useNavigate()
-
 	const [isLoggedIn, setIsloggedIn] = useState(false)
+
+	useEffect(() => {
+		const localLoggedState = localStorage.getItem('localLoggedIn')
+		localLoggedState && setIsloggedIn(true)
+	}, [])
 
 	const login = async (email: string, password: string) => {
 		await signInWithEmailAndPassword(firebaseAuth, email, password)
 			.then((userCredential) => {
 				const user = userCredential.user
-				alert('로그인 되었습니다.')
+				console.log(user)
 				setIsloggedIn(true)
-				// navigate('/main')
+				localStorage.setItem('localLoggedIn', 'true')
 			})
 			.catch((error) => {
 				if (error instanceof Error) {
@@ -45,6 +47,7 @@ export function AdminAuthProvider({ children }: ImportChildren) {
 	const logout = async () => {
 		await signOut(firebaseAuth)
 		setIsloggedIn(false)
+		localStorage.removeItem('localLoggedIn')
 		alert('로그아웃 되었습니다.')
 	}
 	return (

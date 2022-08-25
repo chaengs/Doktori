@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
-import { firebaseAuth, firebaseDB } from '../../firebase-config'
+import { firebaseAuth, firebaseDB } from '../../firebase-config'
 import { addDoc, collection } from 'firebase/firestore'
 
 import { ReviewBookType } from '../../types/bookType'
