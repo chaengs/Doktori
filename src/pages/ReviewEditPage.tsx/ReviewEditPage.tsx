@@ -1,7 +1,7 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
-import { firebaseAuth, firebaseDB } from '../../Firebase'
+import { firebaseAuth, firebaseDB } from '../../firebase-config'
 import { addDoc, collection } from 'firebase/firestore'
 
 import { ReviewBookType } from '../../types/bookType'
@@ -18,14 +18,13 @@ export default function ReviewEditPage() {
 	const [content, setContent] = useState('')
 	const [date, setDate] = useState<string | number | readonly string[]>(getStringDate(new Date()))
 	const [buttonActive, setButtonActive] = useState<boolean>(true)
-
+	//별점용 도토리
 	const [hovered, setHovered] = useState(0)
 	const [score, setScore] = useState(0)
 
 	const reviewsCollectionRef = collection(firebaseDB, 'bookReviews')
 
 	const navigate = useNavigate()
-	const textareaInput = useRef() as React.MutableRefObject<HTMLTextAreaElement>
 
 	//유효성검사에 따른 버튼 활성화 (독후감 10자 이상, 점수 필수)
 	useEffect(() => {
@@ -98,7 +97,6 @@ export default function ReviewEditPage() {
 					onChange={(event) => {
 						setContent(event.target.value)
 					}}
-					ref={textareaInput}
 				/>
 				<SubmitButton
 					onClick={createReview}

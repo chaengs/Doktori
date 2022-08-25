@@ -1,10 +1,14 @@
 import React, { useState } from 'react'
+import { firebaseAuth, firebaseDB } from '../../firebase-config'
+import { collection } from 'firebase/firestore'
 import { createUserWithEmailAndPassword } from 'firebase/auth'
-import { firebaseAuth } from '../../Firebase'
 
 export default function RegisterPage() {
 	const [registerEmail, setRegisterEmail] = useState('')
 	const [registerPassword, setRegisterPassword] = useState('')
+	const [nickname, setNickname] = useState('')
+
+	const usersCollectionRef = collection(firebaseDB, 'users')
 
 	const register = async () => {
 		try {
@@ -13,7 +17,6 @@ export default function RegisterPage() {
 				registerEmail,
 				registerPassword,
 			)
-			console.log(user)
 		} catch (error) {
 			if (error instanceof Error) {
 				console.log(error.message)
@@ -36,7 +39,12 @@ export default function RegisterPage() {
 					setRegisterPassword(event.target.value)
 				}}
 			/>
-
+			<input
+				placeholder='별명'
+				onChange={(event) => {
+					setNickname(event.target.value)
+				}}
+			/>
 			<button onClick={register}> Create User</button>
 		</div>
 	)
