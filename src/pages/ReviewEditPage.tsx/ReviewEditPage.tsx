@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
-import { firebaseAuth, firebaseDB } from '../../firebase-config'
+import { firebaseAuth, firebaseDB } from '../../firebase-config'
 import { addDoc, collection } from 'firebase/firestore'
 
 import { ReviewBookType } from '../../types/bookType'
@@ -9,6 +9,8 @@ import { getStringDate } from 'util/getStringDate'
 
 import { GiAcorn } from 'react-icons/gi'
 import { palette } from 'styles/palette'
+import useSearchUser from 'hooks/useSearchUser'
+import { userInfoType } from 'types/userInfoType'
 
 export default function ReviewEditPage() {
 	//BookCard 컴포넌트에서 prop 받아옴
@@ -21,10 +23,20 @@ export default function ReviewEditPage() {
 	//별점용 도토리
 	const [hovered, setHovered] = useState(0)
 	const [score, setScore] = useState(0)
+	const [user, setUser] = useState<userInfoType>()
 
 	const reviewsCollectionRef = collection(firebaseDB, 'bookReviews')
+	const userCollectionRef = collection(firebaseDB, 'users')
 
 	const navigate = useNavigate()
+
+	const writerId = localStorage.getItem('userEmail')
+	const userArray = useSearchUser(userCollectionRef, writerId)
+
+	useEffect(() => {
+		const userInfo = userArray?.data?.[0]
+		setUser(userInfo)
+	}, [state, userArray])
 
 	//유효성검사에 따른 버튼 활성화 (독후감 10자 이상, 점수 필수)
 	useEffect(() => {
@@ -37,23 +49,21 @@ export default function ReviewEditPage() {
 	}, [content, score])
 
 	const createReview = async () => {
-		const writer = firebaseAuth.currentUser?.email
-		const writerId = firebaseAuth.currentUser?.uid
 		try {
 			await addDoc(reviewsCollectionRef, {
 				bookThumbnail: bookThumbnail,
 				bookTitle: bookTitle,
 				bookAuthors: bookAuthors,
 				bookIsbn: bookIsbn,
-				writer: writer,
+				writer: user?.nickname,
 				contents: content,
 				score: score,
 				registerDate: getStringDate(new Date()),
 				finishDate: date,
-				writerId: writerId,
+				writerId: user?.uid,
 			})
 			alert('당신의 다독을 응원할게요!')
-			navigate('/main')
+			navigate(-1)
 		} catch (error) {
 			if (error instanceof Error) {
 				console.log(error.message)

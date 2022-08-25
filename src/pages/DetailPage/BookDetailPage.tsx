@@ -4,9 +4,9 @@ import styled from 'styled-components'
 import { palette } from 'styles/palette'
 import { BookInfoType, ReviewType } from '../../types/bookType'
 import { collection } from 'firebase/firestore'
-import { firebaseDB } from '../../firebase-config'
-import useSearchDB from 'hooks/useSearchDB'
+import { firebaseDB } from '../../firebase-config'
 import ReviewCard from 'components/ReviewCard'
+import useSearchIsbn from 'hooks/useSearchIsbn'
 
 export default function BookDetailPage() {
 	const [reviewCheck, setReviewCheck] = useState(false)
@@ -32,7 +32,7 @@ export default function BookDetailPage() {
 
 	//useSearchDB 커스텀 훅으로 쿼리 검색
 	const reviewsCollectionRef = collection(firebaseDB, 'bookReviews')
-	const reviewList = useSearchDB(reviewsCollectionRef, isbn)
+	const reviewList = useSearchIsbn(reviewsCollectionRef, isbn)
 	useEffect(() => {
 		if (reviewList) {
 			if (reviewList.length > 0) {
@@ -74,7 +74,6 @@ export default function BookDetailPage() {
 						score={review.score}
 						registerDate={review.registerDate}
 						finishDate={review.finishDate}
-						writerId={review.writerId}
 						publisher={publisher}
 						id={review.id}
 					/>

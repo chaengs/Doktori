@@ -16,7 +16,6 @@ export default function ReviewDetailPage() {
 		score,
 		registerDate,
 		finishDate,
-		writerId,
 		publisher,
 	} = state as ReviewType
 	return (

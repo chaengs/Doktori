@@ -15,7 +15,6 @@ export default function ReviewCard({
 	score,
 	registerDate,
 	finishDate,
-	writerId,
 	publisher,
 }: ReviewType) {
 	const navigate = useNavigate()
@@ -31,7 +30,6 @@ export default function ReviewCard({
 				score,
 				registerDate,
 				finishDate,
-				writerId,
 				publisher,
 			},
 		})
@@ -87,6 +85,7 @@ const ReviewInfo = styled.div`
 `
 
 const ScoreBox = styled.div`
+	margin-top: 5px;
 	.acorn {
 		font-size: 15px;
 		opacity: 0.3;

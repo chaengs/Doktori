@@ -17,7 +17,6 @@ interface ReviewType {
 	score: number
 	registerDate: string
 	finishDate: string
-	writerId: string
 	publisher: string
 }
 
