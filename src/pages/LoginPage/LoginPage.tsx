@@ -13,7 +13,7 @@ export default function LoginPage() {
 		event?.preventDefault()
 		await login(loginEmail, loginPassword)
 		alert('로그인 되었습니다.')
-		navigate('/main')
+		navigate('/main', { replace: true })
 	}
 	return (
 		<div>
