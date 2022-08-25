@@ -43,6 +43,7 @@ function Routing() {
 							</PrivateRoute>
 						}
 					/>
+					{/* <Route path={Path.reviewEditor} element={isLoggedIn && <ReviewEditPage />} /> */}
 				</Route>
 			</Routes>
 		</BrowserRouter>

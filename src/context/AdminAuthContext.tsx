@@ -1,4 +1,4 @@
-import { firebaseAuth } from 'firebase-config'
+import { firebaseAuth } from 'firebase-config'
 import { signInWithEmailAndPassword, signOut } from 'firebase/auth'
 import React, { createContext, useEffect, useState } from 'react'
 
@@ -37,11 +37,13 @@ export function AdminAuthProvider({ children }: ImportChildren) {
 				console.log(user)
 				setIsloggedIn(true)
 				localStorage.setItem('localLoggedIn', 'true')
+				localStorage.setItem('userEmail', email)
 			})
 			.catch((error) => {
 				if (error instanceof Error) {
 					console.log(error.message)
 				}
+				alert('이메일 또는 비밀번호가 틀립니다.')
 			})
 	}
 	const logout = async () => {
