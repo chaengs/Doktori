@@ -1,6 +1,6 @@
 import React from 'react'
 import { signOut } from 'firebase/auth'
-import { firebaseAuth } from '../Firebase'
+import { firebaseAuth } from '../firebase-config'
 import { Outlet, useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
 import { palette } from '../styles/palette'
