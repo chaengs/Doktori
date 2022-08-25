@@ -1,7 +1,6 @@
-import { firebaseAuth } from 'firebase-config'
+import { firebaseAuth } from 'firebase-config'
 import { signInWithEmailAndPassword, signOut } from 'firebase/auth'
 import React, { createContext, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
 
 interface AdminAuthContextType {
 	isLoggedIn: boolean
@@ -11,7 +10,7 @@ interface AdminAuthContextType {
 
 export const AdminAuthContext = createContext<AdminAuthContextType>({
 	isLoggedIn: false,
-	login: (email: string, password: string) => {
+	login: () => {
 		return
 	},
 	logout: () => {
@@ -24,17 +23,14 @@ interface ImportChildren {
 }
 
 export function AdminAuthProvider({ children }: ImportChildren) {
-	// const navigate = useNavigate()
-
 	const [isLoggedIn, setIsloggedIn] = useState(false)
 
 	const login = async (email: string, password: string) => {
 		await signInWithEmailAndPassword(firebaseAuth, email, password)
 			.then((userCredential) => {
 				const user = userCredential.user
-				alert('로그인 되었습니다.')
+				console.log(user)
 				setIsloggedIn(true)
-				// navigate('/main')
 			})
 			.catch((error) => {
 				if (error instanceof Error) {

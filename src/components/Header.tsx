@@ -1,19 +1,18 @@
-import React from 'react'
-import { signOut } from 'firebase/auth'
-import { firebaseAuth } from '../firebase-config'
+import React, { useContext } from 'react'
 import { Outlet, useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
 import { palette } from '../styles/palette'
+import { AdminAuthContext } from 'context/AdminAuthContext'
 import logo from 'library/images/doctori_logo.png'
 
 export default function Header() {
 	const navigate = useNavigate()
-	const logout = async () => {
-		localStorage.removeItem('email')
-		localStorage.removeItem('uid')
-		await signOut(firebaseAuth)
+	const { isLoggedIn, logout } = useContext(AdminAuthContext)
+
+	const logoutHandler = () => {
+		event?.preventDefault()
+		logout()
 	}
-	const loginCheck = firebaseAuth.currentUser?.email
 
 	return (
 		<>
@@ -24,8 +23,8 @@ export default function Header() {
 				</LogoContainer>
 				<ButtonContainer>
 					<BookButton onClick={() => navigate('/search')}>책 검색</BookButton>
-					{loginCheck ? (
-						<LogInButton onClick={logout}>로그아웃</LogInButton>
+					{isLoggedIn ? (
+						<LogInButton onClick={logoutHandler}>로그아웃</LogInButton>
 					) : (
 						<LogInButton onClick={() => navigate('/login')}>로그인</LogInButton>
 					)}
