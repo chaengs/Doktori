@@ -15,6 +15,7 @@ import PrivateRoute from './PrivateRoute'
 
 function Routing() {
 	const { isLoggedIn } = useContext(AdminAuthContext)
+
 	return (
 		<BrowserRouter>
 			<Routes>
@@ -34,6 +35,7 @@ function Routing() {
 						path={Path.register}
 						element={isLoggedIn ? <Navigate to={'/main'} /> : <RegisterPage />}
 					/>
+					{/* 404페이지 */}
 					{/* 로그인 상태로만 접근 가능 */}
 					<Route
 						path={Path.reviewEditor}
