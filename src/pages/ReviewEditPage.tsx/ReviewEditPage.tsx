@@ -11,6 +11,7 @@ import { GiAcorn } from 'react-icons/gi'
 import { palette } from 'styles/palette'
 import useSearchUser from 'hooks/useSearchUser'
 import { userInfoType } from 'types/userInfoType'
+import ButtonStyle from 'styles/ButtonStyle'
 
 export default function ReviewEditPage() {
 	//BookCard 컴포넌트에서 prop 받아옴
@@ -113,7 +114,7 @@ export default function ReviewEditPage() {
 					disabled={buttonActive}
 					className={buttonActive ? 'buttonOff' : 'buttonOn'}
 				>
-					독후감 작성 완료
+					작성 완료
 				</SubmitButton>
 			</ReviewEditorContainer>
 		</ReviewContainer>
@@ -202,16 +203,7 @@ const ContentInput = styled.textarea`
 	border: 2px solid ${palette.mainColor};
 	border-radius: 7px;
 `
-const SubmitButton = styled.button`
-	width: 140px;
-	height: 40px;
-	color: #fff;
-	font-size: 20px;
-	font-weight: bold;
-	border-radius: 7px;
-	margin-top: 20px;
-	background-color: ${palette.buttonColor};
-
+const SubmitButton = styled(ButtonStyle)`
 	&.buttonOff {
 		opacity: 0.3;
 	}
