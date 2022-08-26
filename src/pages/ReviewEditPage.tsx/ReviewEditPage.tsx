@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
-import { firebaseAuth, firebaseDB } from '../../firebase-config'
+import { firebaseDB } from '../../firebase-config'
 import { addDoc, collection } from 'firebase/firestore'
 
 import { ReviewBookType } from '../../types/bookType'
@@ -34,6 +34,7 @@ export default function ReviewEditPage() {
 	const writerId = localStorage.getItem('userEmail')
 	const userArray = useSearchUser(userCollectionRef, writerId)
 
+	//유저 닉네임과 uid를 받아오기 위함
 	useEffect(() => {
 		const userInfo = userArray?.data?.[0]
 		setUser(userInfo)
@@ -42,7 +43,6 @@ export default function ReviewEditPage() {
 	//유효성검사에 따른 버튼 활성화 (독후감 10자 이상, 점수 필수)
 	useEffect(() => {
 		if (content.length > 10 && content.length < 1500 && score > 0) {
-			setButtonActive(true)
 			setButtonActive(false)
 		} else {
 			setButtonActive(true)
