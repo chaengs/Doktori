@@ -2,6 +2,7 @@ import axios from 'axios'
 
 type params = {
 	query: string
+	size?: number
 }
 
 const KAKAO_API_KEY = 'KakaoAK 51dd390526813a59eae7dd1b452228b9'

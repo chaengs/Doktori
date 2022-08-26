@@ -1,17 +1,16 @@
 import React, { useContext } from 'react'
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom'
+import Path from './Path'
 import Header from '../components/Header'
 import RegisterPage from 'pages/RegisterPage/RegisterPage'
 import BookDetailPage from '../pages/DetailPage/BookDetailPage'
 import LandingPage from '../pages/landingPage/LandingPage'
 import LoginPage from '../pages/LoginPage/LoginPage'
-import MainPage from '../pages/SearchPage/SearchPage'
+import MainPage from 'pages/mainPage/MainPage'
 import ReviewEditPage from '../pages/ReviewEditPage.tsx/ReviewEditPage'
-import Path from './Path'
 import SearchPage from '../pages/SearchPage/SearchPage'
 import ReviewDetailPage from 'pages/DetailPage/ReviewDetailPage'
 import { AdminAuthContext } from 'context/AdminAuthContext'
-import PrivateRoute from './PrivateRoute'
 
 function Routing() {
 	const { isLoggedIn } = useContext(AdminAuthContext)
