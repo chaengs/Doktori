@@ -7,6 +7,7 @@ import { collection } from 'firebase/firestore'
 import { firebaseDB } from '../../firebase-config'
 import ReviewCard from 'components/ReviewCard'
 import useSearchIsbn from 'hooks/useSearchIsbn'
+import ButtonStyle from 'styles/ButtonStyle'
 
 export default function BookDetailPage() {
 	const [reviewCheck, setReviewCheck] = useState(false)
@@ -60,7 +61,7 @@ export default function BookDetailPage() {
 					<p>{contents} ...</p>
 				</div>
 			</BookInfoBox>
-			<ReviewButton onClick={moveToReviewEditor}>리뷰 작성하기</ReviewButton>
+			<ButtonStyle onClick={moveToReviewEditor}>리뷰 작성하기</ButtonStyle>
 			<ReviewListTitle>다른 독자들의 감상을 살펴보세요.</ReviewListTitle>
 			{reviewCheck ? (
 				reviewList.map((review: ReviewType) => (
@@ -124,16 +125,6 @@ const Title = styled.p`
 	font-size: 30px;
 `
 
-const ReviewButton = styled.button`
-	width: 140px;
-	height: 40px;
-	color: #fff;
-	font-size: 20px;
-	font-weight: bold;
-	border-radius: 7px;
-	margin-top: 20px;
-	background-color: ${palette.buttonColor};
-`
 const ReviewListTitle = styled.p`
 	text-align: center;
 	font-size: 25px;

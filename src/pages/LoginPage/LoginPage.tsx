@@ -1,6 +1,11 @@
 import React, { useContext, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { AdminAuthContext } from 'context/AdminAuthContext'
+import styled from 'styled-components'
+import { palette } from 'styles/palette'
+import ButtonStyle from 'styles/ButtonStyle'
+import FormStyle from 'styles/FormStyle'
+import InputStyle from 'styles/InputStyle'
 
 export default function LoginPage() {
 	const navigate = useNavigate()
@@ -16,23 +21,28 @@ export default function LoginPage() {
 		navigate('/main', { replace: true })
 	}
 	return (
-		<div>
-			<h3> Login </h3>
-			<form onSubmit={loginHandler}>
-				<input
-					placeholder='Email...'
-					onChange={(event) => {
-						setLoginEmail(event.target.value)
-					}}
-				/>
-				<input
-					placeholder='Password...'
-					onChange={(event) => {
-						setLoginPassword(event.target.value)
-					}}
-				/>
-				<button type='submit'> Login</button>
-			</form>
-		</div>
+		<FormStyle onSubmit={loginHandler}>
+			<Title>로그인</Title>
+			<InputStyle
+				placeholder='Email...'
+				onChange={(event) => {
+					setLoginEmail(event.target.value)
+				}}
+			/>
+			<InputStyle
+				placeholder='Password...'
+				onChange={(event) => {
+					setLoginPassword(event.target.value)
+				}}
+			/>
+			<ButtonStyle type='submit'> Login</ButtonStyle>
+		</FormStyle>
 	)
 }
+
+const Title = styled.h1`
+	color: ${palette.backgroundColor};
+	font-size: 28px;
+	font-family: Cafe24Ssurround;
+	margin-top: 20px;
+`

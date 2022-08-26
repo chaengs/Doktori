@@ -2,6 +2,11 @@ import React, { useState } from 'react'
 import { firebaseAuth, firebaseDB } from '../../firebase-config'
 import { addDoc, collection } from 'firebase/firestore'
 import { createUserWithEmailAndPassword } from 'firebase/auth'
+import styled from 'styled-components'
+import { palette } from 'styles/palette'
+import ButtonStyle from 'styles/ButtonStyle'
+import FormStyle from 'styles/FormStyle'
+import InputStyle from 'styles/InputStyle'
 
 export default function RegisterPage() {
 	const [registerEmail, setRegisterEmail] = useState('')
@@ -29,27 +34,34 @@ export default function RegisterPage() {
 	}
 
 	return (
-		<div>
-			<h3> 회원가입 </h3>
-			<input
-				placeholder='Email...'
+		<FormStyle onSubmit={register}>
+			<Title>회원가입</Title>
+			<InputStyle
+				placeholder='이메일을 입력하세요.'
 				onChange={(event) => {
 					setRegisterEmail(event.target.value)
 				}}
 			/>
-			<input
-				placeholder='Password...'
+			<InputStyle
+				placeholder='비밀번호를 입력하세요.'
 				onChange={(event) => {
 					setRegisterPassword(event.target.value)
 				}}
 			/>
-			<input
-				placeholder='별명'
+			<InputStyle
+				placeholder='별명을 입력하세요.'
 				onChange={(event) => {
 					setNickname(event.target.value)
 				}}
 			/>
-			<button onClick={register}> Create User</button>
-		</div>
+			<ButtonStyle>Create User</ButtonStyle>
+		</FormStyle>
 	)
 }
+
+const Title = styled.h1`
+	color: ${palette.backgroundColor};
+	font-size: 28px;
+	font-family: Cafe24Ssurround;
+	margin-top: 20px;
+`
