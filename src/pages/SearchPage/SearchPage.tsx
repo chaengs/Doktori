@@ -13,6 +13,7 @@ export default function SearchPage() {
 		event?.preventDefault()
 		const params = {
 			query: query,
+			size: 30,
 		}
 		const searchData = await bookSearch(params)
 		const data = searchData.data.documents

@@ -3,7 +3,7 @@ import { Navigate } from 'react-router-dom'
 
 interface PrivateRouteType {
 	children: React.ReactElement
-	auth: boolean
+	auth: boolean | null
 }
 
 export default function PrivateRoute({ auth, children }: PrivateRouteType): React.ReactElement {

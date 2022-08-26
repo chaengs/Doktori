@@ -1,9 +1,10 @@
 import React from 'react'
-import { GiAcorn } from 'react-icons/gi'
 import { useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
+import { ReviewType } from '../../../types/bookType'
+
 import { palette } from 'styles/palette'
-import { ReviewType } from 'types/bookType'
+import { GiAcorn } from 'react-icons/gi'
 
 export default function ReviewCard({
 	bookThumbnail,
@@ -35,41 +36,38 @@ export default function ReviewCard({
 	}
 
 	return (
-		<ReviewCardBox onClick={moveToReviewDetailPage}>
-			<div>
-				<img src={bookThumbnail} alt={bookTitle} />
-			</div>
+		<ReviewCardContainer onClick={moveToReviewDetailPage}>
+			<img src={bookThumbnail} alt={bookTitle} />
 			<ReviewInfo>
-				<Title>{bookTitle}</Title>
-				<p>
-					{writer}&ensp;|&ensp;{registerDate}
-				</p>
-				<ScoreBox>
-					{[1, 2, 3, 4, 5].map((el) => (
-						<GiAcorn className={`acorn ${score >= el && 'green'}`} key={el} />
-					))}
-				</ScoreBox>
-				<Contents>
+				<div>
+					<p>{writer}</p>
+					<ScoreBox>
+						{[1, 2, 3, 4, 5].map((el) => (
+							<GiAcorn className={`acorn ${score >= el && 'green'}`} key={el} />
+						))}
+					</ScoreBox>
+					<p>{registerDate}</p>
+				</div>
+				<ContentBox>
 					{contents && contents.length > 150 ? `${contents.substring(0, 150)}...` : contents}
-					{!contents && '등록된 줄거리가 없습니다.'}
-				</Contents>
+				</ContentBox>
 			</ReviewInfo>
-		</ReviewCardBox>
+		</ReviewCardContainer>
 	)
 }
 
-const ReviewCardBox = styled.div`
-	width: 500px;
-	height: 200px;
+const ReviewCardContainer = styled.div`
+	width: 800px;
+	height: 100px;
 	background-color: ${palette.backgroundWhiteColor};
+	border: 2px solid ${palette.mainColor};
 	border-radius: 7px;
-	box-shadow: 0px 0px 5px 3px rgba(0, 0, 0, 0.2);
-	margin: 10px;
-	padding: 10px;
+	margin-top: 10px;
+	padding-left: 20px;
+	padding-right: 20px;
 	display: flex;
 	align-items: center;
 	cursor: pointer;
-
 	img {
 		width: auto;
 		height: 80%;
@@ -78,21 +76,14 @@ const ReviewCardBox = styled.div`
 `
 
 const ReviewInfo = styled.div`
-	font-size: 15px;
-	white-space: wrap;
-	text-align: start;
-	margin-left: 15px;
-
+	margin-left: 20px;
+	display: flex;
+	align-items: center;
 	p {
-		margin-bottom: 7px;
+		font-size: 18px;
 	}
 `
 
-const Title = styled.p`
-	font-size: 25px;
-	font-weight: bold;
-	margin-bottom: 7px;
-`
 const ScoreBox = styled.div`
 	margin-top: 5px;
 	.acorn {
@@ -106,6 +97,7 @@ const ScoreBox = styled.div`
 		opacity: 1;
 	}
 `
-const Contents = styled.p`
-	margin-top: 5px;
+const ContentBox = styled.p`
+	font-size: 18px;
+	margin-left: 20px;
 `

@@ -1,13 +1,14 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
 import { palette } from 'styles/palette'
 import { BookInfoType, ReviewType } from '../../types/bookType'
 import { collection } from 'firebase/firestore'
 import { firebaseDB } from '../../firebase-config'
-import ReviewCard from 'components/ReviewCard'
+import ReviewCard from 'pages/DetailPage/components/ReviewCard'
 import useSearchIsbn from 'hooks/useSearchIsbn'
 import ButtonStyle from 'styles/ButtonStyle'
+import { AdminAuthContext } from 'context/AdminAuthContext'
 
 export default function BookDetailPage() {
 	const [reviewCheck, setReviewCheck] = useState(false)
@@ -19,16 +20,22 @@ export default function BookDetailPage() {
 	const newDatetimeYear = datetime.slice(0, 4)
 	const newDatetimeMonth = datetime.slice(5, 7)
 
+	const { isLoggedIn } = useContext(AdminAuthContext)
+
 	const moveToReviewEditor = () => {
-		navigate('/revieweditor', {
-			state: {
-				bookThumbnail: thumbnail,
-				bookTitle: title,
-				bookAuthors: authors,
-				bookIsbn: isbn,
-				publisher,
-			},
-		})
+		if (isLoggedIn) {
+			navigate('/revieweditor', {
+				state: {
+					bookThumbnail: thumbnail,
+					bookTitle: title,
+					bookAuthors: authors,
+					bookIsbn: isbn,
+					publisher,
+				},
+			})
+		} else {
+			alert('로그인이 필요합니다.')
+		}
 	}
 
 	//useSearchDB 커스텀 훅으로 쿼리 검색

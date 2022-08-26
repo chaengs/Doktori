@@ -56,12 +56,13 @@ export default function ReviewEditPage() {
 				bookTitle: bookTitle,
 				bookAuthors: bookAuthors,
 				bookIsbn: bookIsbn,
+				publisher: publisher,
 				writer: user?.nickname,
+				writerId: user?.uid,
 				contents: content,
 				score: score,
 				registerDate: getStringDate(new Date()),
 				finishDate: date,
-				writerId: user?.uid,
 			})
 			alert('당신의 다독을 응원할게요!')
 			navigate(-1)

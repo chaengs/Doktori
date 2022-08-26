@@ -1,20 +1,20 @@
 import React, { useContext } from 'react'
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom'
+import Path from './Path'
 import Header from '../components/Header'
 import RegisterPage from 'pages/RegisterPage/RegisterPage'
 import BookDetailPage from '../pages/DetailPage/BookDetailPage'
 import LandingPage from '../pages/landingPage/LandingPage'
 import LoginPage from '../pages/LoginPage/LoginPage'
-import MainPage from '../pages/SearchPage/SearchPage'
+import MainPage from 'pages/mainPage/MainPage'
 import ReviewEditPage from '../pages/ReviewEditPage.tsx/ReviewEditPage'
-import Path from './Path'
 import SearchPage from '../pages/SearchPage/SearchPage'
 import ReviewDetailPage from 'pages/DetailPage/ReviewDetailPage'
 import { AdminAuthContext } from 'context/AdminAuthContext'
-import PrivateRoute from './PrivateRoute'
 
 function Routing() {
 	const { isLoggedIn } = useContext(AdminAuthContext)
+
 	return (
 		<BrowserRouter>
 			<Routes>
@@ -34,16 +34,9 @@ function Routing() {
 						path={Path.register}
 						element={isLoggedIn ? <Navigate to={'/main'} /> : <RegisterPage />}
 					/>
+					{/* 404페이지 */}
 					{/* 로그인 상태로만 접근 가능 */}
-					<Route
-						path={Path.reviewEditor}
-						element={
-							<PrivateRoute auth={isLoggedIn}>
-								<ReviewEditPage />
-							</PrivateRoute>
-						}
-					/>
-					{/* <Route path={Path.reviewEditor} element={isLoggedIn && <ReviewEditPage />} /> */}
+					{isLoggedIn && <Route path={Path.reviewEditor} element={<ReviewEditPage />} />}
 				</Route>
 			</Routes>
 		</BrowserRouter>

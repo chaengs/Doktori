@@ -16,5 +16,5 @@ export default function useSearchUser(collectionRef: Query<unknown>, keyword: st
 	useEffect(() => {
 		getUserData()
 	}, [])
-	return { data }
+	return data
 }

@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react'
-import { getDocs, Query, query, QueryDocumentSnapshot, where } from 'firebase/firestore'
+import { getDocs, limit, orderBy, Query, query, QueryDocumentSnapshot } from 'firebase/firestore'
 import { ReviewType } from 'types/bookType'
 
-export default function useSearchIsbn(collectionRef: Query<unknown>, keyword: string) {
+export default function useOrderReview(collectionRef: Query<unknown>, keyword: string) {
 	const [data, setData] = useState<ReviewType | any>()
-	const getIsbnData = async () => {
-		const dataByQuery = query(collectionRef, where('bookIsbn', '==', keyword))
+	const setDataOrder = async () => {
+		const dataByQuery = query(collectionRef, orderBy(keyword), limit(5))
 		const resultData = await getDocs(dataByQuery)
 		const newData = resultData.docs.map((doc) => ({
 			...(doc.data() as QueryDocumentSnapshot<unknown>),
@@ -14,7 +14,7 @@ export default function useSearchIsbn(collectionRef: Query<unknown>, keyword: st
 		setData(newData)
 	}
 	useEffect(() => {
-		getIsbnData()
+		setDataOrder()
 	}, [])
 	return data
 }

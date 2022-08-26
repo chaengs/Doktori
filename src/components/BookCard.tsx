@@ -31,42 +31,37 @@ export default function BookCard({
 	}
 
 	return (
-		<BookCardContainer onClick={moveToDetailPage}>
-			<BookCardBox>
-				<img src={thumbnail} alt={title} />
-				<BookInfo>
-					<Title>{title}</Title>
-					<p>{authors.length > 2 ? `${authors.join(', ')}` : authors}</p>
-					<p>{publisher} 펴냄</p>
-					<div>
-						{contents && contents.length > 150 ? `${contents.substring(0, 150)}...` : contents}
-						{!contents && '등록된 줄거리가 없습니다.'}
-					</div>
-				</BookInfo>
-			</BookCardBox>
-		</BookCardContainer>
+		<BookCardBox onClick={moveToDetailPage}>
+			<img src={thumbnail} alt={title} />
+			<BookInfo>
+				<Title>{title}</Title>
+				<p>
+					{authors.length > 2 ? `${authors.join(', ')}` : authors} 지음&ensp;|&ensp;{publisher} 펴냄
+				</p>
+				<div>
+					{contents && contents.length > 150 ? `${contents.substring(0, 150)}...` : contents}
+					{!contents && '등록된 줄거리가 없습니다.'}
+				</div>
+			</BookInfo>
+		</BookCardBox>
 	)
 }
 
-const BookCardContainer = styled.li`
+const BookCardBox = styled.li`
 	width: 500px;
+	height: 200px;
 	background-color: ${palette.backgroundWhiteColor};
 	border-radius: 7px;
 	box-shadow: 0px 0px 5px 3px rgba(0, 0, 0, 0.2);
-
 	margin: 10px;
-	cursor: pointer;
-`
-
-const BookCardBox = styled.div`
+	padding: 10px;
 	display: flex;
-	/* flex-direction: column; */
 	align-items: center;
-	margin: 15px;
+	cursor: pointer;
 
 	img {
-		width: 150px;
-		height: auto;
+		width: auto;
+		height: 85%;
 		box-shadow: 0px 0px 5px 3px rgba(0, 0, 0, 0.2);
 	}
 `

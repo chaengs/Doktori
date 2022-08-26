@@ -8,7 +8,7 @@ export interface BookInfoType {
 	isbn: string
 }
 interface ReviewType {
-	id: string
+	id?: string
 	bookThumbnail: string
 	bookTitle: string
 	bookAuthors: string
@@ -17,7 +17,7 @@ interface ReviewType {
 	score: number
 	registerDate: string
 	finishDate: string
-	publisher: string
+	publisher?: string
 }
 
 interface ReviewBookType {
