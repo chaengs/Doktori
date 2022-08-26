@@ -37,15 +37,7 @@ function Routing() {
 					/>
 					{/* 404페이지 */}
 					{/* 로그인 상태로만 접근 가능 */}
-					<Route
-						path={Path.reviewEditor}
-						element={
-							<PrivateRoute auth={isLoggedIn}>
-								<ReviewEditPage />
-							</PrivateRoute>
-						}
-					/>
-					{/* <Route path={Path.reviewEditor} element={isLoggedIn && <ReviewEditPage />} /> */}
+					{isLoggedIn && <Route path={Path.reviewEditor} element={<ReviewEditPage />} />}
 				</Route>
 			</Routes>
 		</BrowserRouter>
