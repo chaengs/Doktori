@@ -33,15 +33,15 @@ export default function RegisterPage() {
 		createUserWithEmailAndPassword(firebaseAuth, registerEmail, registerPassword)
 			.then((userCredential) => {
 				const user = userCredential.user
-				console.log(user)
 				addDoc(usersCollectionRef, {
 					email: registerEmail,
 					password: registerPassword,
 					nickname: nickname,
 					uid: user.uid,
+				}).then(() => {
+					alert('회원가입이 완료되었습니다.')
+					navigate('/main')
 				})
-				alert('회원가입이 완료되었습니다.')
-				navigate('/main')
 			})
 			.catch((error) => {
 				if (error instanceof Error) {

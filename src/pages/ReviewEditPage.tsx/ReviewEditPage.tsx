@@ -49,28 +49,29 @@ export default function ReviewEditPage() {
 		}
 	}, [content, score])
 
-	const createReview = async () => {
-		try {
-			await addDoc(reviewsCollectionRef, {
-				bookThumbnail: bookThumbnail,
-				bookTitle: bookTitle,
-				bookAuthors: bookAuthors,
-				bookIsbn: bookIsbn,
-				publisher: publisher,
-				writer: user?.nickname,
-				writerId: user?.uid,
-				contents: content,
-				score: score,
-				registerDate: getStringDate(new Date()),
-				finishDate: date,
+	const createReview = () => {
+		addDoc(reviewsCollectionRef, {
+			bookThumbnail: bookThumbnail,
+			bookTitle: bookTitle,
+			bookAuthors: bookAuthors,
+			bookIsbn: bookIsbn,
+			publisher: publisher,
+			writer: user?.nickname,
+			writerId: user?.uid,
+			contents: content,
+			score: score,
+			registerDate: getStringDate(new Date()),
+			finishDate: date,
+		})
+			.then(() => {
+				alert('당신의 다독을 응원할게요!')
+				navigate(-1)
 			})
-			alert('당신의 다독을 응원할게요!')
-			navigate(-1)
-		} catch (error) {
-			if (error instanceof Error) {
-				console.log(error.message)
-			}
-		}
+			.catch((error) => {
+				if (error instanceof Error) {
+					console.log(error.message)
+				}
+			})
 	}
 
 	return (
