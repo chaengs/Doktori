@@ -37,27 +37,27 @@ export default function ReviewCard({
 
 	return (
 		<ReviewCardContainer onClick={moveToReviewDetailPage}>
+			{/* <ReviewInfo> */}
 			<img src={bookThumbnail} alt={bookTitle} />
-			<ReviewInfo>
-				<div>
-					<p>{writer}</p>
-					<ScoreBox>
-						{[1, 2, 3, 4, 5].map((el) => (
-							<GiAcorn className={`acorn ${score >= el && 'green'}`} key={el} />
-						))}
-					</ScoreBox>
-					<p>{registerDate}</p>
-				</div>
-				<ContentBox>
-					{contents && contents.length > 150 ? `${contents.substring(0, 150)}...` : contents}
-				</ContentBox>
-			</ReviewInfo>
+			<WriterInfo>
+				<p>{writer}</p>
+				<ScoreBox>
+					{[1, 2, 3, 4, 5].map((el) => (
+						<GiAcorn className={`acorn ${score >= el && 'green'}`} key={el} />
+					))}
+				</ScoreBox>
+				<p>{registerDate}</p>
+			</WriterInfo>
+			<ContentBox>
+				{contents && contents.length > 150 ? `${contents.substring(0, 150)}...` : contents}
+			</ContentBox>
+			{/* </ReviewInfo> */}
 		</ReviewCardContainer>
 	)
 }
 
 const ReviewCardContainer = styled.div`
-	width: 800px;
+	width: 880px;
 	height: 100px;
 	background-color: ${palette.backgroundWhiteColor};
 	border: 2px solid ${palette.mainColor};
@@ -73,15 +73,15 @@ const ReviewCardContainer = styled.div`
 		height: 80%;
 		box-shadow: 0px 0px 5px 3px rgba(0, 0, 0, 0.2);
 	}
-`
-
-const ReviewInfo = styled.div`
-	margin-left: 20px;
-	display: flex;
-	align-items: center;
 	p {
 		font-size: 18px;
 	}
+`
+
+const WriterInfo = styled.div`
+	width: 330px;
+	text-align: center;
+	margin-left: 10px;
 `
 
 const ScoreBox = styled.div`
@@ -98,6 +98,5 @@ const ScoreBox = styled.div`
 	}
 `
 const ContentBox = styled.p`
-	font-size: 18px;
-	margin-left: 20px;
+	margin-left: 10px;
 `

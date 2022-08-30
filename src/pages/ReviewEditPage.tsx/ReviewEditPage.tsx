@@ -36,7 +36,7 @@ export default function ReviewEditPage() {
 
 	//유저 닉네임과 uid를 받아오기 위함
 	useEffect(() => {
-		const userInfo = userArray?.data?.[0]
+		const userInfo = userArray?.[0]
 		setUser(userInfo)
 	}, [state, userArray])
 
