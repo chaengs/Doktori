@@ -28,10 +28,12 @@ export default function RegisterPage() {
 
 	const usersCollectionRef = collection(firebaseDB, 'users')
 
-	const register = async () => {
-		await createUserWithEmailAndPassword(firebaseAuth, registerEmail, registerPassword)
+	const register = () => {
+		event?.preventDefault()
+		createUserWithEmailAndPassword(firebaseAuth, registerEmail, registerPassword)
 			.then((userCredential) => {
 				const user = userCredential.user
+				console.log(user)
 				addDoc(usersCollectionRef, {
 					email: registerEmail,
 					password: registerPassword,

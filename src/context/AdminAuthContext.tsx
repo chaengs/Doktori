@@ -48,9 +48,16 @@ export function AdminAuthProvider({ children }: ImportChildren) {
 	}
 	const logout = async () => {
 		await signOut(firebaseAuth)
-		setIsloggedIn(false)
-		localStorage.removeItem('localLoggedIn')
-		alert('로그아웃 되었습니다.')
+			.then(() => {
+				setIsloggedIn(false)
+				localStorage.removeItem('localLoggedIn')
+				alert('로그아웃 되었습니다.')
+			})
+			.catch((error) => {
+				if (error instanceof Error) {
+					console.log(error.message)
+				}
+			})
 	}
 	return (
 		<AdminAuthContext.Provider value={{ isLoggedIn, login, logout }}>
