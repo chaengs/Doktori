@@ -12,7 +12,7 @@ import {
 export default function useOrderReview(collectionRef: Query<unknown>, keyword: string) {
 	const [data, setData] = useState<DocumentData>()
 	const setDataOrder = async () => {
-		const dataByQuery = query(collectionRef, orderBy(keyword), limit(9))
+		const dataByQuery = query(collectionRef, orderBy(keyword, 'desc'), limit(9))
 		const resultData = await getDocs(dataByQuery)
 		if (resultData.docs.length > 0) {
 			const newData = resultData.docs.map((doc) => ({
