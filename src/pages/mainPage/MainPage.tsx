@@ -48,10 +48,12 @@ export default function MainPage() {
 							registerDate={review.registerDate}
 							finishDate={review.finishDate}
 							publisher={review.publisher}
+							writerId={review.writerId}
+							reviewId={review.id}
+							id={''}
 						/>
 					))}
 			</ReviewCardContainer>
-			{/* </Container> */}
 		</div>
 	)
 }

@@ -16,6 +16,8 @@ export default function ReviewCard({
 	registerDate,
 	finishDate,
 	publisher,
+	writerId,
+	reviewId,
 }: ReviewType) {
 	const navigate = useNavigate()
 
@@ -31,6 +33,8 @@ export default function ReviewCard({
 				registerDate,
 				finishDate,
 				publisher,
+				writerId,
+				reviewId,
 			},
 		})
 	}

@@ -1,5 +1,6 @@
 import React, { useContext } from 'react'
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom'
+import { AdminAuthContext } from 'context/AdminAuthContext'
 import Path from './Path'
 import Header from '../components/Header'
 import RegisterPage from 'pages/RegisterPage/RegisterPage'
@@ -7,10 +8,10 @@ import BookDetailPage from '../pages/DetailPage/BookDetailPage'
 import LandingPage from '../pages/landingPage/LandingPage'
 import LoginPage from '../pages/LoginPage/LoginPage'
 import MainPage from 'pages/mainPage/MainPage'
-import ReviewEditPage from '../pages/ReviewEditPage.tsx/ReviewEditPage'
 import SearchPage from '../pages/SearchPage/SearchPage'
 import ReviewDetailPage from 'pages/DetailPage/ReviewDetailPage'
-import { AdminAuthContext } from 'context/AdminAuthContext'
+import EditReviewPage from 'pages/WriteReviewPage/EditReviewPage'
+import CreateReviewPage from 'pages/WriteReviewPage/CreateReviewPage'
 
 function Routing() {
 	const { isLoggedIn } = useContext(AdminAuthContext)
@@ -36,7 +37,8 @@ function Routing() {
 					/>
 					{/* 404페이지 */}
 					{/* 로그인 상태로만 접근 가능 */}
-					{isLoggedIn && <Route path={Path.reviewEditor} element={<ReviewEditPage />} />}
+					{isLoggedIn && <Route path={Path.editReview} element={<EditReviewPage />} />}
+					{isLoggedIn && <Route path={Path.createReview} element={<CreateReviewPage />} />}
 				</Route>
 			</Routes>
 		</BrowserRouter>

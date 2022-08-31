@@ -21,8 +21,5 @@ const StyledButton = styled.button`
 	margin-top: 20px;
 `
 export default function ButtonStyle({ children, ...rest }: ButtonType) {
-	return (
-		// <StyledButton onClick={onClick} disabled={disabled} className={className} type={type}>
-		<StyledButton {...rest}>{children}</StyledButton>
-	)
+	return <StyledButton {...rest}>{children}</StyledButton>
 }

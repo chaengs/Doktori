@@ -1,44 +1,69 @@
 import React, { useEffect, useState } from 'react'
-import { useLocation, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
-import { firebaseDB } from '../../firebase-config'
-import { addDoc, collection } from 'firebase/firestore'
+import { firebaseDB } from '../../../firebase-config'
+import { addDoc, collection, doc, updateDoc } from 'firebase/firestore'
 
-import { ReviewBookType } from '../../types/bookType'
+import { ReviewType } from '../../../types/bookType'
 import { getStringDate } from 'util/getStringDate'
 
 import { GiAcorn } from 'react-icons/gi'
 import { palette } from 'styles/palette'
-import useSearchUser from 'hooks/useSearchUser'
 import { userInfoType } from 'types/userInfoType'
 import ButtonStyle from 'styles/ButtonStyle'
 
-export default function ReviewEditPage() {
-	//BookCard 컴포넌트에서 prop 받아옴
-	const { state } = useLocation()
-	const { bookThumbnail, bookTitle, bookAuthors, bookIsbn, publisher } = state as ReviewBookType
+interface EditPage {
+	isEdit: boolean
+	originData?: ReviewType
+	reviewId?: string
+	bookInfo?: bookInfo
+	bookThumbnail?: string
+	bookTitle?: string
+	bookAuthors?: []
+	bookIsbn?: string
+	publisher?: string
+	user?: userInfoType
+}
 
+interface bookInfo {
+	bookThumbnail: string
+	bookTitle: string
+	bookAuthors: []
+	bookIsbn: string
+	publisher: string
+}
+
+export default function ReviewEditor({
+	isEdit,
+	originData,
+	reviewId,
+	bookThumbnail,
+	bookTitle,
+	bookAuthors,
+	bookIsbn,
+	publisher,
+	user,
+}: EditPage) {
 	const [content, setContent] = useState('')
 	const [date, setDate] = useState<string | number | readonly string[]>(getStringDate(new Date()))
 	const [buttonActive, setButtonActive] = useState<boolean>(true)
+
 	//별점용 도토리
 	const [hovered, setHovered] = useState(0)
 	const [score, setScore] = useState(0)
-	const [user, setUser] = useState<userInfoType>()
 
 	const reviewsCollectionRef = collection(firebaseDB, 'bookReviews')
-	const userCollectionRef = collection(firebaseDB, 'users')
 
 	const navigate = useNavigate()
 
-	const writerId = localStorage.getItem('userEmail')
-	const userArray = useSearchUser(userCollectionRef, writerId)
-
-	//유저 닉네임과 uid를 받아오기 위함
+	//수정인지 확인하여 value 반영
 	useEffect(() => {
-		const userInfo = userArray?.[0]
-		setUser(userInfo)
-	}, [state, userArray])
+		if (isEdit && originData) {
+			setDate(originData.finishDate)
+			setContent(originData.contents)
+			setScore(originData.score)
+		}
+	}, [isEdit, originData])
 
 	//유효성검사에 따른 버튼 활성화 (독후감 10자 이상, 점수 필수)
 	useEffect(() => {
@@ -49,39 +74,62 @@ export default function ReviewEditPage() {
 		}
 	}, [content, score])
 
-	const createReview = () => {
-		addDoc(reviewsCollectionRef, {
-			bookThumbnail: bookThumbnail,
-			bookTitle: bookTitle,
-			bookAuthors: bookAuthors,
-			bookIsbn: bookIsbn,
-			publisher: publisher,
-			writer: user?.nickname,
-			writerId: user?.uid,
-			contents: content,
-			score: score,
-			registerDate: getStringDate(new Date()),
-			finishDate: date,
-		})
-			.then(() => {
-				alert('당신의 다독을 응원할게요!')
-				navigate(-1)
+	const editHandler = () => {
+		if (isEdit && originData && reviewId) {
+			const editReviewRef = doc(firebaseDB, 'bookReviews', reviewId)
+			updateDoc(editReviewRef, {
+				contents: content,
+				score: score,
+				registerDate: getStringDate(new Date()),
+				finishDate: date,
 			})
-			.catch((error) => {
-				if (error instanceof Error) {
-					console.log(error.message)
-				}
+				.then(() => {
+					alert('독후감이 수정되었습니다.')
+					navigate(-1)
+				})
+				.catch((error) => {
+					if (error instanceof Error) {
+						console.log(error.message)
+					}
+				})
+		}
+	}
+
+	const createHandler = () => {
+		if (!isEdit) {
+			addDoc(reviewsCollectionRef, {
+				bookThumbnail: bookThumbnail,
+				bookTitle: bookTitle,
+				bookAuthors: bookAuthors,
+				bookIsbn: bookIsbn,
+				publisher: publisher,
+				writer: user?.nickname,
+				writerId: user?.uid,
+				contents: content,
+				score: score,
+				registerDate: getStringDate(new Date()),
+				finishDate: date,
 			})
+				.then(() => {
+					alert('당신의 다독을 응원할게요!')
+					navigate(-1)
+				})
+				.catch((error) => {
+					if (error instanceof Error) {
+						console.log(error.message)
+					}
+				})
+		}
 	}
 
 	return (
 		<ReviewContainer>
 			<BookInfoContainer>
-				<img src={bookThumbnail} alt={bookTitle} />
+				<img src={isEdit ? originData?.bookThumbnail : bookThumbnail} alt='책 표지' />
 				<div>
-					<BookTitle>{bookTitle}</BookTitle>
-					<p>{bookAuthors} 지음</p>
-					<p>{publisher} 펴냄</p>
+					<BookTitle>{isEdit ? originData?.bookTitle : bookTitle}</BookTitle>
+					<p>{isEdit ? originData?.bookAuthors : bookAuthors} 지음</p>
+					<p>{isEdit ? originData?.publisher : publisher} 펴냄</p>
 				</div>
 			</BookInfoContainer>
 			<ReviewEditorContainer>
@@ -110,13 +158,14 @@ export default function ReviewEditPage() {
 					onChange={(event) => {
 						setContent(event.target.value)
 					}}
+					value={content}
 				/>
 				<SubmitButton
-					onClick={createReview}
+					onClick={isEdit ? editHandler : createHandler}
 					disabled={buttonActive}
 					className={buttonActive ? 'buttonOff' : 'buttonOn'}
 				>
-					작성 완료
+					{isEdit ? '수정 완료' : '작성 완료'}
 				</SubmitButton>
 			</ReviewEditorContainer>
 		</ReviewContainer>
@@ -129,12 +178,11 @@ const ReviewContainer = styled.article`
 	background-color: ${palette.backgroundWhiteColor};
 	border-radius: 20px;
 	box-shadow: 0px 0px 5px 10px rgba(0, 0, 0, 0.2);
-	margin: 0 auto;
+	margin-bottom: 40px;
+	padding: 30px;
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
-	position: relative;
-	top: 5%;
 `
 
 const BookInfoContainer = styled.section`

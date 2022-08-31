@@ -1,4 +1,5 @@
-import React from 'react'
+import { firebaseAuth } from 'firebase-config'
+import React, { useEffect, useState } from 'react'
 import { GiAcorn } from 'react-icons/gi'
 import { useLocation, useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
@@ -6,8 +7,11 @@ import { palette } from 'styles/palette'
 import { ReviewType } from 'types/bookType'
 
 export default function ReviewDetailPage() {
+	const [isWriter, setIsWriter] = useState<boolean>(false)
+
 	const navigate = useNavigate()
 
+	//메인페이지 or BookDetailPage의 ReviewCard에서 받아옴
 	const { state } = useLocation()
 	const {
 		bookThumbnail,
@@ -19,6 +23,8 @@ export default function ReviewDetailPage() {
 		registerDate,
 		finishDate,
 		publisher,
+		writerId,
+		reviewId,
 	} = state as ReviewType
 
 	const moveToDetailPage = () => {
@@ -29,8 +35,32 @@ export default function ReviewDetailPage() {
 		})
 	}
 
+	const moveToEditPage = () => {
+		navigate('/editReview', {
+			state: {
+				reviewId: reviewId,
+			},
+		})
+	}
+
+	// 리뷰 작성자와 로그인 유저 일치 여부 확인
+	const loggedUser = firebaseAuth.currentUser?.uid
+	useEffect(() => {
+		if (writerId == loggedUser) {
+			setIsWriter(true)
+		} else {
+			setIsWriter(false)
+		}
+	}, [])
+
 	return (
 		<ReviewContainer>
+			{isWriter && (
+				<div>
+					<button onClick={moveToEditPage}>수정하기</button>
+					<button>삭제하기</button>
+				</div>
+			)}
 			<BookInfoContainer>
 				<BookImg src={bookThumbnail} alt={bookTitle} onClick={moveToDetailPage} />
 				<BookInfoBox>

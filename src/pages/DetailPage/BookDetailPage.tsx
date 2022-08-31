@@ -4,7 +4,7 @@ import { collection } from 'firebase/firestore'
 import { firebaseDB } from '../../firebase-config'
 import ReviewCard from 'pages/DetailPage/components/ReviewCard'
 import { AdminAuthContext } from 'context/AdminAuthContext'
-import useSearchTitle from 'hooks/useSearchTitle'
+import useSearchReviewByTitle from 'hooks/useSearchReviewByTitle'
 import useSearchBook from 'hooks/useSearchBook'
 import { BookInfoType, ReviewType, SearchBookType } from '../../types/bookType'
 import styled from 'styled-components'
@@ -26,7 +26,7 @@ export default function BookDetailPage() {
 
 	const moveToReviewEditor = () => {
 		if (isLoggedIn) {
-			navigate('/revieweditor', {
+			navigate('/createReview', {
 				state: {
 					bookThumbnail: bookInfo?.thumbnail,
 					bookTitle: title,
@@ -47,8 +47,7 @@ export default function BookDetailPage() {
 	}, [apiResult])
 
 	//useSearchDB 커스텀 훅으로 리뷰 쿼리 검색
-	const reviewsCollectionRef = collection(firebaseDB, 'bookReviews')
-	const reviewList = useSearchTitle(reviewsCollectionRef, title)
+	const reviewList = useSearchReviewByTitle(title)
 	useEffect(() => {
 		if (reviewList) {
 			if (reviewList.length > 0) {
@@ -90,8 +89,10 @@ export default function BookDetailPage() {
 						score={review.score}
 						registerDate={review.registerDate}
 						finishDate={review.finishDate}
-						publisher={bookInfo?.publisher}
-						id={review.id}
+						publisher={review.publisher}
+						writerId={review.writerId}
+						reviewId={review.id}
+						id={''}
 					/>
 				))
 			) : (
