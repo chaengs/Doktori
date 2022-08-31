@@ -4,12 +4,12 @@ import styled from 'styled-components'
 import { firebaseDB } from '../../../firebase-config'
 import { addDoc, collection, doc, updateDoc } from 'firebase/firestore'
 
-import { ReviewType } from '../../../types/bookType'
+import { ReviewType } from 'types/review'
+import { userInfoType } from 'types/userInfoType'
 import { getStringDate } from 'util/getStringDate'
 
 import { GiAcorn } from 'react-icons/gi'
 import { palette } from 'styles/palette'
-import { userInfoType } from 'types/userInfoType'
 import ButtonStyle from 'styles/ButtonStyle'
 
 interface EditPage {

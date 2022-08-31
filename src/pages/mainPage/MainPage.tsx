@@ -4,9 +4,9 @@ import { firebaseDB } from 'firebase-config'
 import { collection } from 'firebase/firestore'
 import useOrderReview from 'hooks/useOrderReview'
 import styled from 'styled-components'
-import { ReviewType } from 'types/bookType'
 import readingImg from 'library/images/reading.svg'
 import { palette } from 'styles/palette'
+import { ReviewCardType } from 'types/review'
 
 export default function MainPage() {
 	const [reviewCheck, setReviewCheck] = useState(false)
@@ -36,18 +36,15 @@ export default function MainPage() {
 			<Description>최근 올라온 독후감이에요. 다른 독자들의 감상을 살펴보세요.</Description>
 			<ReviewCardContainer>
 				{reviewCheck &&
-					reviewList.map((review: ReviewType) => (
+					reviewList?.map((review: ReviewCardType) => (
 						<ReviewCard
 							key={review.id}
 							bookThumbnail={review.bookThumbnail}
 							bookTitle={review.bookTitle}
-							bookAuthors={review.bookAuthors}
 							writer={review.writer}
 							contents={review.contents}
 							score={review.score}
 							registerDate={review.registerDate}
-							finishDate={review.finishDate}
-							publisher={review.publisher}
 							writerId={review.writerId}
 							reviewId={review.id}
 							id={''}

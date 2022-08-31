@@ -1,38 +1,26 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
-import { ReviewType } from '../../../types/bookType'
 
 import { palette } from 'styles/palette'
 import { GiAcorn } from 'react-icons/gi'
+import { ReviewCardType } from 'types/review'
 
 export default function ReviewCard({
 	bookThumbnail,
 	bookTitle,
-	bookAuthors,
 	writer,
 	contents,
 	score,
 	registerDate,
-	finishDate,
-	publisher,
 	writerId,
 	reviewId,
-}: ReviewType) {
+}: ReviewCardType) {
 	const navigate = useNavigate()
 
 	const moveToReviewDetailPage = () => {
 		navigate('/reviewdetail', {
 			state: {
-				bookThumbnail,
-				bookTitle,
-				bookAuthors,
-				writer,
-				contents,
-				score,
-				registerDate,
-				finishDate,
-				publisher,
 				writerId,
 				reviewId,
 			},
@@ -41,7 +29,6 @@ export default function ReviewCard({
 
 	return (
 		<ReviewCardContainer onClick={moveToReviewDetailPage}>
-			{/* <ReviewInfo> */}
 			<img src={bookThumbnail} alt={bookTitle} />
 			<WriterInfo>
 				<p>{writer}</p>
@@ -55,7 +42,6 @@ export default function ReviewCard({
 			<ContentBox>
 				{contents && contents.length > 150 ? `${contents.substring(0, 150)}...` : contents}
 			</ContentBox>
-			{/* </ReviewInfo> */}
 		</ReviewCardContainer>
 	)
 }
