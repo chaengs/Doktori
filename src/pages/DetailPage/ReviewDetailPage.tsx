@@ -1,5 +1,5 @@
-import { firebaseAuth } from 'firebase-config'
-import { DocumentData } from 'firebase/firestore'
+import { firebaseAuth, firebaseDB } from 'firebase-config'
+import { deleteDoc, DocumentData, doc } from 'firebase/firestore'
 import useSearchReviewById from 'hooks/useSearchReviewById'
 import React, { useEffect, useState } from 'react'
 import { GiAcorn } from 'react-icons/gi'
@@ -24,9 +24,9 @@ export default function ReviewDetailPage() {
 
 	const moveToDetailPage = () => {
 		navigate('/bookdetail', {
-			// state: {
-			// 	title: bookTitle,
-			// },
+			state: {
+				title: reviewData?.bookTitle,
+			},
 		})
 	}
 
@@ -38,6 +38,16 @@ export default function ReviewDetailPage() {
 		})
 	}
 
+	const deleteReview = () => {
+		const confirmDelete = confirm('독후감을 삭제하시겠습니까?')
+		if (confirmDelete) {
+			deleteDoc(doc(firebaseDB, 'bookReviews', reviewId)).then(() => {
+				navigate(-1)
+			})
+		}
+	}
+
+	// 리뷰데이터 요청 / 작성자와 로그인유저 일치여부
 	const originData = useSearchReviewById(reviewId)
 	const loggedUser = firebaseAuth.currentUser?.uid
 	useEffect(() => {
@@ -57,7 +67,7 @@ export default function ReviewDetailPage() {
 			{isWriter && (
 				<div>
 					<button onClick={moveToEditPage}>수정하기</button>
-					<button>삭제하기</button>
+					<button onClick={deleteReview}>삭제하기</button>
 				</div>
 			)}
 			<BookInfoContainer>
