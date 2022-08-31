@@ -39,7 +39,7 @@ export default function Header() {
 const HeaderContainer = styled.header`
 	width: 100vw;
 	height: 70px;
-	background-color: #606c38;
+	background-color: ${palette.backgroundColor};
 	display: flex;
 	justify-content: space-between;
 `

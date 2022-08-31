@@ -30,8 +30,8 @@ export function AdminAuthProvider({ children }: ImportChildren) {
 		localLoggedState && setIsloggedIn(true)
 	}, [])
 
-	const login = async (email: string, password: string) => {
-		await signInWithEmailAndPassword(firebaseAuth, email, password)
+	const login = (email: string, password: string) => {
+		signInWithEmailAndPassword(firebaseAuth, email, password)
 			.then((userCredential) => {
 				const user = userCredential.user
 				console.log(user)
@@ -46,8 +46,8 @@ export function AdminAuthProvider({ children }: ImportChildren) {
 				alert('이메일 또는 비밀번호가 틀립니다.')
 			})
 	}
-	const logout = async () => {
-		await signOut(firebaseAuth)
+	const logout = () => {
+		signOut(firebaseAuth)
 			.then(() => {
 				setIsloggedIn(false)
 				localStorage.removeItem('localLoggedIn')

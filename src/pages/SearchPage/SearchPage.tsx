@@ -1,11 +1,12 @@
 import React, { useEffect, useRef, useState } from 'react'
 import BookCard from '../../components/BookCard'
-import { bookSearch } from '../../library/api/api'
+import { bookSearch } from 'library/api/api'
+import { SearchBookType } from 'types/bookType'
 import styled from 'styled-components'
 import { palette } from 'styles/palette'
 
 export default function SearchPage() {
-	const [result, setResult] = useState<any[]>()
+	const [result, setResult] = useState<SearchBookType[]>()
 	const [inputValue, setInputValue] = useState('')
 	const inputRef = useRef() as React.MutableRefObject<HTMLInputElement>
 

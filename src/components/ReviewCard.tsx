@@ -68,8 +68,6 @@ const ReviewCardBox = styled.div`
 	padding: 10px;
 	display: flex;
 	align-items: center;
-	/* overflow: hidden; */
-	white-space: wrap;
 	cursor: pointer;
 
 	img {
@@ -81,7 +79,6 @@ const ReviewCardBox = styled.div`
 
 const ReviewInfo = styled.div`
 	font-size: 15px;
-	white-space: wrap;
 	text-align: start;
 	margin-left: 15px;
 
@@ -104,7 +101,7 @@ const ScoreBox = styled.div`
 	}
 
 	.green {
-		color: ${palette.mainColor};
+		color: ${palette.pointColor};
 		opacity: 1;
 	}
 `
