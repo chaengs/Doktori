@@ -13,6 +13,8 @@ body,
 #root {
   height: 100%;
   background-color: ${palette.backgroundColor};
+  overflow-x: hidden;
+  overflow-y: hidden;
 }
 * {
   box-sizing: border-box;
