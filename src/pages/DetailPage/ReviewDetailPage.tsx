@@ -1,11 +1,13 @@
 import React from 'react'
 import { GiAcorn } from 'react-icons/gi'
-import { useLocation } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
 import { palette } from 'styles/palette'
 import { ReviewType } from 'types/bookType'
 
 export default function ReviewDetailPage() {
+	const navigate = useNavigate()
+
 	const { state } = useLocation()
 	const {
 		bookThumbnail,
@@ -18,12 +20,21 @@ export default function ReviewDetailPage() {
 		finishDate,
 		publisher,
 	} = state as ReviewType
+
+	const moveToDetailPage = () => {
+		navigate('/bookdetail', {
+			state: {
+				title: bookTitle,
+			},
+		})
+	}
+
 	return (
 		<ReviewContainer>
 			<BookInfoContainer>
-				<img src={bookThumbnail} alt={bookTitle} />
+				<BookImg src={bookThumbnail} alt={bookTitle} onClick={moveToDetailPage} />
 				<BookInfoBox>
-					<BookTitle>{bookTitle}</BookTitle>
+					<BookTitle onClick={moveToDetailPage}>{bookTitle}</BookTitle>
 					<p>
 						{bookAuthors} 지음 | {publisher} 펴냄
 					</p>
@@ -64,7 +75,6 @@ const ReviewContainer = styled.article`
 const BookInfoContainer = styled.section`
 	font-size: 20px;
 	display: flex;
-	justify-content: center;
 	align-items: center;
 	margin-bottom: 10px;
 	img {
@@ -76,12 +86,19 @@ const BookInfoContainer = styled.section`
 		margin-bottom: 8px;
 	}
 `
+const BookImg = styled.img`
+	width: 120px;
+	height: auto;
+	cursor: pointer;
+`
+
 const BookInfoBox = styled.div`
 	margin-left: 20px;
 `
 
 const BookTitle = styled.p`
 	font-size: 30px;
+	cursor: pointer;
 `
 
 const ScoreBox = styled.div`

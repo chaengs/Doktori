@@ -40,7 +40,7 @@ export default function ReviewCard({
 				<img src={bookThumbnail} alt={bookTitle} />
 			</div>
 			<ReviewInfo>
-				<Title>{bookTitle}</Title>
+				<Title>{bookTitle.length > 20 ? `${bookTitle.substring(0, 20)}...` : bookTitle}</Title>
 				<p>
 					{writer}&ensp;|&ensp;{registerDate}
 				</p>
@@ -50,7 +50,7 @@ export default function ReviewCard({
 					))}
 				</ScoreBox>
 				<Contents>
-					{contents && contents.length > 150 ? `${contents.substring(0, 150)}...` : contents}
+					{contents && contents.length > 100 ? `${contents.substring(0, 100)}...` : contents}
 					{!contents && '등록된 줄거리가 없습니다.'}
 				</Contents>
 			</ReviewInfo>
@@ -79,7 +79,6 @@ const ReviewCardBox = styled.div`
 
 const ReviewInfo = styled.div`
 	font-size: 15px;
-	white-space: wrap;
 	text-align: start;
 	margin-left: 15px;
 
@@ -89,7 +88,7 @@ const ReviewInfo = styled.div`
 `
 
 const Title = styled.p`
-	font-size: 25px;
+	font-size: 18px;
 	font-weight: bold;
 	margin-bottom: 7px;
 `
@@ -102,7 +101,7 @@ const ScoreBox = styled.div`
 	}
 
 	.green {
-		color: ${palette.mainColor};
+		color: ${palette.pointColor};
 		opacity: 1;
 	}
 `

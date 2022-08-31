@@ -1,10 +1,10 @@
 export const palette: { [key: string]: string } = {
-	mainColor: '#606c38',
-	pointColor: '#283618',
+	mainColor: '#b8c97c',
+	pointColor: '#5a6829',
 	buttonColor: '#895737',
 	backgroundWhiteColor: '#fefae0',
-	backgroundColor: '#606c38',
-	fontColor: '#fefae0',
+	backgroundColor: '#b8c97c',
+	fontColor: '#5a6829',
 	textBackgroundColor: '#e9edc9',
 	warningColor: '#f48c06',
 }

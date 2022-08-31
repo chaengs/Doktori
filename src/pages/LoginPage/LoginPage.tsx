@@ -26,7 +26,7 @@ export default function LoginPage() {
 		await login(loginEmail, loginPassword)
 		if (localStorage.getItem('localLoggedIn')) {
 			alert('로그인 되었습니다.')
-			navigate('/main', { replace: true })
+			navigate(-1)
 		}
 	}
 

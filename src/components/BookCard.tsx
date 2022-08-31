@@ -19,12 +19,8 @@ export default function BookCard({
 	const moveToDetailPage = () => {
 		navigate('/bookdetail', {
 			state: {
-				thumbnail,
 				title,
-				authors,
 				contents,
-				datetime,
-				publisher,
 				isbn,
 			},
 		})

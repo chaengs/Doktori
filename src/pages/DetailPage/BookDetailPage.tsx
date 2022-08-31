@@ -1,24 +1,26 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
-import styled from 'styled-components'
-import { palette } from 'styles/palette'
-import { BookInfoType, ReviewType } from '../../types/bookType'
 import { collection } from 'firebase/firestore'
 import { firebaseDB } from '../../firebase-config'
 import ReviewCard from 'pages/DetailPage/components/ReviewCard'
-import useSearchIsbn from 'hooks/useSearchIsbn'
-import ButtonStyle from 'styles/ButtonStyle'
 import { AdminAuthContext } from 'context/AdminAuthContext'
+import useSearchTitle from 'hooks/useSearchTitle'
+import useSearchBook from 'hooks/useSearchBook'
+import { BookInfoType, ReviewType, SearchBookType } from '../../types/bookType'
+import styled from 'styled-components'
+import { palette } from 'styles/palette'
+import ButtonStyle from 'styles/ButtonStyle'
 
 export default function BookDetailPage() {
-	const [reviewCheck, setReviewCheck] = useState(false)
-	const { state } = useLocation()
-	const { thumbnail, title, authors, contents, datetime, publisher, isbn } = state as BookInfoType
-
 	const navigate = useNavigate()
+	const { state } = useLocation()
+	const { title } = state as BookInfoType
 
-	const newDatetimeYear = datetime.slice(0, 4)
-	const newDatetimeMonth = datetime.slice(5, 7)
+	const [reviewCheck, setReviewCheck] = useState(false)
+	const [bookInfo, setBookInfo] = useState<SearchBookType>()
+
+	const newDatetimeYear = bookInfo?.datetime.slice(0, 4)
+	const newDatetimeMonth = bookInfo?.datetime.slice(5, 7)
 
 	const { isLoggedIn } = useContext(AdminAuthContext)
 
@@ -26,11 +28,11 @@ export default function BookDetailPage() {
 		if (isLoggedIn) {
 			navigate('/revieweditor', {
 				state: {
-					bookThumbnail: thumbnail,
+					bookThumbnail: bookInfo?.thumbnail,
 					bookTitle: title,
-					bookAuthors: authors,
-					bookIsbn: isbn,
-					publisher,
+					bookAuthors: bookInfo?.authors,
+					bookIsbn: bookInfo?.isbn,
+					publisher: bookInfo?.publisher,
 				},
 			})
 		} else {
@@ -38,9 +40,15 @@ export default function BookDetailPage() {
 		}
 	}
 
-	//useSearchDB 커스텀 훅으로 쿼리 검색
+	//api 도서 정보 검색
+	const apiResult = useSearchBook(title, 1)
+	useEffect(() => {
+		apiResult && setBookInfo(apiResult[0])
+	}, [apiResult])
+
+	//useSearchDB 커스텀 훅으로 리뷰 쿼리 검색
 	const reviewsCollectionRef = collection(firebaseDB, 'bookReviews')
-	const reviewList = useSearchIsbn(reviewsCollectionRef, isbn)
+	const reviewList = useSearchTitle(reviewsCollectionRef, title)
 	useEffect(() => {
 		if (reviewList) {
 			if (reviewList.length > 0) {
@@ -54,18 +62,18 @@ export default function BookDetailPage() {
 	return (
 		<BookInfoContainer>
 			<BookInfoBox>
-				<img src={thumbnail} alt={title} />
+				<img src={bookInfo?.thumbnail} alt={bookInfo?.title} />
 				<div>
 					<Title>
-						<strong>{title}</strong>
+						<strong>{bookInfo?.title}</strong>
 					</Title>
-					<p>{authors} 지음</p>
-					<p>{publisher} 펴냄</p>
+					<p>{bookInfo?.authors} 지음</p>
+					<p>{bookInfo?.publisher} 펴냄</p>
 					<p>
 						{newDatetimeYear}년 {newDatetimeMonth}월 출간
 					</p>
-					<p>ISBN {isbn}</p>
-					<p>{contents} ...</p>
+					<p>ISBN {bookInfo?.isbn}</p>
+					<p>{bookInfo?.contents} ...</p>
 				</div>
 			</BookInfoBox>
 			<ButtonStyle onClick={moveToReviewEditor}>리뷰 작성하기</ButtonStyle>
@@ -82,7 +90,7 @@ export default function BookDetailPage() {
 						score={review.score}
 						registerDate={review.registerDate}
 						finishDate={review.finishDate}
-						publisher={publisher}
+						publisher={bookInfo?.publisher}
 						id={review.id}
 					/>
 				))
