@@ -7,20 +7,6 @@ export interface BookInfoType {
 	publisher: string
 	isbn: string
 }
-interface ReviewType {
-	id: string
-	reviewId: string
-	bookThumbnail: string
-	bookTitle: string
-	bookAuthors: string
-	writer: string
-	writerId: string
-	contents: string
-	score: number
-	registerDate: string
-	finishDate: string
-	publisher?: string
-}
 
 interface ReviewBookType {
 	bookThumbnail: string
