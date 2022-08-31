@@ -1,37 +1,32 @@
 import { firebaseAuth } from 'firebase-config'
+import { DocumentData } from 'firebase/firestore'
+import useSearchReviewById from 'hooks/useSearchReviewById'
 import React, { useEffect, useState } from 'react'
 import { GiAcorn } from 'react-icons/gi'
 import { useLocation, useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
 import { palette } from 'styles/palette'
-import { ReviewType } from 'types/bookType'
+
+interface type {
+	writerId: string
+	reviewId: string
+}
 
 export default function ReviewDetailPage() {
 	const [isWriter, setIsWriter] = useState<boolean>(false)
+	const [reviewData, setReviewData] = useState<DocumentData>()
 
 	const navigate = useNavigate()
 
 	//메인페이지 or BookDetailPage의 ReviewCard에서 받아옴
 	const { state } = useLocation()
-	const {
-		bookThumbnail,
-		bookTitle,
-		bookAuthors,
-		writer,
-		contents,
-		score,
-		registerDate,
-		finishDate,
-		publisher,
-		writerId,
-		reviewId,
-	} = state as ReviewType
+	const { writerId, reviewId } = state as type
 
 	const moveToDetailPage = () => {
 		navigate('/bookdetail', {
-			state: {
-				title: bookTitle,
-			},
+			// state: {
+			// 	title: bookTitle,
+			// },
 		})
 	}
 
@@ -43,7 +38,7 @@ export default function ReviewDetailPage() {
 		})
 	}
 
-	// 리뷰 작성자와 로그인 유저 일치 여부 확인
+	const originData = useSearchReviewById(reviewId)
 	const loggedUser = firebaseAuth.currentUser?.uid
 	useEffect(() => {
 		if (writerId == loggedUser) {
@@ -51,7 +46,11 @@ export default function ReviewDetailPage() {
 		} else {
 			setIsWriter(false)
 		}
-	}, [])
+
+		if (originData) {
+			setReviewData(originData)
+		}
+	}, [originData])
 
 	return (
 		<ReviewContainer>
@@ -62,26 +61,30 @@ export default function ReviewDetailPage() {
 				</div>
 			)}
 			<BookInfoContainer>
-				<BookImg src={bookThumbnail} alt={bookTitle} onClick={moveToDetailPage} />
+				<BookImg
+					src={reviewData?.bookThumbnail}
+					alt={reviewData?.bookTitle}
+					onClick={moveToDetailPage}
+				/>
 				<BookInfoBox>
-					<BookTitle onClick={moveToDetailPage}>{bookTitle}</BookTitle>
+					<BookTitle onClick={moveToDetailPage}>{reviewData?.bookTitle}</BookTitle>
 					<p>
-						{bookAuthors} 지음 | {publisher} 펴냄
+						{reviewData?.bookAuthors} 지음 | {reviewData?.publisher} 펴냄
 					</p>
 					<ScoreBox>
 						{[1, 2, 3, 4, 5].map((el) => (
-							<GiAcorn className={`acorn ${score >= el && 'green'}`} key={el} />
+							<GiAcorn className={`acorn ${reviewData?.score >= el && 'green'}`} key={el} />
 						))}
 					</ScoreBox>
 					<WriterInfo>
-						<p>작성자 : {writer}</p>
-						<p>완독일 : {finishDate}</p>
-						<p>독후감 작성일 : {registerDate}</p>
+						<p>작성자 : {reviewData?.writer}</p>
+						<p>완독일 : {reviewData?.finishDate}</p>
+						<p>독후감 작성일 : {reviewData?.registerDate}</p>
 					</WriterInfo>
 				</BookInfoBox>
 			</BookInfoContainer>
 			<ContentBox>
-				<p>{contents}</p>
+				<p>{reviewData?.contents}</p>
 			</ContentBox>
 		</ReviewContainer>
 	)

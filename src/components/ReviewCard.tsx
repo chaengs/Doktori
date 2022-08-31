@@ -3,35 +3,23 @@ import { GiAcorn } from 'react-icons/gi'
 import { useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
 import { palette } from 'styles/palette'
-import { ReviewType } from 'types/bookType'
+import { ReviewCardType } from 'types/review'
 
 export default function ReviewCard({
 	bookThumbnail,
 	bookTitle,
-	bookAuthors,
 	writer,
 	contents,
 	score,
 	registerDate,
-	finishDate,
-	publisher,
 	writerId,
 	reviewId,
-}: ReviewType) {
+}: ReviewCardType) {
 	const navigate = useNavigate()
 
 	const moveToReviewDetailPage = () => {
 		navigate('/reviewdetail', {
 			state: {
-				bookThumbnail,
-				bookTitle,
-				bookAuthors,
-				writer,
-				contents,
-				score,
-				registerDate,
-				finishDate,
-				publisher,
 				writerId,
 				reviewId,
 			},

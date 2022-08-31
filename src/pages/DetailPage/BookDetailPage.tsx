@@ -6,10 +6,11 @@ import ReviewCard from 'pages/DetailPage/components/ReviewCard'
 import { AdminAuthContext } from 'context/AdminAuthContext'
 import useSearchReviewByTitle from 'hooks/useSearchReviewByTitle'
 import useSearchBook from 'hooks/useSearchBook'
-import { BookInfoType, ReviewType, SearchBookType } from '../../types/bookType'
+import { BookInfoType, SearchBookType } from '../../types/bookType'
 import styled from 'styled-components'
 import { palette } from 'styles/palette'
 import ButtonStyle from 'styles/ButtonStyle'
+import { ReviewCardType } from 'types/review'
 
 export default function BookDetailPage() {
 	const navigate = useNavigate()
@@ -78,18 +79,15 @@ export default function BookDetailPage() {
 			<ButtonStyle onClick={moveToReviewEditor}>리뷰 작성하기</ButtonStyle>
 			<ReviewListTitle>다른 독자들의 감상을 살펴보세요.</ReviewListTitle>
 			{reviewCheck ? (
-				reviewList.map((review: ReviewType) => (
+				reviewList.map((review: ReviewCardType) => (
 					<ReviewCard
 						key={review.id}
 						bookThumbnail={review.bookThumbnail}
 						bookTitle={review.bookTitle}
-						bookAuthors={review.bookAuthors}
 						writer={review.writer}
 						contents={review.contents}
 						score={review.score}
 						registerDate={review.registerDate}
-						finishDate={review.finishDate}
-						publisher={review.publisher}
 						writerId={review.writerId}
 						reviewId={review.id}
 						id={''}

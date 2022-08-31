@@ -2,8 +2,8 @@ import React from 'react'
 import { useLocation } from 'react-router-dom'
 import ReviewEditor from './components/ReviewEditor'
 import useSearchReviewById from 'hooks/useSearchReviewById'
-import { ReviewType } from 'types/bookType'
 import styled from 'styled-components'
+import { ReviewType } from 'types/review'
 
 export default function EditReviewPage() {
 	type reviewIdType = {
@@ -14,8 +14,7 @@ export default function EditReviewPage() {
 	const { state } = useLocation()
 	const { reviewId } = state as reviewIdType
 	const originData = useSearchReviewById(reviewId) as ReviewType
-	console.log(originData)
-	console.log('reviewId', reviewId)
+
 	return (
 		<EditorContainer>
 			<ReviewEditor isEdit={true} originData={originData} reviewId={reviewId} />
