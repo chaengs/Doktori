@@ -5,7 +5,7 @@ import { ReviewType } from 'types/bookType'
 export default function useOrderReview(collectionRef: Query<unknown>, keyword: string) {
 	const [data, setData] = useState<ReviewType | any>()
 	const setDataOrder = async () => {
-		const dataByQuery = query(collectionRef, orderBy(keyword), limit(10))
+		const dataByQuery = query(collectionRef, orderBy(keyword), limit(9))
 		const resultData = await getDocs(dataByQuery)
 		const newData = resultData.docs.map((doc) => ({
 			...(doc.data() as QueryDocumentSnapshot<unknown>),

@@ -6,6 +6,7 @@ import useOrderReview from 'hooks/useOrderReview'
 import styled from 'styled-components'
 import { ReviewType } from 'types/bookType'
 import readingImg from 'library/images/reading.svg'
+import { palette } from 'styles/palette'
 
 export default function MainPage() {
 	const [reviewCheck, setReviewCheck] = useState(false)
@@ -23,25 +24,16 @@ export default function MainPage() {
 		}
 	}, [reviewList])
 
-	const elementWidth = 550
-	const elementLength = reviewList?.length
-	const [count, setCount] = useState(0)
-
-	// useEffect(() => {
-	// 	const timer = setInterval(() => {
-	// 		setCount((prev) => prev + 1)
-	// 	}, 2500)
-	// 	return () => {
-	// 		clearInterval(timer)
-	// 	}
-	// }, [])
-
 	return (
 		<div>
-			{/* <h1>새로운 책을 만나보세요.🥰</h1> */}
-			{/* <h2>최근 올라온 독후감이에요.</h2> */}
-			{/* <img src={readingImg} /> */}
-			{/* <Container> */}
+			<Introduce>
+				<div>
+					<p>다람쥐가 도토리를 차곡차곡 모으듯이</p>
+					<p>책을 한 권, 한 권 읽으며 독토리를 마음속에 쌓아보세요</p>
+				</div>
+				<img src={readingImg} />
+			</Introduce>
+			<Description>최근 올라온 독후감이에요. 다른 독자들의 감상을 살펴보세요.</Description>
 			<ReviewCardContainer>
 				{reviewCheck &&
 					reviewList.map((review: ReviewType) => (
@@ -64,32 +56,39 @@ export default function MainPage() {
 	)
 }
 
-const ReviewCardContainer = styled.ul`
-	/* display: flex; */
-	/* flex-wrap: nowrap; */
-	/* width: 100vw; */
-	/* display: inline; */
-	/* justify-content: center; */
-	/* align-items: center; */
-`
-
-const ViewWindow = styled.div`
-	width: 550px;
-	/* height: 300px; */
-	overflow: hidden;
+const Introduce = styled.div`
+	width: 100vw;
+	height: 300px;
+	font-size: 35px;
+	font-weight: bolder;
+	color: ${palette.pointColor};
+	background-color: ${palette.backgroundWhiteColor};
+	margin-top: 50px;
 	display: flex;
-	/* justify-content: center; */
-	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+
+	p {
+		margin-bottom: 20px;
+	}
+
+	img {
+		width: 300px;
+		height: auto;
+		margin-left: 40px;
+	}
 `
 
-const Container = styled.div`
-	/* display: flex; */
+const Description = styled.p`
+	font-size: 30px;
+	font-weight: bold;
+	text-align: center;
+	margin: 40px;
 `
 
-// const Container = styled.div<{ count: number }>`
-// 	width: 100%;
-// 	display: flex;
-// 	//이동효과 추가
-// 	transition: transform 1.5s ease-in;
-// 	transform: ${(props) => 'translateX(-' + props.count * 120 + 'px)'};
-// `
+const ReviewCardContainer = styled.ul`
+	width: 100vw;
+	display: flex;
+	justify-content: center;
+	flex-wrap: wrap;
+`

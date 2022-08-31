@@ -1,5 +1,6 @@
 export const palette: { [key: string]: string } = {
 	mainColor: '#b8c97c',
+	darkerMainColor: '#a0af67',
 	pointColor: '#5a6829',
 	buttonColor: '#895737',
 	backgroundWhiteColor: '#fefae0',
