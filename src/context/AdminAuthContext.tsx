@@ -32,17 +32,19 @@ export function AdminAuthProvider({ children }: ImportChildren) {
 
 	const login = (email: string, password: string) => {
 		signInWithEmailAndPassword(firebaseAuth, email, password)
-			.then((userCredential) => {
-				const user = userCredential.user
+			.then(() => {
 				setIsloggedIn(true)
 				localStorage.setItem('localLoggedIn', 'true')
 				localStorage.setItem('userEmail', email)
+				alert('로그인 되었습니다.')
 			})
 			.catch((error) => {
 				if (error instanceof Error) {
 					console.log(error.message)
 				}
-				alert('이메일 또는 비밀번호가 틀립니다.')
+				if (error.code === 'auth/user-not-found' || error.code === 'auth/wrong-password') {
+					alert('이메일 또는 비밀번호가 틀립니다.')
+				}
 			})
 	}
 	const logout = () => {

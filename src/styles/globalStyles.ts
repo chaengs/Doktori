@@ -177,6 +177,15 @@ button {
   cursor: pointer;
   padding: 0;
 }
+
+.sr-only{
+	position: absolute;
+    clip: rect(0 0 0 0);
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+}
 `
 
 export default GlobalStyles

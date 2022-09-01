@@ -115,6 +115,7 @@ export default function RegisterPage() {
 					<WarningMsg>문자, 숫자, 특수문자를 포함하여 8자 이상 작성해주세요.</WarningMsg>
 				)}
 			</MsgBox>
+			<p className='sr-only'>비밀번호 숨김 또는 보임</p>
 			<EyeButton onClick={showPasswordHandler}>
 				{showPassword ? <OpenEyes /> : <CloseEyes />}
 			</EyeButton>
@@ -161,7 +162,7 @@ const WarningMsg = styled.span`
 	color: ${palette.warningColor};
 `
 
-const EyeButton = styled.button`
+const EyeButton = styled.span`
 	color: ${palette.pointColor};
 	font-size: 25px;
 	position: absolute;

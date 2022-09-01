@@ -4,7 +4,7 @@ import { palette } from './palette'
 
 interface FormType {
 	children: React.ReactNode
-	onSubmit: () => void
+	onSubmit?: () => void
 }
 
 const FormContainer = styled.form`
