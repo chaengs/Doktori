@@ -8,10 +8,10 @@ import Loading from 'components/Loading'
 
 export default function SearchPage() {
 	const [result, setResult] = useState<SearchBookType[]>()
-	const [inputValue, setInputValue] = useState('')
+	const [inputValue, setInputValue] = useState<string>('')
 	const inputRef = useRef() as React.MutableRefObject<HTMLInputElement>
 
-	const [loading, setLoading] = useState(false)
+	const [loading, setLoading] = useState<boolean>(false)
 
 	const bookSearchHandler = async (query: string) => {
 		event?.preventDefault()
