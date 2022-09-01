@@ -4,14 +4,18 @@ import { bookSearch } from 'library/api/api'
 import { SearchBookType } from 'types/bookType'
 import styled from 'styled-components'
 import { palette } from 'styles/palette'
+import Loading from 'components/Loading'
 
 export default function SearchPage() {
 	const [result, setResult] = useState<SearchBookType[]>()
 	const [inputValue, setInputValue] = useState('')
 	const inputRef = useRef() as React.MutableRefObject<HTMLInputElement>
 
+	const [loading, setLoading] = useState(false)
+
 	const bookSearchHandler = async (query: string) => {
 		event?.preventDefault()
+		setLoading(true)
 		const params = {
 			query: query,
 			size: 30,
@@ -19,6 +23,7 @@ export default function SearchPage() {
 		const searchData = await bookSearch(params)
 		const data = searchData.data.documents
 		setResult(data)
+		setLoading(false)
 	}
 
 	const inutValueHandler = () => {
@@ -33,6 +38,7 @@ export default function SearchPage() {
 
 	return (
 		<>
+			{loading ? <Loading /> : null}
 			<SearchBarContainer onSubmit={inutValueHandler}>
 				<SearchBarInput type='text' placeholder='도서명 또는 작가를 검색하세요.' ref={inputRef} />
 			</SearchBarContainer>

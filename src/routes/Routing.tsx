@@ -14,6 +14,7 @@ import CreateReviewPage from 'pages/WriteReviewPage/CreateReviewPage'
 import MyPage from 'pages/MyPage/MyPage'
 import MyBookShelf from 'pages/MyPage/MyBookShelf'
 import MyProfile from 'pages/MyPage/MyProfile'
+import Loading from 'components/Loading'
 
 function Routing() {
 	const { isLoggedIn } = useContext(AdminAuthContext)
@@ -40,6 +41,7 @@ function Routing() {
 					{isLoggedIn && <Route path={Path.myPage} element={<MyPage />} />}
 					{isLoggedIn && <Route path={Path.myBookShelf} element={<MyBookShelf />} />}
 					{isLoggedIn && <Route path={Path.myProfile} element={<MyProfile />} />}
+					<Route path='/loading' element={<Loading />} />
 				</Route>
 			</Routes>
 		</BrowserRouter>

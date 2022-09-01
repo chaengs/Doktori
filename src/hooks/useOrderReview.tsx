@@ -1,15 +1,18 @@
 import React, { useEffect, useState } from 'react'
 import {
+	CollectionReference,
 	DocumentData,
 	getDocs,
 	limit,
 	orderBy,
-	Query,
 	query,
 	QueryDocumentSnapshot,
 } from 'firebase/firestore'
 
-export default function useOrderReview(collectionRef: Query<unknown>, keyword: string) {
+export default function useOrderReview(
+	collectionRef: CollectionReference<DocumentData>,
+	keyword: string,
+) {
 	const [data, setData] = useState<DocumentData>()
 	const setDataOrder = async () => {
 		const dataByQuery = query(collectionRef, orderBy(keyword, 'desc'), limit(9))
