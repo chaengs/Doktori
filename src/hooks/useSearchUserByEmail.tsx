@@ -3,7 +3,7 @@ import { collection, getDocs, query, QueryDocumentSnapshot, where } from 'fireba
 import { firebaseDB } from 'firebase-config'
 import { ReviewType } from 'types/review'
 
-export default function useSearchUser(keyword: string | null) {
+export default function useSearchUserByEmail(keyword: string | null) {
 	const [data, setData] = useState<ReviewType | any>()
 	const usersCollectionRef = collection(firebaseDB, 'users')
 
