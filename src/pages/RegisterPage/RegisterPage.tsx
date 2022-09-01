@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+
 import { firebaseAuth, firebaseDB } from '../../firebase-config'
 import { addDoc, collection } from 'firebase/firestore'
 import { createUserWithEmailAndPassword } from 'firebase/auth'

@@ -1,13 +1,16 @@
 import React, { useEffect, useRef, useState } from 'react'
+
+import { DocumentData } from 'firebase/firestore'
+
 import BookCard from '../../components/BookCard'
+import Loading from 'components/Loading'
 import { bookSearch } from 'library/api/api'
-import { SearchBookType } from 'types/bookType'
+
 import styled from 'styled-components'
 import { palette } from 'styles/palette'
-import Loading from 'components/Loading'
 
 export default function SearchPage() {
-	const [result, setResult] = useState<SearchBookType[]>()
+	const [result, setResult] = useState<DocumentData[]>()
 	const [inputValue, setInputValue] = useState<string>('')
 	const inputRef = useRef() as React.MutableRefObject<HTMLInputElement>
 

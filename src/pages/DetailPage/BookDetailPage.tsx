@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
-import { collection } from 'firebase/firestore'
+import { collection, DocumentData } from 'firebase/firestore'
 
 import { firebaseDB } from '../../firebase-config'
 
@@ -10,7 +10,7 @@ import ReviewCard from 'pages/DetailPage/components/ReviewCard'
 import useSearchBook from 'hooks/useSearchBook'
 import useSearchDB from 'hooks/useSearchDB'
 
-import { BookInfoType, SearchBookType } from '../../types/bookType'
+import { BookInfoType } from '../../types/bookType'
 import { ReviewCardType } from 'types/review'
 
 import styled from 'styled-components'
@@ -23,7 +23,7 @@ export default function BookDetailPage() {
 	const { title } = state as BookInfoType
 
 	const [reviewCheck, setReviewCheck] = useState(false)
-	const [bookInfo, setBookInfo] = useState<SearchBookType>()
+	const [bookInfo, setBookInfo] = useState<DocumentData>()
 
 	const newDatetimeYear = bookInfo?.datetime.slice(0, 4)
 	const newDatetimeMonth = bookInfo?.datetime.slice(5, 7)

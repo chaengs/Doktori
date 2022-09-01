@@ -1,12 +1,16 @@
 import React, { useEffect, useState } from 'react'
 import { useLocation } from 'react-router-dom'
-import ReviewCard from 'components/ReviewCard'
-import { ReviewCardType } from 'types/review'
-import styled from 'styled-components'
-import { palette } from 'styles/palette'
+
 import { collection } from 'firebase/firestore'
 import { firebaseDB } from 'firebase-config'
+
+import ReviewCard from 'components/ReviewCard'
 import useSearchDB from 'hooks/useSearchDB'
+
+import { ReviewCardType } from 'types/review'
+
+import styled from 'styled-components'
+import { palette } from 'styles/palette'
 
 export default function MyBookShelf() {
 	const [reviewCheck, setReviewCheck] = useState<boolean>(false)

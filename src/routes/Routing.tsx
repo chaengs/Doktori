@@ -1,20 +1,25 @@
 import React, { useContext } from 'react'
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom'
+
 import { AdminAuthContext } from 'context/AdminAuthContext'
+
 import Path from './Path'
+
 import Header from '../components/Header'
-import RegisterPage from 'pages/RegisterPage/RegisterPage'
-import BookDetailPage from '../pages/DetailPage/BookDetailPage'
-import LoginPage from '../pages/LoginPage/LoginPage'
+
 import MainPage from 'pages/mainPage/MainPage'
 import SearchPage from '../pages/SearchPage/SearchPage'
+import BookDetailPage from '../pages/DetailPage/BookDetailPage'
 import ReviewDetailPage from 'pages/DetailPage/ReviewDetailPage'
+
+import RegisterPage from 'pages/RegisterPage/RegisterPage'
+import LoginPage from '../pages/LoginPage/LoginPage'
+
 import EditReviewPage from 'pages/WriteReviewPage/EditReviewPage'
 import CreateReviewPage from 'pages/WriteReviewPage/CreateReviewPage'
 import MyPage from 'pages/MyPage/MyPage'
 import MyBookShelf from 'pages/MyPage/MyBookShelf'
 import MyProfile from 'pages/MyPage/MyProfile'
-import Loading from 'components/Loading'
 
 function Routing() {
 	const { isLoggedIn } = useContext(AdminAuthContext)
@@ -41,7 +46,6 @@ function Routing() {
 					{isLoggedIn && <Route path={Path.myPage} element={<MyPage />} />}
 					{isLoggedIn && <Route path={Path.myBookShelf} element={<MyBookShelf />} />}
 					{isLoggedIn && <Route path={Path.myProfile} element={<MyProfile />} />}
-					<Route path='/loading' element={<Loading />} />
 				</Route>
 			</Routes>
 		</BrowserRouter>

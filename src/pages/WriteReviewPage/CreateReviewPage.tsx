@@ -7,7 +7,7 @@ import { collection } from 'firebase/firestore'
 import ReviewEditor from './components/ReviewEditor'
 import useSearchDB from 'hooks/useSearchDB'
 
-import { userInfoType } from 'types/userInfoType'
+import { userType } from 'types/userType'
 
 import styled from 'styled-components'
 
@@ -20,7 +20,7 @@ export default function CreateReviewPage() {
 		publisher: string
 	}
 
-	const [user, setUser] = useState<userInfoType>()
+	const [user, setUser] = useState<userType>()
 
 	//BookDetailPage 컴포넌트에서 prop 받아옴
 	const { state } = useLocation()

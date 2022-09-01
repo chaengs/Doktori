@@ -1,12 +1,10 @@
-import React, { useEffect, useState } from 'react'
-import ReviewCard from 'components/ReviewCard'
-import { firebaseDB } from 'firebase-config'
-import { collection } from 'firebase/firestore'
-import useOrderReview from 'hooks/useOrderReview'
-import styled from 'styled-components'
-import readingImg from 'library/images/reading.svg'
-import { palette } from 'styles/palette'
+import React from 'react'
+
 import ReviewCardContainer from './components/ReviewCardContainer'
+
+import styled from 'styled-components'
+import { palette } from 'styles/palette'
+import readingImg from 'library/images/reading.svg'
 
 export default function MainPage() {
 	return (

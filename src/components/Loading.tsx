@@ -1,7 +1,8 @@
 import React from 'react'
+
 import styled, { keyframes } from 'styled-components'
-import logo from 'library/images/doctori_logo.png'
 import { palette } from 'styles/palette'
+import logo from 'library/images/doctori_logo.png'
 
 export default function Loading() {
 	return (

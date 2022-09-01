@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import styled from 'styled-components'
+
 import { firebaseDB } from '../../../firebase-config'
 import { addDoc, collection, doc, DocumentData, updateDoc } from 'firebase/firestore'
 
 import { ReviewType } from 'types/review'
-import { userInfoType } from 'types/userInfoType'
 import { getStringDate } from 'util/getStringDate'
 
+import styled from 'styled-components'
 import { GiAcorn } from 'react-icons/gi'
 import { palette } from 'styles/palette'
 import ButtonStyle from 'styles/ButtonStyle'

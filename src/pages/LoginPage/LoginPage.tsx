@@ -1,5 +1,4 @@
 import React, { useCallback, useContext, useEffect, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
 
 import { AdminAuthContext } from 'context/AdminAuthContext'
 
@@ -13,8 +12,6 @@ import InputStyle from 'styles/InputStyle'
 import { AiFillEyeInvisible as CloseEyes, AiFillEye as OpenEyes } from 'react-icons/ai'
 
 export default function LoginPage() {
-	const navigate = useNavigate()
-
 	const [showPassword, setShowPassword] = useState<boolean>(false)
 
 	const { login } = useContext(AdminAuthContext)
