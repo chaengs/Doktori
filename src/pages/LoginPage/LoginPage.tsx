@@ -1,15 +1,21 @@
-import React, { useCallback, useContext, useEffect, useRef, useState } from 'react'
+import React, { useCallback, useContext, useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+
 import { AdminAuthContext } from 'context/AdminAuthContext'
+
+import { checkEmailRegExp, checkPasswordRegExp } from 'util/checkRegExp'
+
 import styled from 'styled-components'
 import { palette } from 'styles/palette'
 import ButtonStyle from 'styles/ButtonStyle'
 import FormStyle from 'styles/FormStyle'
 import InputStyle from 'styles/InputStyle'
-import { checkEmailRegExp, checkPasswordRegExp } from 'util/checkRegExp'
+import { AiFillEyeInvisible as CloseEyes, AiFillEye as OpenEyes } from 'react-icons/ai'
 
 export default function LoginPage() {
 	const navigate = useNavigate()
+
+	const [showPassword, setShowPassword] = useState<boolean>(false)
 
 	const { login } = useContext(AdminAuthContext)
 
@@ -62,6 +68,12 @@ export default function LoginPage() {
 		validEmail && validPassword ? setButtonActive(false) : setButtonActive(true)
 	}, [loginEmail, loginPassword])
 
+	//비밀번호 보임, 숨김
+	const showPasswordHandler = () => {
+		event?.preventDefault()
+		setShowPassword(!showPassword)
+	}
+
 	return (
 		<FormStyle onSubmit={loginHandler}>
 			<Title>로그인</Title>
@@ -75,12 +87,16 @@ export default function LoginPage() {
 				placeholder='비밀번호를 입력하세요.'
 				onChange={checkPassword}
 				className={validPassword ? 'valid' : 'invalid'}
+				type={showPassword ? 'text' : 'password'}
 			/>
 			<MsgBox>
 				{!validPassword && (
 					<WarningMsg>문자, 숫자, 특수문자를 포함하여 8자 이상 작성해주세요.</WarningMsg>
 				)}
 			</MsgBox>
+			<EyeButton onClick={showPasswordHandler}>
+				{showPassword ? <OpenEyes /> : <CloseEyes />}
+			</EyeButton>
 			<SubmitButton
 				type='submit'
 				disabled={buttonActive}
@@ -115,6 +131,15 @@ const WarningMsg = styled.span`
 	font-weight: bold;
 	color: ${palette.warningColor};
 `
+
+const EyeButton = styled.button`
+	color: ${palette.pointColor};
+	font-size: 25px;
+	position: absolute;
+	right: 10%;
+	bottom: 38%;
+`
+
 const SubmitButton = styled(ButtonStyle)`
 	&.buttonOff {
 		opacity: 0.3;

@@ -11,9 +11,12 @@ import { palette } from 'styles/palette'
 import ButtonStyle from 'styles/ButtonStyle'
 import FormStyle from 'styles/FormStyle'
 import InputStyle from 'styles/InputStyle'
+import { AiFillEyeInvisible as CloseEyes, AiFillEye as OpenEyes } from 'react-icons/ai'
 
 export default function RegisterPage() {
 	const navigate = useNavigate()
+
+	const [showPassword, setShowPassword] = useState<boolean>(false)
 
 	// 유효성검사를 통과한 이메일과 비밀번호, 닉네임
 	const [registerEmail, setRegisterEmail] = useState('')
@@ -87,6 +90,11 @@ export default function RegisterPage() {
 			: setButtonActive(true)
 	}, [registerEmail, registerPassword, nickname])
 
+	//비밀번호 보임, 숨김
+	const showPasswordHandler = () => {
+		event?.preventDefault()
+		setShowPassword(!showPassword)
+	}
 	return (
 		<FormStyle onSubmit={registerHandler}>
 			<Title>회원가입</Title>
@@ -100,12 +108,16 @@ export default function RegisterPage() {
 				placeholder='비밀번호를 입력하세요.'
 				onChange={checkPassword}
 				className={validPassword ? 'valid' : 'invalid'}
+				type={showPassword ? 'text' : 'password'}
 			/>
 			<MsgBox>
 				{!validPassword && (
 					<WarningMsg>문자, 숫자, 특수문자를 포함하여 8자 이상 작성해주세요.</WarningMsg>
 				)}
 			</MsgBox>
+			<EyeButton onClick={showPasswordHandler}>
+				{showPassword ? <OpenEyes /> : <CloseEyes />}
+			</EyeButton>
 			<InputStyle
 				placeholder='별명을 입력하세요.'
 				onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
@@ -148,6 +160,14 @@ const WarningMsg = styled.span`
 	font-weight: bold;
 	color: ${palette.warningColor};
 `
+
+const EyeButton = styled.button`
+	color: ${palette.pointColor};
+	font-size: 25px;
+	position: absolute;
+	right: 10%;
+`
+
 const SubmitButton = styled(ButtonStyle)`
 	&.buttonOff {
 		opacity: 0.3;

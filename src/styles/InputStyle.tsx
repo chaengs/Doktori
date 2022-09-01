@@ -5,6 +5,7 @@ interface InputType {
 	placeholder?: string
 	onChange?: React.ChangeEventHandler<HTMLInputElement>
 	className?: string
+	type?: string
 }
 
 const Input = styled.input`
@@ -16,6 +17,6 @@ const Input = styled.input`
 	padding-left: 10px;
 	border: 2px solid;
 `
-export default function InputStyle({ placeholder, onChange, className }: InputType) {
-	return <Input placeholder={placeholder} onChange={onChange} className={className} />
+export default function InputStyle({ placeholder, onChange, className, type }: InputType) {
+	return <Input placeholder={placeholder} onChange={onChange} className={className} type={type} />
 }
