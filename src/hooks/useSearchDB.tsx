@@ -1,20 +1,22 @@
 import React, { useEffect, useState } from 'react'
 import {
-	collection,
+	CollectionReference,
 	DocumentData,
 	getDocs,
 	query,
 	QueryDocumentSnapshot,
 	where,
 } from 'firebase/firestore'
-import { firebaseDB } from 'firebase-config'
 
-export default function useSearchReviewByTitle(keyword: string) {
-	const [data, setData] = useState<DocumentData | any>()
-	const reviewsCollectionRef = collection(firebaseDB, 'bookReviews')
+export default function useSearchDB(
+	collectionRef: CollectionReference<DocumentData>,
+	keyword: string,
+	value: string | null,
+) {
+	const [data, setData] = useState<DocumentData>()
 
 	const getIsbnData = async () => {
-		const dataByQuery = query(reviewsCollectionRef, where('bookTitle', '==', keyword))
+		const dataByQuery = query(collectionRef, where(keyword, '==', value))
 		const resultData = await getDocs(dataByQuery)
 		const newData = resultData.docs.map((doc) => ({
 			...(doc.data() as QueryDocumentSnapshot<unknown>),

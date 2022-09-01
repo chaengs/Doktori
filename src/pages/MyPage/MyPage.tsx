@@ -1,5 +1,6 @@
-import { DocumentData } from 'firebase/firestore'
-import useSearchUserByEmail from 'hooks/useSearchUserByEmail'
+import { firebaseDB } from 'firebase-config'
+import { collection } from 'firebase/firestore'
+import useSearchDB from 'hooks/useSearchDB'
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
@@ -12,8 +13,11 @@ export default function MyPage() {
 
 	const [user, setUser] = useState<userInfoType | any>()
 
+	//useSearchDB 커스텀 훅으로 유저 쿼리 검색
 	const userEmail = localStorage.getItem('userEmail')
-	const userArray = useSearchUserByEmail(userEmail)
+	const usersCollectionRef = collection(firebaseDB, 'users')
+
+	const userArray = useSearchDB(usersCollectionRef, 'email', userEmail)
 	useEffect(() => {
 		if (userArray) {
 			const userInfo = userArray[0]
