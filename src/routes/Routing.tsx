@@ -5,7 +5,6 @@ import Path from './Path'
 import Header from '../components/Header'
 import RegisterPage from 'pages/RegisterPage/RegisterPage'
 import BookDetailPage from '../pages/DetailPage/BookDetailPage'
-import LandingPage from '../pages/landingPage/LandingPage'
 import LoginPage from '../pages/LoginPage/LoginPage'
 import MainPage from 'pages/mainPage/MainPage'
 import SearchPage from '../pages/SearchPage/SearchPage'
@@ -29,13 +28,10 @@ function Routing() {
 					<Route path={Path.bookDetail} element={<BookDetailPage />} />
 					<Route path={Path.reviewDetail} element={<ReviewDetailPage />} />
 					{/* 비로그인 상태로만 접근 가능 */}
-					<Route
-						path={Path.login}
-						element={isLoggedIn ? <Navigate to={'/main'} /> : <LoginPage />}
-					/>
+					<Route path={Path.login} element={isLoggedIn ? <Navigate to={'/'} /> : <LoginPage />} />
 					<Route
 						path={Path.register}
-						element={isLoggedIn ? <Navigate to={'/main'} /> : <RegisterPage />}
+						element={isLoggedIn ? <Navigate to={'/'} /> : <RegisterPage />}
 					/>
 					{/* 404페이지 */}
 					{/* 로그인 상태로만 접근 가능 */}

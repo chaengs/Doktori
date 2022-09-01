@@ -1,17 +1,22 @@
 import React, { useEffect, useState } from 'react'
 import { useLocation } from 'react-router-dom'
 import ReviewCard from 'components/ReviewCard'
-import useSearchReviewByUserId from 'hooks/useSearchReviewByUserId'
 import { ReviewCardType } from 'types/review'
 import styled from 'styled-components'
 import { palette } from 'styles/palette'
+import { collection } from 'firebase/firestore'
+import { firebaseDB } from 'firebase-config'
+import useSearchDB from 'hooks/useSearchDB'
 
 export default function MyBookShelf() {
 	const [reviewCheck, setReviewCheck] = useState<boolean>(false)
 
 	const { state } = useLocation()
 	const { user } = state as any
-	const reviewList = useSearchReviewByUserId(user.uid)
+
+	//useSearchDB 커스텀 훅으로 한 유저의 모든 리뷰 쿼리 검색
+	const reviewsCollectionRef = collection(firebaseDB, 'bookReviews')
+	const reviewList = useSearchDB(reviewsCollectionRef, 'writerId', user.uid)
 
 	useEffect(() => {
 		if (reviewList) {

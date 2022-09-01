@@ -31,9 +31,6 @@ export default function LoginPage() {
 	const loginHandler = async () => {
 		event?.preventDefault()
 		await login(loginEmail, loginPassword)
-		if (localStorage.getItem('localLoggedIn')) {
-			navigate('/')
-		}
 	}
 
 	const checkEmail = useCallback(

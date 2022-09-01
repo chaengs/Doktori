@@ -1,9 +1,15 @@
-import useSearchUserByEmail from 'hooks/useSearchUserByEmail'
 import React, { useEffect, useState } from 'react'
 import { useLocation } from 'react-router-dom'
-import styled from 'styled-components'
-import { userInfoType } from 'types/userInfoType'
+
+import { firebaseDB } from 'firebase-config'
+import { collection } from 'firebase/firestore'
+
 import ReviewEditor from './components/ReviewEditor'
+import useSearchDB from 'hooks/useSearchDB'
+
+import { userInfoType } from 'types/userInfoType'
+
+import styled from 'styled-components'
 
 export default function CreateReviewPage() {
 	interface bookInfo {
@@ -22,7 +28,8 @@ export default function CreateReviewPage() {
 
 	//유저 정보 받아오기
 	const writerEmail = localStorage.getItem('userEmail')
-	const userArray = useSearchUserByEmail(writerEmail)
+	const usersCollectionRef = collection(firebaseDB, 'users')
+	const userArray = useSearchDB(usersCollectionRef, 'email', writerEmail)
 
 	useEffect(() => {
 		if (userArray) {

@@ -1,16 +1,21 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { collection } from 'firebase/firestore'
+
 import { firebaseDB } from '../../firebase-config'
-import ReviewCard from 'pages/DetailPage/components/ReviewCard'
+
 import { AdminAuthContext } from 'context/AdminAuthContext'
-import useSearchReviewByTitle from 'hooks/useSearchReviewByTitle'
+
+import ReviewCard from 'pages/DetailPage/components/ReviewCard'
 import useSearchBook from 'hooks/useSearchBook'
+import useSearchDB from 'hooks/useSearchDB'
+
 import { BookInfoType, SearchBookType } from '../../types/bookType'
+import { ReviewCardType } from 'types/review'
+
 import styled from 'styled-components'
 import { palette } from 'styles/palette'
 import ButtonStyle from 'styles/ButtonStyle'
-import { ReviewCardType } from 'types/review'
 
 export default function BookDetailPage() {
 	const navigate = useNavigate()
@@ -48,7 +53,9 @@ export default function BookDetailPage() {
 	}, [apiResult])
 
 	//useSearchDB 커스텀 훅으로 리뷰 쿼리 검색
-	const reviewList = useSearchReviewByTitle(title)
+	const reviewsCollectionRef = collection(firebaseDB, 'bookReviews')
+	const reviewList = useSearchDB(reviewsCollectionRef, 'bookTitle', title)
+
 	useEffect(() => {
 		if (reviewList) {
 			if (reviewList.length > 0) {
@@ -78,7 +85,7 @@ export default function BookDetailPage() {
 			</BookInfoBox>
 			<ButtonStyle onClick={moveToReviewEditor}>리뷰 작성하기</ButtonStyle>
 			<ReviewListTitle>다른 독자들의 감상을 살펴보세요.</ReviewListTitle>
-			{reviewCheck ? (
+			{reviewCheck && reviewList ? (
 				reviewList.map((review: ReviewCardType) => (
 					<ReviewCard
 						key={review.id}
