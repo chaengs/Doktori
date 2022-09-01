@@ -17,7 +17,7 @@ export default function Header() {
 	return (
 		<>
 			<HeaderContainer>
-				<LogoContainer onClick={() => navigate('/main')}>
+				<LogoContainer onClick={() => navigate('/')}>
 					<LogoImg src={logo} />
 					<TitleStyle>독토리</TitleStyle>
 				</LogoContainer>
@@ -28,6 +28,7 @@ export default function Header() {
 					) : (
 						<LinkButton onClick={() => navigate('/login')}>로그인</LinkButton>
 					)}
+					{isLoggedIn && <LinkButton onClick={() => navigate('/mypage')}>마이페이지</LinkButton>}
 					{!isLoggedIn && <LinkButton onClick={() => navigate('/register')}>회원가입</LinkButton>}
 				</ButtonContainer>
 			</HeaderContainer>

@@ -1,6 +1,5 @@
 enum Path {
-	landing = '/',
-	main = 'main',
+	main = '/',
 	search = 'search',
 	bookDetail = 'bookdetail',
 	reviewDetail = 'reviewdetail',
@@ -8,6 +7,9 @@ enum Path {
 	register = 'register',
 	editReview = 'editReview',
 	createReview = 'createReview',
+	myPage = 'mypage',
+	myBookShelf = 'mybookshelf',
+	myProfile = 'myprofile',
 }
 
 export default Path

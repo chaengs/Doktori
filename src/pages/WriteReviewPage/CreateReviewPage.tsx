@@ -20,13 +20,15 @@ export default function CreateReviewPage() {
 	const { state } = useLocation()
 	const { bookThumbnail, bookTitle, bookAuthors, bookIsbn, publisher } = state as bookInfo
 
-	//유저 닉네임과 uid를 받아오기 위함
+	//유저 정보 받아오기
 	const writerEmail = localStorage.getItem('userEmail')
 	const userArray = useSearchUserByEmail(writerEmail)
 
 	useEffect(() => {
-		const userInfo = userArray?.[0]
-		setUser(userInfo)
+		if (userArray) {
+			const userInfo = userArray[0]
+			setUser(userInfo)
+		}
 	}, [state, userArray])
 
 	return (

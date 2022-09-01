@@ -34,7 +34,6 @@ export function AdminAuthProvider({ children }: ImportChildren) {
 		signInWithEmailAndPassword(firebaseAuth, email, password)
 			.then((userCredential) => {
 				const user = userCredential.user
-				console.log(user)
 				setIsloggedIn(true)
 				localStorage.setItem('localLoggedIn', 'true')
 				localStorage.setItem('userEmail', email)

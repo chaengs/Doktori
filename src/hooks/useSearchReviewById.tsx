@@ -4,10 +4,10 @@ import { firebaseDB } from 'firebase-config'
 
 export default function useSearchReviewById(keyword: string) {
 	const [data, setData] = useState<DocumentData>()
-	const reviewsCollectionRef = doc(firebaseDB, 'bookReviews', keyword)
+	const reviewRef = doc(firebaseDB, 'bookReviews', keyword)
 
 	const getReviewDataById = async () => {
-		const resultData = await getDoc(reviewsCollectionRef)
+		const resultData = await getDoc(reviewRef)
 		if (resultData.exists()) {
 			const newData = resultData.data()
 			setData(newData)
