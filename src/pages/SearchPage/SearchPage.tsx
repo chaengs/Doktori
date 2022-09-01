@@ -28,7 +28,7 @@ export default function SearchPage() {
 		setResult(data)
 		setTimeout(() => {
 			setLoading(false)
-		}, 500)
+		}, 450)
 	}
 
 	const inutValueHandler = () => {
