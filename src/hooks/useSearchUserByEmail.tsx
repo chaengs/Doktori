@@ -1,16 +1,10 @@
 import React, { useEffect, useState } from 'react'
-import {
-	collection,
-	DocumentData,
-	getDocs,
-	query,
-	QueryDocumentSnapshot,
-	where,
-} from 'firebase/firestore'
+import { collection, getDocs, query, QueryDocumentSnapshot, where } from 'firebase/firestore'
 import { firebaseDB } from 'firebase-config'
+import { ReviewType } from 'types/review'
 
-export default function useSearchUserByEmail(keyword: string | null) {
-	const [data, setData] = useState<DocumentData | any>()
+export default function useSearchUser(keyword: string | null) {
+	const [data, setData] = useState<ReviewType | any>()
 	const usersCollectionRef = collection(firebaseDB, 'users')
 
 	const getUserData = async () => {

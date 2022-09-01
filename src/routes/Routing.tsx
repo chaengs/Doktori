@@ -12,6 +12,9 @@ import SearchPage from '../pages/SearchPage/SearchPage'
 import ReviewDetailPage from 'pages/DetailPage/ReviewDetailPage'
 import EditReviewPage from 'pages/WriteReviewPage/EditReviewPage'
 import CreateReviewPage from 'pages/WriteReviewPage/CreateReviewPage'
+import MyPage from 'pages/MyPage/MyPage'
+import MyBookShelf from 'pages/MyPage/MyBookShelf'
+import MyProfile from 'pages/MyPage/MyProfile'
 
 function Routing() {
 	const { isLoggedIn } = useContext(AdminAuthContext)
@@ -19,7 +22,6 @@ function Routing() {
 	return (
 		<BrowserRouter>
 			<Routes>
-				<Route path='/' element={<LandingPage />} />
 				<Route element={<Header />}>
 					{/* 비로그인 상태에도 접근 가능 */}
 					<Route path={Path.main} element={<MainPage />} />
@@ -39,6 +41,9 @@ function Routing() {
 					{/* 로그인 상태로만 접근 가능 */}
 					{isLoggedIn && <Route path={Path.editReview} element={<EditReviewPage />} />}
 					{isLoggedIn && <Route path={Path.createReview} element={<CreateReviewPage />} />}
+					{isLoggedIn && <Route path={Path.myPage} element={<MyPage />} />}
+					{isLoggedIn && <Route path={Path.myBookShelf} element={<MyBookShelf />} />}
+					{isLoggedIn && <Route path={Path.myProfile} element={<MyProfile />} />}
 				</Route>
 			</Routes>
 		</BrowserRouter>

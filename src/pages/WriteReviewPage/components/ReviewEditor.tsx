@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
 import { firebaseDB } from '../../../firebase-config'
-import { addDoc, collection, doc, updateDoc } from 'firebase/firestore'
+import { addDoc, collection, doc, DocumentData, updateDoc } from 'firebase/firestore'
 
 import { ReviewType } from 'types/review'
 import { userInfoType } from 'types/userInfoType'
@@ -22,7 +22,7 @@ interface EditPage {
 	bookAuthors?: []
 	bookIsbn?: string
 	publisher?: string
-	user?: userInfoType
+	user?: DocumentData
 }
 
 interface bookInfo {
