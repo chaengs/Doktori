@@ -28,7 +28,7 @@ export default function RegisterPage() {
 
 	const usersCollectionRef = collection(firebaseDB, 'users')
 
-	const register = () => {
+	const registerHandler = () => {
 		event?.preventDefault()
 		createUserWithEmailAndPassword(firebaseAuth, registerEmail, registerPassword)
 			.then((userCredential) => {
@@ -40,14 +40,18 @@ export default function RegisterPage() {
 					uid: user.uid,
 				}).then(() => {
 					alert('회원가입이 완료되었습니다.')
-					navigate('/main')
+					navigate('/')
 				})
 			})
 			.catch((error) => {
 				if (error instanceof Error) {
 					console.log(error.message)
 				}
+				if (error.code === 'auth/email-already-in-use') {
+					alert('이미 존재하는 이메일입니다.')
+				}
 			})
+		// }
 	}
 
 	const checkEmail = useCallback(
@@ -84,7 +88,7 @@ export default function RegisterPage() {
 	}, [registerEmail, registerPassword, nickname])
 
 	return (
-		<FormStyle onSubmit={register}>
+		<FormStyle onSubmit={registerHandler}>
 			<Title>회원가입</Title>
 			<StyledInput
 				placeholder='이메일을 입력하세요.'

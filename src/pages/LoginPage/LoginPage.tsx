@@ -1,4 +1,4 @@
-import React, { useCallback, useContext, useEffect, useState } from 'react'
+import React, { useCallback, useContext, useEffect, useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { AdminAuthContext } from 'context/AdminAuthContext'
 import styled from 'styled-components'
@@ -10,6 +10,7 @@ import { checkEmailRegExp, checkPasswordRegExp } from 'util/checkRegExp'
 
 export default function LoginPage() {
 	const navigate = useNavigate()
+
 	const { login } = useContext(AdminAuthContext)
 
 	const [loginEmail, setLoginEmail] = useState('')
@@ -26,7 +27,7 @@ export default function LoginPage() {
 		await login(loginEmail, loginPassword)
 		if (localStorage.getItem('localLoggedIn')) {
 			alert('로그인 되었습니다.')
-			navigate(-1)
+			navigate('/')
 		}
 	}
 
