@@ -19,7 +19,6 @@ export default function useSearchBook(query: string, size: number) {
 
 	useEffect(() => {
 		SearchBookHandler()
-		console.log(data)
 	}, [])
 	return data
 }

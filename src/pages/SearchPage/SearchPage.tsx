@@ -26,7 +26,9 @@ export default function SearchPage() {
 		const searchData = await bookSearch(params)
 		const data = searchData.data.documents
 		setResult(data)
-		setLoading(false)
+		setTimeout(() => {
+			setLoading(false)
+		}, 500)
 	}
 
 	const inutValueHandler = () => {
@@ -45,6 +47,7 @@ export default function SearchPage() {
 			<SearchBarContainer onSubmit={inutValueHandler}>
 				<SearchBarInput type='text' placeholder='도서명 또는 작가를 검색하세요.' ref={inputRef} />
 			</SearchBarContainer>
+			{!result && <Message>수 많은 책들이 여러분을 기다리고 있어요.</Message>}
 			{result && (
 				<BookCardContainer>
 					{result.map((data, index) => (
@@ -82,8 +85,15 @@ const SearchBarInput = styled.input`
 	::placeholder {
 		text-align: center;
 	}
-	//
 `
+const Message = styled.p`
+	font-family: Cafe24Ssurround;
+	font-size: 25px;
+	color: ${palette.pointColor};
+	text-align: center;
+	margin-top: 60px;
+`
+
 const BookCardContainer = styled.ul`
 	display: flex;
 	justify-content: center;

@@ -68,10 +68,10 @@ export default function ReviewDetailPage() {
 	return (
 		<ReviewContainer>
 			{isWriter && (
-				<div>
-					<button onClick={moveToEditPage}>수정하기</button>
-					<button onClick={deleteReview}>삭제하기</button>
-				</div>
+				<ButtonBox>
+					<EditButton onClick={moveToEditPage}>수정하기</EditButton>
+					<DeleteButton onClick={deleteReview}>삭제하기</DeleteButton>
+				</ButtonBox>
 			)}
 			<BookInfoContainer>
 				<BookImg
@@ -116,6 +116,26 @@ const ReviewContainer = styled.article`
 	align-items: center;
 	position: relative;
 	top: 5%;
+`
+const ButtonBox = styled.div`
+	position: relative;
+	top: -10%;
+	left: 38%;
+`
+const EditButton = styled.button`
+	width: 100px;
+	height: 50px;
+	font-family: Cafe24Ssurround;
+	font-size: 20px;
+	color: ${palette.fontColor};
+	border-radius: 7px;
+	background-color: ${palette.mainColor};
+	margin: 10px;
+`
+
+const DeleteButton = styled(EditButton)`
+	background-color: ${palette.warningColor};
+	color: ${palette.backgroundWhiteColor};
 `
 
 const BookInfoContainer = styled.section`
