@@ -10,15 +10,12 @@ import useSearchDB from 'hooks/useSearchDB'
 import { userType } from 'types/userType'
 
 import styled from 'styled-components'
-import { ReviewEditorBookInfo } from 'types/bookType'
 
 export default function CreateReviewPage() {
 	const [user, setUser] = useState<userType>()
 
 	//BookDetailPage 컴포넌트에서 prop 받아옴
 	const { state } = useLocation()
-	// const { bookThumbnail, bookTitle, bookAuthors, bookIsbn, publisher } =
-	// 	state as ReviewEditorBookInfo
 
 	//유저 정보 받아오기
 	const writerEmail = localStorage.getItem('userEmail')
@@ -34,16 +31,7 @@ export default function CreateReviewPage() {
 
 	return (
 		<EditorContainer>
-			<ReviewEditor
-				isEdit={false}
-				// bookThumbnail={bookThumbnail}
-				// bookTitle={bookTitle}
-				// bookAuthors={bookAuthors}
-				// bookIsbn={bookIsbn}
-				// publisher={publisher}
-				user={user}
-				bookData={state}
-			/>
+			<ReviewEditor isEdit={false} user={user} bookData={state} />
 		</EditorContainer>
 	)
 }

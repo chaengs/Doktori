@@ -4,28 +4,24 @@ import { useNavigate } from 'react-router-dom'
 import { firebaseDB } from '../../../firebase-config'
 import { addDoc, collection, doc, DocumentData, updateDoc } from 'firebase/firestore'
 
+import BookContainer from './BookContainer'
+
 import { ReviewType } from 'types/review'
 import { ReviewEditorBookInfo } from 'types/bookType'
 
 import { getStringDate } from 'util/getStringDate'
 
 import styled from 'styled-components'
-import { GiAcorn } from 'react-icons/gi'
 import { palette } from 'styles/palette'
 import ButtonStyle from 'styles/ButtonStyle'
-import BookContainer from 'pages/DetailPage/components/BookContainer'
+import ScoreBox from './ScoreBox'
 
 interface EditPage {
 	isEdit: boolean
 	originData?: ReviewType //edit
 	reviewId?: string //edit
-	// bookThumbnail?: string
-	// bookTitle?: string
-	// bookAuthors?: []
-	// bookIsbn?: string
-	// publisher?: string
 	user?: DocumentData //create
-	bookData?: ReviewEditorBookInfo | any
+	bookData?: ReviewEditorBookInfo | any //create
 }
 
 export default function ReviewEditor({ isEdit, originData, reviewId, user, bookData }: EditPage) {
@@ -34,7 +30,6 @@ export default function ReviewEditor({ isEdit, originData, reviewId, user, bookD
 	const [buttonActive, setButtonActive] = useState<boolean>(true)
 
 	//별점용 도토리
-	const [hovered, setHovered] = useState(0)
 	const [score, setScore] = useState(0)
 
 	const reviewsCollectionRef = collection(firebaseDB, 'bookReviews')
@@ -111,17 +106,7 @@ export default function ReviewEditor({ isEdit, originData, reviewId, user, bookD
 		<ReviewContainer>
 			<BookContainer bookInfo={isEdit ? originData : bookData} />
 			<ReviewEditorContainer>
-				<ScoreBox>
-					{[1, 2, 3, 4, 5].map((el) => (
-						<GiAcorn
-							className={`acorn ${(score >= el || hovered >= el) && 'green'}`}
-							key={el}
-							onMouseEnter={() => setHovered(el)}
-							onMouseLeave={() => setHovered(0)}
-							onClick={() => setScore(el)}
-						/>
-					))}
-				</ScoreBox>
+				<ScoreBox setScore={setScore} score={score} />
 				<DateBox>
 					<p>완독 날짜</p>
 					<DateInput
@@ -168,19 +153,7 @@ const ReviewEditorContainer = styled.section`
 	flex-direction: column;
 	align-items: center;
 `
-const ScoreBox = styled.div`
-	.acorn {
-		font-size: 30px;
-		opacity: 0.3;
-		margin: 10px 10px 15px 0;
-		cursor: pointer;
-	}
 
-	.green {
-		color: ${palette.mainColor};
-		opacity: 1;
-	}
-`
 const DateBox = styled.div`
 	display: flex;
 	align-items: center;
