@@ -20,6 +20,8 @@ function BookContainer({ bookInfo }: BookInfoType) {
 	)
 }
 
+export default React.memo(BookContainer)
+
 const BookInfoContainer = styled.section`
 	font-size: 20px;
 	display: flex;
@@ -43,5 +45,3 @@ const BookInfoContainer = styled.section`
 const BookTitle = styled.p`
 	font-size: 30px;
 `
-
-export default React.memo(BookContainer)

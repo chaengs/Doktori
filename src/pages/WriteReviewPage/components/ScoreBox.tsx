@@ -21,6 +21,8 @@ function ScoreBox({ setScore, score }: any) {
 	)
 }
 
+export default React.memo(ScoreBox)
+
 const Score = styled.div`
 	.acorn {
 		font-size: 30px;
@@ -34,5 +36,3 @@ const Score = styled.div`
 		opacity: 1;
 	}
 `
-
-export default React.memo(ScoreBox)

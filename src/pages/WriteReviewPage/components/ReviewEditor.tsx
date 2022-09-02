@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 import { firebaseDB } from '../../../firebase-config'
@@ -15,6 +15,7 @@ import styled from 'styled-components'
 import { palette } from 'styles/palette'
 import ButtonStyle from 'styles/ButtonStyle'
 import ScoreBox from './ScoreBox'
+import DateBox from './DateBox'
 
 interface EditPage {
 	isEdit: boolean
@@ -26,7 +27,7 @@ interface EditPage {
 
 export default function ReviewEditor({ isEdit, originData, reviewId, user, bookData }: EditPage) {
 	const [content, setContent] = useState('')
-	const [date, setDate] = useState<string | number | readonly string[]>(getStringDate(new Date()))
+	const [date, setDate] = useState<string>(getStringDate(new Date()))
 	const [buttonActive, setButtonActive] = useState<boolean>(true)
 
 	//별점용 도토리
@@ -54,6 +55,7 @@ export default function ReviewEditor({ isEdit, originData, reviewId, user, bookD
 		}
 	}, [content, score])
 
+	//독후감 수정
 	const editHandler = () => {
 		if (isEdit && originData && reviewId) {
 			const editReviewRef = doc(firebaseDB, 'bookReviews', reviewId)
@@ -75,6 +77,7 @@ export default function ReviewEditor({ isEdit, originData, reviewId, user, bookD
 		}
 	}
 
+	//독후감 새로 작성
 	const createHandler = () => {
 		if (!isEdit) {
 			addDoc(reviewsCollectionRef, {
@@ -102,20 +105,17 @@ export default function ReviewEditor({ isEdit, originData, reviewId, user, bookD
 		}
 	}
 
+	// 완독 날짜 선택
+	const changeDateHandler = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
+		setDate(event.target.value)
+	}, [])
+
 	return (
 		<ReviewContainer>
 			<BookContainer bookInfo={isEdit ? originData : bookData} />
 			<ReviewEditorContainer>
 				<ScoreBox setScore={setScore} score={score} />
-				<DateBox>
-					<p>완독 날짜</p>
-					<DateInput
-						className='input_date'
-						type='date'
-						value={date}
-						onChange={(e) => setDate(e.target.value)}
-					/>
-				</DateBox>
+				<DateBox date={date} onChange={changeDateHandler} />
 				<ContentInput
 					placeholder='독서는 즐거우셨나요? 여러분의 감상을 적어주세요. (10자 이상, 1500자 이하)'
 					onChange={(event) => {
@@ -152,24 +152,6 @@ const ReviewEditorContainer = styled.section`
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-`
-
-const DateBox = styled.div`
-	display: flex;
-	align-items: center;
-	margin-bottom: 15px;
-	p {
-		font-size: 20px;
-		margin-right: 10px;
-	}
-`
-const DateInput = styled.input`
-	width: auto;
-	height: 40px;
-	font-size: 18px;
-	border: 2px solid ${palette.mainColor};
-	border-radius: 7px;
-	padding: 5px;
 `
 
 const ContentInput = styled.textarea`
