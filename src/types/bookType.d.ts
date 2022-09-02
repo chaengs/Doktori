@@ -7,3 +7,11 @@ export interface BookInfoType {
 	publisher: string
 	isbn: string
 }
+
+interface ReviewEditorBookInfo {
+	bookThumbnail: string
+	bookTitle: string
+	bookAuthors: []
+	bookIsbn: string
+	publisher: string
+}

@@ -138,7 +138,6 @@ const EditButton = styled.button`
 	border-radius: 7px;
 	background-color: ${palette.mainColor};
 	margin-right: 10px;
-	margin-left: 10px;
 `
 
 const DeleteButton = styled(EditButton)`

@@ -5,45 +5,30 @@ import { firebaseDB } from '../../../firebase-config'
 import { addDoc, collection, doc, DocumentData, updateDoc } from 'firebase/firestore'
 
 import { ReviewType } from 'types/review'
+import { ReviewEditorBookInfo } from 'types/bookType'
+
 import { getStringDate } from 'util/getStringDate'
 
 import styled from 'styled-components'
 import { GiAcorn } from 'react-icons/gi'
 import { palette } from 'styles/palette'
 import ButtonStyle from 'styles/ButtonStyle'
+import BookContainer from 'pages/DetailPage/components/BookContainer'
 
 interface EditPage {
 	isEdit: boolean
-	originData?: ReviewType
-	reviewId?: string
-	bookInfo?: bookInfo
-	bookThumbnail?: string
-	bookTitle?: string
-	bookAuthors?: []
-	bookIsbn?: string
-	publisher?: string
-	user?: DocumentData
+	originData?: ReviewType //edit
+	reviewId?: string //edit
+	// bookThumbnail?: string
+	// bookTitle?: string
+	// bookAuthors?: []
+	// bookIsbn?: string
+	// publisher?: string
+	user?: DocumentData //create
+	bookData?: ReviewEditorBookInfo | any
 }
 
-interface bookInfo {
-	bookThumbnail: string
-	bookTitle: string
-	bookAuthors: []
-	bookIsbn: string
-	publisher: string
-}
-
-export default function ReviewEditor({
-	isEdit,
-	originData,
-	reviewId,
-	bookThumbnail,
-	bookTitle,
-	bookAuthors,
-	bookIsbn,
-	publisher,
-	user,
-}: EditPage) {
+export default function ReviewEditor({ isEdit, originData, reviewId, user, bookData }: EditPage) {
 	const [content, setContent] = useState('')
 	const [date, setDate] = useState<string | number | readonly string[]>(getStringDate(new Date()))
 	const [buttonActive, setButtonActive] = useState<boolean>(true)
@@ -98,11 +83,11 @@ export default function ReviewEditor({
 	const createHandler = () => {
 		if (!isEdit) {
 			addDoc(reviewsCollectionRef, {
-				bookThumbnail: bookThumbnail,
-				bookTitle: bookTitle,
-				bookAuthors: bookAuthors,
-				bookIsbn: bookIsbn,
-				publisher: publisher,
+				bookThumbnail: bookData?.bookThumbnail,
+				bookTitle: bookData?.bookTitle,
+				bookAuthors: bookData?.bookAuthors,
+				bookIsbn: bookData?.bookIsbn,
+				publisher: bookData?.publisher,
 				writer: user?.nickname,
 				writerId: user?.uid,
 				contents: content,
@@ -124,14 +109,7 @@ export default function ReviewEditor({
 
 	return (
 		<ReviewContainer>
-			<BookInfoContainer>
-				<img src={isEdit ? originData?.bookThumbnail : bookThumbnail} alt='책 표지' />
-				<div>
-					<BookTitle>{isEdit ? originData?.bookTitle : bookTitle}</BookTitle>
-					<p>{isEdit ? originData?.bookAuthors : bookAuthors} 지음</p>
-					<p>{isEdit ? originData?.publisher : publisher} 펴냄</p>
-				</div>
-			</BookInfoContainer>
+			<BookContainer bookInfo={isEdit ? originData : bookData} />
 			<ReviewEditorContainer>
 				<ScoreBox>
 					{[1, 2, 3, 4, 5].map((el) => (
@@ -183,30 +161,6 @@ const ReviewContainer = styled.article`
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
-`
-
-const BookInfoContainer = styled.section`
-	font-size: 20px;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	margin-bottom: 10px;
-	img {
-		width: 120px;
-		height: auto;
-	}
-
-	div {
-		margin-left: 20px;
-	}
-
-	p {
-		margin-bottom: 10px;
-	}
-`
-
-const BookTitle = styled.p`
-	font-size: 30px;
 `
 
 const ReviewEditorContainer = styled.section`
