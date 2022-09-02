@@ -9,8 +9,8 @@ import useSearchDB from 'hooks/useSearchDB'
 import { userType } from 'types/userType'
 
 import styled from 'styled-components'
-import { palette } from 'styles/palette'
 import ButtonStyle from 'styles/ButtonStyle'
+import { theme } from 'styles/theme'
 
 export default function MyPage() {
 	const navigate = useNavigate()
@@ -66,7 +66,7 @@ const Title = styled.h1`
 	font-size: 30px;
 	font-weight: bold;
 	text-align: center;
-	color: ${palette.pointColor};
+	color: ${theme.color.green};
 	margin: 20px;
 `
 

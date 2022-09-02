@@ -1,8 +1,8 @@
 import React from 'react'
 
 import styled, { keyframes } from 'styled-components'
-import { palette } from 'styles/palette'
 import logo from 'library/images/doctori_logo.png'
+import { theme } from 'styles/theme'
 
 export default function Loading() {
 	return (
@@ -15,7 +15,7 @@ export default function Loading() {
 export const Background = styled.div`
 	width: 100%;
 	height: 100%;
-	background-color: ${palette.backgroundColor};
+	background-color: ${theme.color.yellowgreen};
 	position: absolute;
 	top: 0;
 	left: 0;

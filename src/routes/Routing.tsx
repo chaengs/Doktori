@@ -7,9 +7,9 @@ import Path from './Path'
 
 import Header from '../components/Header'
 
-import MainPage from 'pages/mainPage/MainPage'
-import SearchPage from '../pages/SearchPage/SearchPage'
-import BookDetailPage from '../pages/DetailPage/BookDetailPage'
+import MainPage from 'pages/MainPage/MainPage'
+import SearchPage from 'pages/SearchPage/SearchPage'
+import BookDetailPage from 'pages/DetailPage/BookDetailPage'
 import ReviewDetailPage from 'pages/DetailPage/ReviewDetailPage'
 
 import RegisterPage from 'pages/RegisterPage/RegisterPage'

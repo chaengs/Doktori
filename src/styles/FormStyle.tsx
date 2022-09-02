@@ -1,7 +1,7 @@
 import React from 'react'
 
 import styled from 'styled-components'
-import { palette } from './palette'
+import { theme } from './theme'
 
 interface FormType {
 	children: React.ReactNode
@@ -11,8 +11,8 @@ interface FormType {
 const FormContainer = styled.form`
 	width: 700px;
 	height: 500px;
-	background-color: ${palette.backgroundWhiteColor};
-	border: 2px solid ${palette.pointColor};
+	background-color: ${theme.color.ivory};
+	border: 2px solid ${theme.color.green};
 	border-radius: 10px;
 	box-shadow: 0px 0px 5px 10px rgba(0, 0, 0, 0.2);
 	margin: 0 auto;
@@ -22,6 +22,11 @@ const FormContainer = styled.form`
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
+
+	${({ theme }) => theme.media.mobile`
+		width:90%;
+		height:50%;
+ 	`}
 `
 
 export default function FormStyle({ children, onSubmit }: FormType) {

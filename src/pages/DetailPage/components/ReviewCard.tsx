@@ -3,9 +3,9 @@ import { useNavigate } from 'react-router-dom'
 
 import { ReviewCardType } from 'types/review'
 
-import { palette } from 'styles/palette'
 import styled from 'styled-components'
 import { GiAcorn } from 'react-icons/gi'
+import { theme } from 'styles/theme'
 
 export default function ReviewCard({
 	bookThumbnail,
@@ -41,7 +41,7 @@ export default function ReviewCard({
 				<p>{registerDate}</p>
 			</WriterInfo>
 			<ContentBox>
-				{contents && contents.length > 150 ? `${contents.substring(0, 150)}...` : contents}
+				{contents && contents.length > 100 ? `${contents.substring(0, 100)}...` : contents}
 			</ContentBox>
 		</ReviewCardContainer>
 	)
@@ -50,44 +50,63 @@ export default function ReviewCard({
 const ReviewCardContainer = styled.div`
 	width: 880px;
 	height: 100px;
-	background-color: ${palette.backgroundWhiteColor};
-	border: 2px solid ${palette.mainColor};
+	font-size: 18px;
+	background-color: ${theme.color.ivory};
+	border: 2px solid ${theme.color.yellowgreen};
 	border-radius: 7px;
 	margin-top: 10px;
 	padding-left: 20px;
 	padding-right: 20px;
 	display: flex;
 	align-items: center;
+	justify-content: flex-start;
 	cursor: pointer;
 	img {
 		width: auto;
 		height: 80%;
 		box-shadow: 0px 0px 5px 3px rgba(0, 0, 0, 0.2);
 	}
-	p {
-		font-size: 18px;
-	}
+
+	${({ theme }) => theme.media.mobile`
+		width:100%;
+		font-size: 15px;
+		padding:5px;
+		img {
+			display:none;
+		}
+ 	`}
 `
 
 const WriterInfo = styled.div`
-	width: 330px;
+	width: auto;
+	white-space: nowrap;
 	text-align: center;
 	margin-left: 10px;
+	${({ theme }) => theme.media.mobile`
+		margin:0px;
+ 	`}
 `
 
 const ScoreBox = styled.div`
 	margin-top: 5px;
+	font-size: 15px;
 	.acorn {
-		font-size: 15px;
 		opacity: 0.3;
 		cursor: pointer;
 	}
 
 	.green {
-		color: ${palette.mainColor};
+		color: ${theme.color.green};
 		opacity: 1;
 	}
+
+	${({ theme }) => theme.media.mobile`
+		font-size:10px;
+ 	`}
 `
 const ContentBox = styled.p`
 	margin-left: 10px;
+	${({ theme }) => theme.media.mobile`
+		margin-left:5px;
+ 	`}
 `

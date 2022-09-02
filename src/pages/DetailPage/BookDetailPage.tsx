@@ -14,8 +14,8 @@ import { BookInfoType } from '../../types/bookType'
 import { ReviewCardType } from 'types/review'
 
 import styled from 'styled-components'
-import { palette } from 'styles/palette'
 import ButtonStyle from 'styles/ButtonStyle'
+import { theme } from 'styles/theme'
 
 export default function BookDetailPage() {
 	const navigate = useNavigate()
@@ -69,19 +69,21 @@ export default function BookDetailPage() {
 	return (
 		<BookInfoContainer>
 			<BookInfoBox>
-				<img src={bookInfo?.thumbnail} alt={bookInfo?.title} />
-				<div>
-					<Title>
-						<strong>{bookInfo?.title}</strong>
-					</Title>
-					<p>{bookInfo?.authors} 지음</p>
-					<p>{bookInfo?.publisher} 펴냄</p>
-					<p>
-						{newDatetimeYear}년 {newDatetimeMonth}월 출간
-					</p>
-					<p>ISBN {bookInfo?.isbn}</p>
-					<p>{bookInfo?.contents} ...</p>
-				</div>
+				<Book>
+					<img src={bookInfo?.thumbnail} alt={bookInfo?.title} />
+					<div>
+						<Title>
+							<strong>{bookInfo?.title}</strong>
+						</Title>
+						<p>{bookInfo?.authors} 지음</p>
+						<p>{bookInfo?.publisher} 펴냄</p>
+						<p>
+							{newDatetimeYear}년 {newDatetimeMonth}월 출간
+						</p>
+						<p>ISBN {bookInfo?.isbn}</p>
+					</div>
+				</Book>
+				<Content>{bookInfo?.contents}</Content>
 			</BookInfoBox>
 			<ButtonStyle onClick={moveToReviewEditor}>리뷰 작성하기</ButtonStyle>
 			<ReviewListTitle>다른 독자들의 감상을 살펴보세요.</ReviewListTitle>
@@ -110,7 +112,7 @@ export default function BookDetailPage() {
 const BookInfoContainer = styled.article`
 	width: 80%;
 	height: 80%;
-	background-color: ${palette.backgroundWhiteColor};
+	background-color: ${theme.color.ivory};
 	border-radius: 20px;
 	box-shadow: 0px 0px 5px 10px rgba(0, 0, 0, 0.2);
 	margin: 0 auto;
@@ -120,30 +122,62 @@ const BookInfoContainer = styled.article`
 	align-items: center;
 	position: relative;
 	top: 5%;
+	${({ theme }) => theme.media.mobile`
+		width: 96%;
+		height: auto;
+		top:10px;
+		padding:10px;
+ 	`}
 `
 
 const BookInfoBox = styled.section`
-	font-size: 20px;
 	display: flex;
-	justify-content: center;
+	flex-direction: column;
 	align-items: center;
 	top: 5%;
+`
+
+const Book = styled.div`
+	width: 90%;
+	font-size: 20px;
+	margin-bottom: 10px;
+	display: flex;
+	align-items: center;
 	img {
 		width: 200px;
 		height: auto;
 	}
 
 	div {
-		width: 50%;
 		margin-left: 15px;
 	}
 	p {
 		margin-bottom: 5px;
 	}
+
+	${({ theme }) => theme.media.mobile`
+		font-size:${theme.fontSize.mobileDesc};
+		img {
+			width:100px;
+		}
+ 	`}
 `
 
 const Title = styled.p`
-	font-size: 30px;
+	font-size: ${theme.fontSize.desktopTitle};
+
+	${({ theme }) => theme.media.mobile`
+			font-size:${theme.fontSize.mobileTitle}
+		 `}
+`
+
+const Content = styled.p`
+	width: 90%;
+	font-size: ${theme.fontSize.desktopDesc};
+
+	${({ theme }) => theme.media.mobile`
+		font-size:${theme.fontSize.mobileDesc};
+ 	`}
 `
 
 const ReviewListTitle = styled.p`
@@ -152,12 +186,21 @@ const ReviewListTitle = styled.p`
 	margin-top: 10px;
 	padding-top: 10px;
 	display: block;
+
+	${({ theme }) => theme.media.mobile`
+		font-size:${theme.fontSize.mobileTitle};
+ 	`}
 `
 
 const NoReview = styled.p`
 	font-size: 18px;
 	text-align: center;
-	background-color: ${palette.textBackgroundColor};
+	background-color: ${theme.color.lightYellowgreen};
 	margin-top: 30px;
 	padding-top: 10px;
+
+	${({ theme }) => theme.media.mobile`
+		font-size:${theme.fontSize.mobileDesc};
+		margin-top:10px;
+ 	`}
 `

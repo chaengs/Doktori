@@ -8,11 +8,11 @@ import { createUserWithEmailAndPassword } from 'firebase/auth'
 import { checkEmailRegExp, checkPasswordRegExp } from 'util/checkRegExp'
 
 import styled from 'styled-components'
-import { palette } from 'styles/palette'
 import ButtonStyle from 'styles/ButtonStyle'
 import FormStyle from 'styles/FormStyle'
 import InputStyle from 'styles/InputStyle'
 import { AiFillEyeInvisible as CloseEyes, AiFillEye as OpenEyes } from 'react-icons/ai'
+import { theme } from 'styles/theme'
 
 export default function RegisterPage() {
 	const navigate = useNavigate()
@@ -138,7 +138,7 @@ export default function RegisterPage() {
 }
 
 const Title = styled.h1`
-	color: ${palette.backgroundColor};
+	color: ${theme.color.green};
 	font-size: 28px;
 	font-family: Cafe24Ssurround;
 	margin-top: 20px;
@@ -146,10 +146,10 @@ const Title = styled.h1`
 
 const StyledInput = styled(InputStyle)`
 	&.valid {
-		border-color: ${palette.pointColor};
+		border-color: ${theme.color.green};
 	}
 	&.invalid {
-		border-color: ${palette.warningColor};
+		border-color: ${theme.color.orange};
 	}
 `
 
@@ -160,14 +160,23 @@ const MsgBox = styled.p`
 const WarningMsg = styled.span`
 	font-size: 15px;
 	font-weight: bold;
-	color: ${palette.warningColor};
+	color: ${theme.color.orange};
+
+	${({ theme }) => theme.media.mobile`
+		font-size:13px;
+ 	`}
 `
 
 const EyeButton = styled.span`
-	color: ${palette.pointColor};
+	color: ${theme.color.green};
 	font-size: 25px;
 	position: absolute;
 	right: 10%;
+
+	${({ theme }) => theme.media.mobile`
+		right:8%;
+		bottom:45%;
+ 	`}
 `
 
 const SubmitButton = styled(ButtonStyle)`

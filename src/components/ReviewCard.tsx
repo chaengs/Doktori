@@ -4,8 +4,8 @@ import { useNavigate } from 'react-router-dom'
 import { ReviewCardType } from 'types/review'
 
 import styled from 'styled-components'
-import { palette } from 'styles/palette'
 import { GiAcorn } from 'react-icons/gi'
+import { theme } from 'styles/theme'
 
 export default function ReviewCard({
 	bookThumbnail,
@@ -55,7 +55,7 @@ export default function ReviewCard({
 const ReviewCardBox = styled.div`
 	width: 450px;
 	height: 200px;
-	background-color: ${palette.backgroundWhiteColor};
+	background-color: ${theme.color.ivory};
 	border-radius: 7px;
 	box-shadow: 0px 0px 5px 3px rgba(0, 0, 0, 0.2);
 	margin-bottom: 10px;
@@ -70,10 +70,19 @@ const ReviewCardBox = styled.div`
 		height: 80%;
 		box-shadow: 0px 0px 5px 3px rgba(0, 0, 0, 0.2);
 	}
+
+	${({ theme }) => theme.media.mobile`
+		width: 96vw;
+		height: 180px;
+
+		img {
+			height: 150px;
+		}
+ 	`}
 `
 
 const ReviewInfo = styled.div`
-	font-size: 15px;
+	font-size: ${theme.fontSize.desktopBookDesc};
 	text-align: start;
 	margin-left: 15px;
 
@@ -83,20 +92,24 @@ const ReviewInfo = styled.div`
 `
 
 const Title = styled.p`
-	font-size: 18px;
+	font-size: ${theme.fontSize.desktopBookTitle};
 	font-weight: bold;
 	margin-bottom: 7px;
+
+	${({ theme }) => theme.media.mobile`
+		font-size:16px;
+ 	`}
 `
 const ScoreBox = styled.div`
 	margin-top: 5px;
 	.acorn {
-		font-size: 15px;
+		font-size: ${theme.fontSize.desktopBookTitle};
 		opacity: 0.3;
 		cursor: pointer;
 	}
 
 	.green {
-		color: ${palette.pointColor};
+		color: ${theme.color.green};
 		opacity: 1;
 	}
 `

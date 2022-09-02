@@ -1,0 +1,24 @@
+[debug] [2022-09-02T15:00:27.391Z] ----------------------------------------------------------------------
+[debug] [2022-09-02T15:00:27.394Z] Command:       /usr/local/bin/node /usr/local/bin/firebase hosting:disable
+[debug] [2022-09-02T15:00:27.395Z] CLI Version:   11.8.0
+[debug] [2022-09-02T15:00:27.395Z] Platform:      darwin
+[debug] [2022-09-02T15:00:27.395Z] Node Version:  v16.13.1
+[debug] [2022-09-02T15:00:27.405Z] Time:          Sat Sep 03 2022 00:00:27 GMT+0900 (Korean Standard Time)
+[debug] [2022-09-02T15:00:27.406Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2022-09-02T15:00:27.461Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2022-09-02T15:00:27.461Z] > authorizing via signed-in user (cathyshim222@gmail.com)
+[debug] [2022-09-02T15:00:27.461Z] [iam] checking project doktori-1eb0a for permissions ["firebase.projects.get","firebasehosting.sites.update"]
+[debug] [2022-09-02T15:00:27.464Z] > refreshing access token with scopes: []
+[debug] [2022-09-02T15:00:27.466Z] >>> [apiv2][query] POST https://www.googleapis.com/oauth2/v3/token [none]
+[debug] [2022-09-02T15:00:27.466Z] >>> [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2022-09-02T15:00:27.843Z] <<< [apiv2][status] POST https://www.googleapis.com/oauth2/v3/token 200
+[debug] [2022-09-02T15:00:27.843Z] <<< [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2022-09-02T15:00:27.896Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/doktori-1eb0a:testIamPermissions [none]
+[debug] [2022-09-02T15:00:27.897Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/doktori-1eb0a:testIamPermissions x-goog-quota-user=projects/doktori-1eb0a
+[debug] [2022-09-02T15:00:27.897Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/doktori-1eb0a:testIamPermissions {"permissions":["firebase.projects.get","firebasehosting.sites.update"]}
+[debug] [2022-09-02T15:00:28.958Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects/doktori-1eb0a:testIamPermissions 200
+[debug] [2022-09-02T15:00:28.958Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/doktori-1eb0a:testIamPermissions {"permissions":["firebase.projects.get","firebasehosting.sites.update"]}
+[debug] [2022-09-02T15:00:28.959Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/doktori-1eb0a [none]
+[debug] [2022-09-02T15:00:30.687Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/doktori-1eb0a 200
+[debug] [2022-09-02T15:00:30.687Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/doktori-1eb0a {"projectId":"doktori-1eb0a","projectNumber":"976840514510","displayName":"DOKTORI","name":"projects/doktori-1eb0a","resources":{"hostingSite":"doktori-1eb0a","storageBucket":"doktori-1eb0a.appspot.com","locationId":"asia-northeast1"},"state":"ACTIVE","etag":"1_f4e7c7c5-3378-42ac-8ff8-9239a3665ecc"}

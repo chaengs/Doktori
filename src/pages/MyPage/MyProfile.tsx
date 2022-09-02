@@ -2,7 +2,7 @@ import React from 'react'
 import { useLocation } from 'react-router-dom'
 
 import styled from 'styled-components'
-import { palette } from 'styles/palette'
+import { theme } from 'styles/theme'
 
 export default function MyProfile() {
 	const { state } = useLocation()
@@ -24,7 +24,7 @@ const Title = styled.h1`
 	font-size: 30px;
 	font-weight: bold;
 	text-align: center;
-	color: ${palette.pointColor};
+	color: ${theme.color.green};
 	margin: 20px;
 `
 
@@ -44,7 +44,10 @@ const UserInfoContainer = styled.div`
 const UserInfoBox = styled.section`
 	width: 500px;
 	height: 300px;
-	background-color: ${palette.backgroundWhiteColor};
+	background-color: ${theme.color.ivory};
 	position: relative;
 	top: 20%;
+	${({ theme }) => theme.media.mobile`
+		width:90%
+ 	`}
 `

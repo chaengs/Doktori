@@ -9,6 +9,7 @@ import useOrderReview from 'hooks/useOrderReview'
 import { ReviewCardType } from 'types/review'
 
 import styled from 'styled-components'
+import { theme } from 'styles/theme'
 
 export default function ReviewCardContainer() {
 	const [reviewCheck, setReviewCheck] = useState<boolean>(false)
@@ -28,7 +29,10 @@ export default function ReviewCardContainer() {
 
 	return (
 		<>
-			<Description>최근 올라온 독후감이에요. 다른 독자들은 어떤 책을 읽었을까요?</Description>
+			<MessageBox>
+				<Message>최근 올라온 독후감이에요.</Message>
+				<Message>다른 독자들은 어떤 책을 읽었을까요?</Message>
+			</MessageBox>
 			<ReviewCardBox>
 				{reviewCheck &&
 					reviewList?.map((review: ReviewCardType) => (
@@ -50,11 +54,20 @@ export default function ReviewCardContainer() {
 	)
 }
 
-const Description = styled.p`
-	font-size: 30px;
+const MessageBox = styled.div`
+	margin-top: 20px;
+	margin-bottom: 20px;
+`
+
+const Message = styled.p`
+	font-size: ${theme.fontSize.desktopTitle};
 	font-weight: bold;
 	text-align: center;
-	margin: 40px;
+	margin: 10px;
+
+	${({ theme }) => theme.media.mobile`
+		font-size:${theme.fontSize.mobileDesc};
+ 	`}
 `
 
 const ReviewCardBox = styled.ul`

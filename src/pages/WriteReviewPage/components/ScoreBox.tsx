@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
-import { GiAcorn } from 'react-icons/gi'
+
 import styled from 'styled-components'
-import { palette } from 'styles/palette'
+import { theme } from 'styles/theme'
+import { GiAcorn } from 'react-icons/gi'
 
 function ScoreBox({ setScore, score }: any) {
 	const [hovered, setHovered] = useState(0)
@@ -24,15 +25,19 @@ function ScoreBox({ setScore, score }: any) {
 export default React.memo(ScoreBox)
 
 const Score = styled.div`
+	font-size: 30px;
 	.acorn {
-		font-size: 30px;
 		opacity: 0.3;
 		margin: 10px 10px 15px 0;
 		cursor: pointer;
 	}
 
 	.green {
-		color: ${palette.mainColor};
+		color: ${theme.color.green};
 		opacity: 1;
 	}
+
+	${({ theme }) => theme.media.mobile`
+		font-size:${theme.fontSize.desktopDesc}
+ 	`}
 `

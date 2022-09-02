@@ -12,10 +12,10 @@ import { ReviewEditorBookInfo } from 'types/bookType'
 import { getStringDate } from 'util/getStringDate'
 
 import styled from 'styled-components'
-import { palette } from 'styles/palette'
 import ButtonStyle from 'styles/ButtonStyle'
 import ScoreBox from './ScoreBox'
 import DateBox from './DateBox'
+import { theme } from 'styles/theme'
 
 interface EditPage {
 	isEdit: boolean
@@ -128,7 +128,7 @@ export default function ReviewEditor({ isEdit, originData, reviewId, user, bookD
 					disabled={buttonActive}
 					className={buttonActive ? 'buttonOff' : 'buttonOn'}
 				>
-					{isEdit ? '수정 완료' : '작성 완료'}
+					{isEdit ? '수정완료' : '작성완료'}
 				</SubmitButton>
 			</ReviewEditorContainer>
 		</ReviewContainer>
@@ -138,7 +138,7 @@ export default function ReviewEditor({ isEdit, originData, reviewId, user, bookD
 const ReviewContainer = styled.article`
 	width: 80%;
 	height: 80%;
-	background-color: ${palette.backgroundWhiteColor};
+	background-color: ${theme.color.ivory};
 	border-radius: 20px;
 	box-shadow: 0px 0px 5px 10px rgba(0, 0, 0, 0.2);
 	margin-bottom: 40px;
@@ -146,6 +146,12 @@ const ReviewContainer = styled.article`
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
+	${({ theme }) => theme.media.mobile`
+		width: 96%;
+		height: 90%;
+		margin-bottom:10px;
+		padding:0px;
+ 	`}
 `
 
 const ReviewEditorContainer = styled.section`
@@ -159,8 +165,14 @@ const ContentInput = styled.textarea`
 	height: 30vh;
 	font-size: 20px;
 	padding: 10px;
-	border: 2px solid ${palette.mainColor};
+	border: 2px solid ${theme.color.yellowgreen};
 	border-radius: 7px;
+
+	${({ theme }) => theme.media.mobile`
+		width: 96%;
+		height: 400px;
+		font-size:${theme.fontSize.mobileDesc};
+ 	`}
 `
 const SubmitButton = styled(ButtonStyle)`
 	&.buttonOff {
@@ -169,4 +181,8 @@ const SubmitButton = styled(ButtonStyle)`
 	&.buttonOn {
 		opacity: 1;
 	}
+
+	${({ theme }) => theme.media.mobile`
+		width:80px;
+ 	`}
 `

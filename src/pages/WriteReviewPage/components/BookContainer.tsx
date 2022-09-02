@@ -1,5 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
+import { theme } from 'styles/theme'
 import { ReviewEditorBookInfo } from 'types/bookType'
 import { ReviewType } from 'types/review'
 
@@ -23,7 +24,7 @@ function BookContainer({ bookInfo }: BookInfoType) {
 export default React.memo(BookContainer)
 
 const BookInfoContainer = styled.section`
-	font-size: 20px;
+	font-size: ${theme.fontSize.desktopDesc};
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -40,8 +41,20 @@ const BookInfoContainer = styled.section`
 	p {
 		margin-bottom: 10px;
 	}
+
+	${({ theme }) => theme.media.mobile`
+		font-size:${theme.fontSize.mobileDesc};
+		width:95%;
+		margin:0 auto;
+		img {
+			width:100px;
+		}
+ 	`}
 `
 
 const BookTitle = styled.p`
-	font-size: 30px;
+	font-size: ${theme.fontSize.desktopTitle};
+	${({ theme }) => theme.media.mobile`
+		font-size:${theme.fontSize.mobileTitle};
+ 	`}
 `
