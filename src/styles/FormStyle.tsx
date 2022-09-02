@@ -24,8 +24,8 @@ const FormContainer = styled.form`
 	align-items: center;
 
 	${({ theme }) => theme.media.mobile`
-		width:90%;
-		height:50%;
+		width:350px;
+		height:420px;
  	`}
 `
 

@@ -1,4 +1,5 @@
-import React from 'react'
+import { NoImageContext } from 'context/NoImageContext'
+import React, { useContext } from 'react'
 import styled from 'styled-components'
 import { theme } from 'styles/theme'
 import { ReviewEditorBookInfo } from 'types/bookType'
@@ -9,9 +10,11 @@ interface BookInfoType {
 }
 
 function BookContainer({ bookInfo }: BookInfoType) {
+	const { onErrorImage } = useContext(NoImageContext)
+
 	return (
 		<BookInfoContainer>
-			<img src={bookInfo?.bookThumbnail} alt='책 표지' />
+			<img src={bookInfo?.bookThumbnail} alt='책 표지' onError={onErrorImage} />
 			<div>
 				<BookTitle>{bookInfo?.bookTitle}</BookTitle>
 				<p>{bookInfo?.bookAuthors} 지음</p>

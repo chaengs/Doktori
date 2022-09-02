@@ -148,9 +148,9 @@ const ReviewContainer = styled.article`
 	justify-content: center;
 	${({ theme }) => theme.media.mobile`
 		width: 96%;
-		height: 90%;
+		height: 780px;
 		margin-bottom:10px;
-		padding:0px;
+		padding:5px;
  	`}
 `
 

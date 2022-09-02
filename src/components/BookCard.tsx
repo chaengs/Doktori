@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 import { BookInfoType } from '../types/bookType'
 
 import styled from 'styled-components'
 import { theme } from 'styles/theme'
+import { NoImageContext } from 'context/NoImageContext'
 
 export default function BookCard({
 	thumbnail,
@@ -17,6 +18,8 @@ export default function BookCard({
 	const navigate = useNavigate()
 
 	const [newAuthors, setNewAuthors] = useState<string[] | string>(authors)
+
+	const { onErrorImage } = useContext(NoImageContext)
 
 	const moveToDetailPage = () => {
 		navigate('/bookdetail', {
@@ -41,7 +44,7 @@ export default function BookCard({
 
 	return (
 		<BookCardBox onClick={moveToDetailPage}>
-			<img src={thumbnail} alt={title} />
+			<img src={thumbnail} alt={title} onError={onErrorImage} />
 			<BookInfo>
 				<Title>{title}</Title>
 				<p>

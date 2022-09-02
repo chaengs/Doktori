@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { SyntheticEvent, useContext, useEffect, useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { collection, DocumentData } from 'firebase/firestore'
 
@@ -16,6 +16,7 @@ import { ReviewCardType } from 'types/review'
 import styled from 'styled-components'
 import ButtonStyle from 'styles/ButtonStyle'
 import { theme } from 'styles/theme'
+import { NoImageContext } from 'context/NoImageContext'
 
 export default function BookDetailPage() {
 	const navigate = useNavigate()
@@ -24,6 +25,8 @@ export default function BookDetailPage() {
 
 	const [reviewCheck, setReviewCheck] = useState(false)
 	const [bookInfo, setBookInfo] = useState<DocumentData>()
+
+	const { onErrorImage } = useContext(NoImageContext)
 
 	const newDatetimeYear = bookInfo?.datetime.slice(0, 4)
 	const newDatetimeMonth = bookInfo?.datetime.slice(5, 7)
@@ -70,7 +73,7 @@ export default function BookDetailPage() {
 		<BookInfoContainer>
 			<BookInfoBox>
 				<Book>
-					<img src={bookInfo?.thumbnail} alt={bookInfo?.title} />
+					<img src={bookInfo?.thumbnail} alt={bookInfo?.title} onError={onErrorImage}></img>
 					<div>
 						<Title>
 							<strong>{bookInfo?.title}</strong>
