@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 import { ReviewCardType } from 'types/review'
@@ -6,6 +6,7 @@ import { ReviewCardType } from 'types/review'
 import styled from 'styled-components'
 import { GiAcorn } from 'react-icons/gi'
 import { theme } from 'styles/theme'
+import { NoImageContext } from 'context/NoImageContext'
 
 export default function ReviewCard({
 	bookThumbnail,
@@ -19,6 +20,8 @@ export default function ReviewCard({
 }: ReviewCardType) {
 	const navigate = useNavigate()
 
+	const { onErrorImage } = useContext(NoImageContext)
+
 	const moveToReviewDetailPage = () => {
 		navigate('/reviewdetail', {
 			state: {
@@ -31,7 +34,7 @@ export default function ReviewCard({
 	return (
 		<ReviewCardBox onClick={moveToReviewDetailPage}>
 			<div>
-				<img src={bookThumbnail} alt={bookTitle} />
+				<img src={bookThumbnail} alt={bookTitle} onError={onErrorImage} />
 			</div>
 			<ReviewInfo>
 				<Title>{bookTitle.length > 20 ? `${bookTitle.substring(0, 20)}...` : bookTitle}</Title>
