@@ -10,7 +10,7 @@ import useSearchDB from 'hooks/useSearchDB'
 import { ReviewCardType } from 'types/review'
 
 import styled from 'styled-components'
-import { palette } from 'styles/palette'
+import { theme } from 'styles/theme'
 
 export default function MyBookShelf() {
 	const [reviewCheck, setReviewCheck] = useState<boolean>(false)
@@ -61,7 +61,7 @@ const Title = styled.h1`
 	font-size: 30px;
 	font-weight: bold;
 	text-align: center;
-	color: ${palette.pointColor};
+	color: ${theme.color.green};
 	margin: 20px;
 `
 

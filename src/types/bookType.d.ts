@@ -3,7 +3,6 @@ export interface BookInfoType {
 	title: string
 	authors: string[]
 	contents: string
-	datetime: string
 	publisher: string
 	isbn: string
 }

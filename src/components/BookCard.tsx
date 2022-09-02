@@ -1,21 +1,22 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 import { BookInfoType } from '../types/bookType'
 
 import styled from 'styled-components'
-import { palette } from 'styles/palette'
+import { theme } from 'styles/theme'
 
 export default function BookCard({
 	thumbnail,
 	title,
 	authors,
 	contents,
-	datetime,
 	publisher,
 	isbn,
 }: BookInfoType) {
 	const navigate = useNavigate()
+
+	const [newAuthors, setNewAuthors] = useState<string[] | string>(authors)
 
 	const moveToDetailPage = () => {
 		navigate('/bookdetail', {
@@ -27,18 +28,29 @@ export default function BookCard({
 		})
 	}
 
+	useEffect(() => {
+		if (authors.length > 2) {
+			const author = authors.join(',')
+			setNewAuthors(author)
+		}
+		if (authors.length > 3) {
+			const author = `${authors.slice(0, 3)}...`
+			setNewAuthors(author)
+		}
+	}, [])
+
 	return (
 		<BookCardBox onClick={moveToDetailPage}>
 			<img src={thumbnail} alt={title} />
 			<BookInfo>
 				<Title>{title}</Title>
 				<p>
-					{authors.length > 2 ? `${authors.join(', ')}` : authors} 지음&ensp;|&ensp;{publisher} 펴냄
+					{newAuthors} 지음&ensp;|&ensp;{publisher} 펴냄
 				</p>
-				<div>
-					{contents && contents.length > 150 ? `${contents.substring(0, 150)}...` : contents}
+				<Content>
+					{contents && contents.length > 100 ? `${contents.substring(0, 100)}...` : contents}
 					{!contents && '등록된 줄거리가 없습니다.'}
-				</div>
+				</Content>
 			</BookInfo>
 		</BookCardBox>
 	)
@@ -47,7 +59,7 @@ export default function BookCard({
 const BookCardBox = styled.li`
 	width: 500px;
 	height: 200px;
-	background-color: ${palette.backgroundWhiteColor};
+	background-color: ${theme.color.ivory};
 	border-radius: 7px;
 	box-shadow: 0px 0px 5px 3px rgba(0, 0, 0, 0.2);
 	margin: 10px;
@@ -61,21 +73,38 @@ const BookCardBox = styled.li`
 		height: 85%;
 		box-shadow: 0px 0px 5px 3px rgba(0, 0, 0, 0.2);
 	}
+
+	${({ theme }) => theme.media.mobile`
+		height:220px;
+ 	`}
 `
-
-const BookInfo = styled.div`
-	font-size: 15px;
-	white-space: wrap;
-	text-align: start;
-	margin-left: 15px;
-
-	p {
-		margin-bottom: 7px;
-	}
-`
-
 const Title = styled.p`
 	font-size: 25px;
 	font-weight: bold;
 	margin-bottom: 7px;
+
+	${({ theme }) => theme.media.mobile`
+		font-size:${theme.fontSize.mobileTitle}
+ 	`}
+`
+
+const BookInfo = styled.div`
+	white-space: wrap;
+	text-align: start;
+	margin-left: 15px;
+	font-size: 15px;
+
+	p {
+		margin-bottom: 7px;
+	}
+
+	${({ theme }) => theme.media.mobile`
+		font-size:${theme.fontSize.mobileDesc}
+ 	`}
+`
+
+const Content = styled.div`
+	height: 20%;
+	white-space: wrap;
+	text-overflow: ellipsis;
 `

@@ -7,7 +7,7 @@ import { deleteDoc, DocumentData, doc } from 'firebase/firestore'
 import useSearchReviewById from 'hooks/useSearchReviewById'
 
 import styled from 'styled-components'
-import { palette } from 'styles/palette'
+import { theme } from 'styles/theme'
 import { GiAcorn } from 'react-icons/gi'
 import Loading from 'components/Loading'
 
@@ -115,7 +115,7 @@ export default function ReviewDetailPage() {
 const ReviewContainer = styled.article`
 	width: 80%;
 	height: 80%;
-	background-color: ${palette.backgroundWhiteColor};
+	background-color: ${theme.color.ivory};
 	border-radius: 20px;
 	box-shadow: 0px 0px 5px 10px rgba(0, 0, 0, 0.2);
 	margin: 0 auto;
@@ -125,24 +125,13 @@ const ReviewContainer = styled.article`
 	align-items: center;
 	position: relative;
 	top: 5%;
-`
-const ButtonBox = styled.div`
-	margin-top: 10px;
-`
-const EditButton = styled.button`
-	width: 100px;
-	height: 50px;
-	font-family: Cafe24Ssurround;
-	font-size: 20px;
-	color: ${palette.fontColor};
-	border-radius: 7px;
-	background-color: ${palette.mainColor};
-	margin-right: 10px;
-`
-
-const DeleteButton = styled(EditButton)`
-	background-color: ${palette.warningColor};
-	color: ${palette.backgroundWhiteColor};
+	${({ theme }) => theme.media.mobile`
+		width: 96%;
+		height: auto;
+		top:10px;
+		padding:20px;
+		margin-bottom:30px;
+ 	`}
 `
 
 const BookInfoContainer = styled.section`
@@ -150,19 +139,21 @@ const BookInfoContainer = styled.section`
 	display: flex;
 	align-items: center;
 	margin-bottom: 10px;
-	img {
-		width: 120px;
-		height: auto;
-	}
 
 	p {
 		margin-bottom: 8px;
 	}
+	${({ theme }) => theme.media.mobile`
+		font-size:${theme.fontSize.mobileDesc};
+ 	`}
 `
 const BookImg = styled.img`
 	width: 120px;
 	height: auto;
 	cursor: pointer;
+	${({ theme }) => theme.media.mobile`
+		width:100px;
+ 	`}
 `
 
 const BookInfoBox = styled.div`
@@ -172,24 +163,29 @@ const BookInfoBox = styled.div`
 const BookTitle = styled.p`
 	font-size: 30px;
 	cursor: pointer;
+	${({ theme }) => theme.media.mobile`
+		font-size:${theme.fontSize.mobileTitle};
+ 	`}
 `
 
 const ScoreBox = styled.div`
 	margin-bottom: 5px;
+	font-size: 20px;
 	.acorn {
-		font-size: 20px;
 		opacity: 0.3;
 	}
 
 	.green {
-		color: ${palette.mainColor};
+		color: ${theme.color.green};
 		opacity: 1;
 	}
+	${({ theme }) => theme.media.mobile`
+		font-size:${theme.fontSize.mobileDesc};
+ 	`}
 `
 const WriterInfo = styled.div`
 	margin-bottom: 15px;
 	p {
-		font-size: 20px;
 		margin-right: 10px;
 	}
 `
@@ -197,7 +193,35 @@ const ContentBox = styled.section`
 	width: 65%;
 	font-size: 20px;
 	line-height: 25px;
-	background-color: ${palette.textBackgroundColor};
+	background-color: ${theme.color.lightYellowgreen};
 	border-radius: 7px;
 	padding: 10px;
+	${({ theme }) => theme.media.mobile`
+		width: 93%;
+		font-size:${theme.fontSize.mobileTitle};
+ 	`}
+`
+
+const ButtonBox = styled.div`
+	margin-top: 10px;
+`
+const EditButton = styled.button`
+	width: 100px;
+	height: 50px;
+	font-family: Cafe24Ssurround;
+	font-size: 20px;
+	color: ${theme.color.green};
+	border-radius: 7px;
+	background-color: ${theme.color.yellowgreen};
+	margin-right: 10px;
+	${({ theme }) => theme.media.mobile`
+		width:80px;
+		height:35px;
+		font-size:${theme.fontSize.mobileTitle};
+ 	`}
+`
+
+const DeleteButton = styled(EditButton)`
+	background-color: ${theme.color.orange};
+	color: ${theme.color.ivory};
 `

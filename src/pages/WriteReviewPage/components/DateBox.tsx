@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
-import { palette } from 'styles/palette'
+import { theme } from 'styles/theme'
 
 interface DateBoxType {
 	date: string
@@ -27,16 +27,24 @@ const DateContainer = styled.div`
 	display: flex;
 	align-items: center;
 	margin-bottom: 15px;
+	font-size: 20px;
 	p {
-		font-size: 20px;
 		margin-right: 10px;
 	}
+
+	${({ theme }) => theme.media.mobile`
+		font-size:${theme.fontSize.mobileTitle};
+ 	`}
 `
 const DateInput = styled.input`
 	width: auto;
 	height: 40px;
 	font-size: 18px;
-	border: 2px solid ${palette.mainColor};
+	border: 2px solid ${theme.color.yellowgreen};
 	border-radius: 7px;
 	padding: 5px;
+
+	${({ theme }) => theme.media.mobile`
+		font-size:${theme.fontSize.mobileDesc};
+ 	`}
 `

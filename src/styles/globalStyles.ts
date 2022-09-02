@@ -1,5 +1,5 @@
 import { createGlobalStyle } from 'styled-components'
-import { palette } from './palette'
+import { theme } from './theme'
 
 const GlobalStyles = createGlobalStyle`
 @font-face {
@@ -12,7 +12,7 @@ html,
 body,
 #root {
   height: 100%;
-  background-color: ${palette.backgroundColor};
+  background-color: ${theme.color.yellowgreen};
   overflow-x: hidden;
 }
 * {

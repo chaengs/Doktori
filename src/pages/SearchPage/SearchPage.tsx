@@ -7,7 +7,7 @@ import Loading from 'components/Loading'
 import { bookSearch } from 'library/api/api'
 
 import styled from 'styled-components'
-import { palette } from 'styles/palette'
+import { theme } from 'styles/theme'
 
 export default function SearchPage() {
 	const [result, setResult] = useState<DocumentData[]>()
@@ -57,7 +57,6 @@ export default function SearchPage() {
 							title={data.title}
 							authors={data.authors}
 							contents={data.contents}
-							datetime={data.datetime}
 							publisher={data.publisher}
 							isbn={data.isbn}
 						/>
@@ -77,7 +76,7 @@ const SearchBarInput = styled.input`
 	width: 30vw;
 	height: 40px;
 	font-size: 20px;
-	border: 2px solid ${palette.pointColor};
+	border: 2px solid ${theme.color.green};
 	border-radius: 7px;
 	padding-left: 10px;
 	padding-right: 10px;
@@ -85,13 +84,20 @@ const SearchBarInput = styled.input`
 	::placeholder {
 		text-align: center;
 	}
+	${({ theme }) => theme.media.mobile`
+		width: 80%;
+		font-size:${theme.fontSize.mobileDesc}
+ 	`}
 `
 const Message = styled.p`
 	font-family: Cafe24Ssurround;
 	font-size: 25px;
-	color: ${palette.pointColor};
+	color: ${theme.color.green};
 	text-align: center;
 	margin-top: 60px;
+	${({ theme }) => theme.media.mobile`
+		font-size:${theme.fontSize.mobileTitle}
+ 	`}
 `
 
 const BookCardContainer = styled.ul`

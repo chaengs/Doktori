@@ -17,6 +17,10 @@ const Input = styled.input`
 	margin-bottom: 10px;
 	padding-left: 10px;
 	border: 2px solid;
+
+	${({ theme }) => theme.media.mobile`
+		width:90%;
+ 	`}
 `
 export default function InputStyle({ placeholder, onChange, className, type }: InputType) {
 	return <Input placeholder={placeholder} onChange={onChange} className={className} type={type} />
