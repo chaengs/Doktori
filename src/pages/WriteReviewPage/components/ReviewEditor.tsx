@@ -1,55 +1,36 @@
-import React, { useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import styled from 'styled-components'
+
 import { firebaseDB } from '../../../firebase-config'
 import { addDoc, collection, doc, DocumentData, updateDoc } from 'firebase/firestore'
 
+import BookContainer from './BookContainer'
+
 import { ReviewType } from 'types/review'
-import { userInfoType } from 'types/userInfoType'
+import { ReviewEditorBookInfo } from 'types/bookType'
+
 import { getStringDate } from 'util/getStringDate'
 
-import { GiAcorn } from 'react-icons/gi'
+import styled from 'styled-components'
 import { palette } from 'styles/palette'
 import ButtonStyle from 'styles/ButtonStyle'
+import ScoreBox from './ScoreBox'
+import DateBox from './DateBox'
 
 interface EditPage {
 	isEdit: boolean
-	originData?: ReviewType
-	reviewId?: string
-	bookInfo?: bookInfo
-	bookThumbnail?: string
-	bookTitle?: string
-	bookAuthors?: []
-	bookIsbn?: string
-	publisher?: string
-	user?: DocumentData
+	originData?: ReviewType //edit
+	reviewId?: string //edit
+	user?: DocumentData //create
+	bookData?: ReviewEditorBookInfo | any //create
 }
 
-interface bookInfo {
-	bookThumbnail: string
-	bookTitle: string
-	bookAuthors: []
-	bookIsbn: string
-	publisher: string
-}
-
-export default function ReviewEditor({
-	isEdit,
-	originData,
-	reviewId,
-	bookThumbnail,
-	bookTitle,
-	bookAuthors,
-	bookIsbn,
-	publisher,
-	user,
-}: EditPage) {
+export default function ReviewEditor({ isEdit, originData, reviewId, user, bookData }: EditPage) {
 	const [content, setContent] = useState('')
-	const [date, setDate] = useState<string | number | readonly string[]>(getStringDate(new Date()))
+	const [date, setDate] = useState<string>(getStringDate(new Date()))
 	const [buttonActive, setButtonActive] = useState<boolean>(true)
 
 	//별점용 도토리
-	const [hovered, setHovered] = useState(0)
 	const [score, setScore] = useState(0)
 
 	const reviewsCollectionRef = collection(firebaseDB, 'bookReviews')
@@ -74,6 +55,7 @@ export default function ReviewEditor({
 		}
 	}, [content, score])
 
+	//독후감 수정
 	const editHandler = () => {
 		if (isEdit && originData && reviewId) {
 			const editReviewRef = doc(firebaseDB, 'bookReviews', reviewId)
@@ -95,14 +77,15 @@ export default function ReviewEditor({
 		}
 	}
 
+	//독후감 새로 작성
 	const createHandler = () => {
 		if (!isEdit) {
 			addDoc(reviewsCollectionRef, {
-				bookThumbnail: bookThumbnail,
-				bookTitle: bookTitle,
-				bookAuthors: bookAuthors,
-				bookIsbn: bookIsbn,
-				publisher: publisher,
+				bookThumbnail: bookData?.bookThumbnail,
+				bookTitle: bookData?.bookTitle,
+				bookAuthors: bookData?.bookAuthors,
+				bookIsbn: bookData?.bookIsbn,
+				publisher: bookData?.publisher,
 				writer: user?.nickname,
 				writerId: user?.uid,
 				contents: content,
@@ -122,37 +105,17 @@ export default function ReviewEditor({
 		}
 	}
 
+	// 완독 날짜 선택
+	const changeDateHandler = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
+		setDate(event.target.value)
+	}, [])
+
 	return (
 		<ReviewContainer>
-			<BookInfoContainer>
-				<img src={isEdit ? originData?.bookThumbnail : bookThumbnail} alt='책 표지' />
-				<div>
-					<BookTitle>{isEdit ? originData?.bookTitle : bookTitle}</BookTitle>
-					<p>{isEdit ? originData?.bookAuthors : bookAuthors} 지음</p>
-					<p>{isEdit ? originData?.publisher : publisher} 펴냄</p>
-				</div>
-			</BookInfoContainer>
+			<BookContainer bookInfo={isEdit ? originData : bookData} />
 			<ReviewEditorContainer>
-				<ScoreBox>
-					{[1, 2, 3, 4, 5].map((el) => (
-						<GiAcorn
-							className={`acorn ${(score >= el || hovered >= el) && 'green'}`}
-							key={el}
-							onMouseEnter={() => setHovered(el)}
-							onMouseLeave={() => setHovered(0)}
-							onClick={() => setScore(el)}
-						/>
-					))}
-				</ScoreBox>
-				<DateBox>
-					<p>완독 날짜</p>
-					<DateInput
-						className='input_date'
-						type='date'
-						value={date}
-						onChange={(e) => setDate(e.target.value)}
-					/>
-				</DateBox>
+				<ScoreBox setScore={setScore} score={score} />
+				<DateBox date={date} onChange={changeDateHandler} />
 				<ContentInput
 					placeholder='독서는 즐거우셨나요? 여러분의 감상을 적어주세요. (10자 이상, 1500자 이하)'
 					onChange={(event) => {
@@ -185,64 +148,10 @@ const ReviewContainer = styled.article`
 	justify-content: center;
 `
 
-const BookInfoContainer = styled.section`
-	font-size: 20px;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	margin-bottom: 10px;
-	img {
-		width: 120px;
-		height: auto;
-	}
-
-	div {
-		margin-left: 20px;
-	}
-
-	p {
-		margin-bottom: 10px;
-	}
-`
-
-const BookTitle = styled.p`
-	font-size: 30px;
-`
-
 const ReviewEditorContainer = styled.section`
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-`
-const ScoreBox = styled.div`
-	.acorn {
-		font-size: 30px;
-		opacity: 0.3;
-		margin: 10px 10px 15px 0;
-		cursor: pointer;
-	}
-
-	.green {
-		color: ${palette.mainColor};
-		opacity: 1;
-	}
-`
-const DateBox = styled.div`
-	display: flex;
-	align-items: center;
-	margin-bottom: 15px;
-	p {
-		font-size: 20px;
-		margin-right: 10px;
-	}
-`
-const DateInput = styled.input`
-	width: auto;
-	height: 40px;
-	font-size: 18px;
-	border: 2px solid ${palette.mainColor};
-	border-radius: 7px;
-	padding: 5px;
 `
 
 const ContentInput = styled.textarea`

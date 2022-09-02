@@ -1,11 +1,15 @@
+import React, { useEffect, useState } from 'react'
+import { useLocation, useNavigate } from 'react-router-dom'
+
 import { firebaseAuth, firebaseDB } from 'firebase-config'
 import { deleteDoc, DocumentData, doc } from 'firebase/firestore'
+
 import useSearchReviewById from 'hooks/useSearchReviewById'
-import React, { useEffect, useState } from 'react'
-import { GiAcorn } from 'react-icons/gi'
-import { useLocation, useNavigate } from 'react-router-dom'
+
 import styled from 'styled-components'
 import { palette } from 'styles/palette'
+import { GiAcorn } from 'react-icons/gi'
+import Loading from 'components/Loading'
 
 interface type {
 	writerId: string
@@ -17,6 +21,8 @@ export default function ReviewDetailPage() {
 	const [reviewData, setReviewData] = useState<DocumentData>()
 
 	const navigate = useNavigate()
+
+	const [loading, setLoading] = useState<boolean>(true)
 
 	//메인페이지 or BookDetailPage의 ReviewCard에서 받아옴
 	const { state } = useLocation()
@@ -59,44 +65,50 @@ export default function ReviewDetailPage() {
 
 		if (originData) {
 			setReviewData(originData)
+			setTimeout(() => {
+				setLoading(false)
+			}, 500)
 		}
 	}, [originData])
 
 	return (
-		<ReviewContainer>
-			{isWriter && (
-				<div>
-					<button onClick={moveToEditPage}>수정하기</button>
-					<button onClick={deleteReview}>삭제하기</button>
-				</div>
-			)}
-			<BookInfoContainer>
-				<BookImg
-					src={reviewData?.bookThumbnail}
-					alt={reviewData?.bookTitle}
-					onClick={moveToDetailPage}
-				/>
-				<BookInfoBox>
-					<BookTitle onClick={moveToDetailPage}>{reviewData?.bookTitle}</BookTitle>
-					<p>
-						{reviewData?.bookAuthors} 지음 | {reviewData?.publisher} 펴냄
-					</p>
-					<ScoreBox>
-						{[1, 2, 3, 4, 5].map((el) => (
-							<GiAcorn className={`acorn ${reviewData?.score >= el && 'green'}`} key={el} />
-						))}
-					</ScoreBox>
-					<WriterInfo>
-						<p>작성자 : {reviewData?.writer}</p>
-						<p>완독일 : {reviewData?.finishDate}</p>
-						<p>독후감 작성일 : {reviewData?.registerDate}</p>
-					</WriterInfo>
-				</BookInfoBox>
-			</BookInfoContainer>
-			<ContentBox>
-				<p>{reviewData?.contents}</p>
-			</ContentBox>
-		</ReviewContainer>
+		<>
+			{loading ? <Loading /> : null}
+			<ReviewContainer>
+				<BookInfoContainer>
+					<BookImg
+						src={reviewData?.bookThumbnail}
+						alt={reviewData?.bookTitle}
+						onClick={moveToDetailPage}
+					/>
+					<BookInfoBox>
+						<BookTitle onClick={moveToDetailPage}>{reviewData?.bookTitle}</BookTitle>
+						<p>
+							{reviewData?.bookAuthors} 지음 | {reviewData?.publisher} 펴냄
+						</p>
+						<ScoreBox>
+							{[1, 2, 3, 4, 5].map((el) => (
+								<GiAcorn className={`acorn ${reviewData?.score >= el && 'green'}`} key={el} />
+							))}
+						</ScoreBox>
+						<WriterInfo>
+							<p>작성자 : {reviewData?.writer}</p>
+							<p>완독일 : {reviewData?.finishDate}</p>
+							<p>독후감 작성일 : {reviewData?.registerDate}</p>
+						</WriterInfo>
+					</BookInfoBox>
+				</BookInfoContainer>
+				<ContentBox>
+					<p>{reviewData?.contents}</p>
+				</ContentBox>
+				{isWriter && (
+					<ButtonBox>
+						<EditButton onClick={moveToEditPage}>수정하기</EditButton>
+						<DeleteButton onClick={deleteReview}>삭제하기</DeleteButton>
+					</ButtonBox>
+				)}
+			</ReviewContainer>
+		</>
 	)
 }
 
@@ -113,6 +125,24 @@ const ReviewContainer = styled.article`
 	align-items: center;
 	position: relative;
 	top: 5%;
+`
+const ButtonBox = styled.div`
+	margin-top: 10px;
+`
+const EditButton = styled.button`
+	width: 100px;
+	height: 50px;
+	font-family: Cafe24Ssurround;
+	font-size: 20px;
+	color: ${palette.fontColor};
+	border-radius: 7px;
+	background-color: ${palette.mainColor};
+	margin-right: 10px;
+`
+
+const DeleteButton = styled(EditButton)`
+	background-color: ${palette.warningColor};
+	color: ${palette.backgroundWhiteColor};
 `
 
 const BookInfoContainer = styled.section`

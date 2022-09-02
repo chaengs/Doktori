@@ -1,17 +1,21 @@
-import { firebaseDB } from 'firebase-config'
-import { collection } from 'firebase/firestore'
-import useSearchDB from 'hooks/useSearchDB'
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+
+import { firebaseDB } from 'firebase-config'
+import { collection } from 'firebase/firestore'
+
+import useSearchDB from 'hooks/useSearchDB'
+
+import { userType } from 'types/userType'
+
 import styled from 'styled-components'
-import ButtonStyle from 'styles/ButtonStyle'
 import { palette } from 'styles/palette'
-import { userInfoType } from 'types/userInfoType'
+import ButtonStyle from 'styles/ButtonStyle'
 
 export default function MyPage() {
 	const navigate = useNavigate()
 
-	const [user, setUser] = useState<userInfoType | any>()
+	const [user, setUser] = useState<userType | any>()
 
 	//useSearchDB 커스텀 훅으로 유저 쿼리 검색
 	const userEmail = localStorage.getItem('userEmail')

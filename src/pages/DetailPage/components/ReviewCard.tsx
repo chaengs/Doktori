@@ -1,10 +1,11 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
-import styled from 'styled-components'
+
+import { ReviewCardType } from 'types/review'
 
 import { palette } from 'styles/palette'
+import styled from 'styled-components'
 import { GiAcorn } from 'react-icons/gi'
-import { ReviewCardType } from 'types/review'
 
 export default function ReviewCard({
 	bookThumbnail,

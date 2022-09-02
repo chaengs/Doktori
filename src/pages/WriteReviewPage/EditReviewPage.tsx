@@ -1,9 +1,12 @@
 import React from 'react'
 import { useLocation } from 'react-router-dom'
+
 import ReviewEditor from './components/ReviewEditor'
 import useSearchReviewById from 'hooks/useSearchReviewById'
-import styled from 'styled-components'
+
 import { ReviewType } from 'types/review'
+
+import styled from 'styled-components'
 
 export default function EditReviewPage() {
 	type reviewIdType = {

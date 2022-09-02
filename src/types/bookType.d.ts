@@ -8,25 +8,10 @@ export interface BookInfoType {
 	isbn: string
 }
 
-interface ReviewBookType {
+interface ReviewEditorBookInfo {
 	bookThumbnail: string
 	bookTitle: string
-	bookAuthors: string
+	bookAuthors: []
 	bookIsbn: string
 	publisher: string
-}
-
-interface SearchBookType {
-	authors: []
-	contents: string
-	datetime: string
-	isbn: string
-	price: number
-	publisher: string
-	sale_price: number
-	status: string
-	thumbnail: string
-	title: string
-	translators: []
-	url: string
 }

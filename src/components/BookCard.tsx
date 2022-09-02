@@ -1,9 +1,10 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
-import styled from 'styled-components'
-import { palette } from 'styles/palette'
 
 import { BookInfoType } from '../types/bookType'
+
+import styled from 'styled-components'
+import { palette } from 'styles/palette'
 
 export default function BookCard({
 	thumbnail,

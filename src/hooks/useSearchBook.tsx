@@ -1,9 +1,10 @@
+import { DocumentData } from 'firebase/firestore'
+
 import { bookSearch } from 'library/api/api'
 import { useEffect, useState } from 'react'
-import { SearchBookType } from 'types/bookType'
 
 export default function useSearchBook(query: string, size: number) {
-	const [data, setData] = useState<SearchBookType[] | any>()
+	const [data, setData] = useState<DocumentData[] | any>()
 
 	const SearchBookHandler = async () => {
 		event?.preventDefault()
@@ -18,7 +19,6 @@ export default function useSearchBook(query: string, size: number) {
 
 	useEffect(() => {
 		SearchBookHandler()
-		console.log(data)
 	}, [])
 	return data
 }

@@ -1,9 +1,11 @@
 import React from 'react'
-import { GiAcorn } from 'react-icons/gi'
 import { useNavigate } from 'react-router-dom'
+
+import { ReviewCardType } from 'types/review'
+
 import styled from 'styled-components'
 import { palette } from 'styles/palette'
-import { ReviewCardType } from 'types/review'
+import { GiAcorn } from 'react-icons/gi'
 
 export default function ReviewCard({
 	bookThumbnail,
@@ -51,12 +53,13 @@ export default function ReviewCard({
 }
 
 const ReviewCardBox = styled.div`
-	width: 500px;
+	width: 450px;
 	height: 200px;
 	background-color: ${palette.backgroundWhiteColor};
 	border-radius: 7px;
 	box-shadow: 0px 0px 5px 3px rgba(0, 0, 0, 0.2);
-	margin: 10px;
+	margin-bottom: 10px;
+	margin-top: 10px;
 	padding: 10px;
 	display: flex;
 	align-items: center;

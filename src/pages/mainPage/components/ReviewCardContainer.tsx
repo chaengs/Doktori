@@ -1,27 +1,21 @@
 import React, { useEffect, useState } from 'react'
-import { useLocation } from 'react-router-dom'
 
-import { collection } from 'firebase/firestore'
 import { firebaseDB } from 'firebase-config'
+import { collection } from 'firebase/firestore'
 
 import ReviewCard from 'components/ReviewCard'
-import useSearchDB from 'hooks/useSearchDB'
+import useOrderReview from 'hooks/useOrderReview'
 
 import { ReviewCardType } from 'types/review'
 
 import styled from 'styled-components'
-import { palette } from 'styles/palette'
 
-export default function MyBookShelf() {
+export default function ReviewCardContainer() {
 	const [reviewCheck, setReviewCheck] = useState<boolean>(false)
 
-	const { state } = useLocation()
-	const { user } = state as any
-
-	//useSearchDB 커스텀 훅으로 한 유저의 모든 리뷰 쿼리 검색
+	//최근 5개의 리뷰 검색
 	const reviewsCollectionRef = collection(firebaseDB, 'bookReviews')
-	const reviewList = useSearchDB(reviewsCollectionRef, 'writerId', user.uid)
-
+	const reviewList = useOrderReview(reviewsCollectionRef, 'registerDate')
 	useEffect(() => {
 		if (reviewList) {
 			if (reviewList.length > 0) {
@@ -34,8 +28,8 @@ export default function MyBookShelf() {
 
 	return (
 		<>
-			<Title>{user.nickname}님의 책장</Title>
-			<ReviewCardContainer>
+			<Description>최근 올라온 독후감이에요. 다른 독자들은 어떤 책을 읽었을까요?</Description>
+			<ReviewCardBox>
 				{reviewCheck &&
 					reviewList?.map((review: ReviewCardType) => (
 						<ReviewCard
@@ -51,23 +45,21 @@ export default function MyBookShelf() {
 							id={''}
 						/>
 					))}
-			</ReviewCardContainer>
+			</ReviewCardBox>
 		</>
 	)
 }
 
-const Title = styled.h1`
-	font-family: Cafe24Ssurround;
+const Description = styled.p`
 	font-size: 30px;
 	font-weight: bold;
 	text-align: center;
-	color: ${palette.pointColor};
-	margin: 20px;
+	margin: 40px;
 `
 
-const ReviewCardContainer = styled.section`
+const ReviewCardBox = styled.ul`
 	width: 100vw;
 	display: flex;
-	justify-content: center;
+	justify-content: space-evenly;
 	flex-wrap: wrap;
 `

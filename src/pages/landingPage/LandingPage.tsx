@@ -1,5 +1,6 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
+
 import styled, { keyframes } from 'styled-components'
 import { palette } from 'styles/palette'
 import backgroundImg from 'library/images/background.jpg'

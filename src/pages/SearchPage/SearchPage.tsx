@@ -1,17 +1,24 @@
 import React, { useEffect, useRef, useState } from 'react'
+
+import { DocumentData } from 'firebase/firestore'
+
 import BookCard from '../../components/BookCard'
+import Loading from 'components/Loading'
 import { bookSearch } from 'library/api/api'
-import { SearchBookType } from 'types/bookType'
+
 import styled from 'styled-components'
 import { palette } from 'styles/palette'
 
 export default function SearchPage() {
-	const [result, setResult] = useState<SearchBookType[]>()
-	const [inputValue, setInputValue] = useState('')
+	const [result, setResult] = useState<DocumentData[]>()
+	const [inputValue, setInputValue] = useState<string>('')
 	const inputRef = useRef() as React.MutableRefObject<HTMLInputElement>
+
+	const [loading, setLoading] = useState<boolean>(false)
 
 	const bookSearchHandler = async (query: string) => {
 		event?.preventDefault()
+		setLoading(true)
 		const params = {
 			query: query,
 			size: 30,
@@ -19,6 +26,9 @@ export default function SearchPage() {
 		const searchData = await bookSearch(params)
 		const data = searchData.data.documents
 		setResult(data)
+		setTimeout(() => {
+			setLoading(false)
+		}, 450)
 	}
 
 	const inutValueHandler = () => {
@@ -33,9 +43,11 @@ export default function SearchPage() {
 
 	return (
 		<>
+			{loading ? <Loading /> : null}
 			<SearchBarContainer onSubmit={inutValueHandler}>
 				<SearchBarInput type='text' placeholder='도서명 또는 작가를 검색하세요.' ref={inputRef} />
 			</SearchBarContainer>
+			{!result && <Message>수 많은 책들이 여러분을 기다리고 있어요.</Message>}
 			{result && (
 				<BookCardContainer>
 					{result.map((data, index) => (
@@ -73,8 +85,15 @@ const SearchBarInput = styled.input`
 	::placeholder {
 		text-align: center;
 	}
-	//
 `
+const Message = styled.p`
+	font-family: Cafe24Ssurround;
+	font-size: 25px;
+	color: ${palette.pointColor};
+	text-align: center;
+	margin-top: 60px;
+`
+
 const BookCardContainer = styled.ul`
 	display: flex;
 	justify-content: center;
