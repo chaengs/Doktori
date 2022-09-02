@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 import { ReviewCardType } from 'types/review'
@@ -6,6 +6,9 @@ import { ReviewCardType } from 'types/review'
 import styled from 'styled-components'
 import { GiAcorn } from 'react-icons/gi'
 import { theme } from 'styles/theme'
+
+import NO_IMAGE from 'library/images/noImage.jpg'
+import { NoImageContext } from 'context/NoImageContext'
 
 export default function ReviewCard({
 	bookThumbnail,
@@ -19,6 +22,8 @@ export default function ReviewCard({
 }: ReviewCardType) {
 	const navigate = useNavigate()
 
+	const { onErrorImage } = useContext(NoImageContext)
+
 	const moveToReviewDetailPage = () => {
 		navigate('/reviewdetail', {
 			state: {
@@ -30,7 +35,7 @@ export default function ReviewCard({
 
 	return (
 		<ReviewCardContainer onClick={moveToReviewDetailPage}>
-			<img src={bookThumbnail} alt={bookTitle} />
+			<img src={bookThumbnail} alt={bookTitle} onError={onErrorImage} />
 			<WriterInfo>
 				<p>{writer}</p>
 				<ScoreBox>
@@ -48,7 +53,7 @@ export default function ReviewCard({
 }
 
 const ReviewCardContainer = styled.div`
-	width: 880px;
+	width: 95%;
 	height: 100px;
 	font-size: 18px;
 	background-color: ${theme.color.ivory};
@@ -64,7 +69,7 @@ const ReviewCardContainer = styled.div`
 	img {
 		width: auto;
 		height: 80%;
-		box-shadow: 0px 0px 5px 3px rgba(0, 0, 0, 0.2);
+		box-shadow: 0px 0px 5px 1px rgba(0, 0, 0, 0.2);
 	}
 
 	${({ theme }) => theme.media.mobile`

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 
 import { firebaseAuth, firebaseDB } from 'firebase-config'
@@ -10,6 +10,7 @@ import styled from 'styled-components'
 import { theme } from 'styles/theme'
 import { GiAcorn } from 'react-icons/gi'
 import Loading from 'components/Loading'
+import { NoImageContext } from 'context/NoImageContext'
 
 interface type {
 	writerId: string
@@ -23,6 +24,8 @@ export default function ReviewDetailPage() {
 	const navigate = useNavigate()
 
 	const [loading, setLoading] = useState<boolean>(true)
+
+	const { onErrorImage } = useContext(NoImageContext)
 
 	//메인페이지 or BookDetailPage의 ReviewCard에서 받아옴
 	const { state } = useLocation()
@@ -80,6 +83,7 @@ export default function ReviewDetailPage() {
 						src={reviewData?.bookThumbnail}
 						alt={reviewData?.bookTitle}
 						onClick={moveToDetailPage}
+						onError={onErrorImage}
 					/>
 					<BookInfoBox>
 						<BookTitle onClick={moveToDetailPage}>{reviewData?.bookTitle}</BookTitle>
@@ -114,11 +118,12 @@ export default function ReviewDetailPage() {
 
 const ReviewContainer = styled.article`
 	width: 80%;
-	height: 80%;
+	height: auto;
 	background-color: ${theme.color.ivory};
 	border-radius: 20px;
 	box-shadow: 0px 0px 5px 10px rgba(0, 0, 0, 0.2);
 	margin: 0 auto;
+	padding: 20px;
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
@@ -129,7 +134,6 @@ const ReviewContainer = styled.article`
 		width: 96%;
 		height: auto;
 		top:10px;
-		padding:20px;
 		margin-bottom:30px;
  	`}
 `
