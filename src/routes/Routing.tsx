@@ -19,6 +19,7 @@ import MyPage from 'pages/MyPage/MyPage'
 import MyBookShelf from 'pages/MyPage/MyBookShelf'
 import MyProfile from 'pages/MyPage/MyProfile'
 import Loading from 'components/Loading'
+import PrivateRoute from './PrivateRoute'
 
 function Routing() {
 	const { isLoggedIn } = useContext(AdminAuthContext)
@@ -37,17 +38,53 @@ function Routing() {
 						<Route path={Path.reviewDetail} element={<ReviewDetailPage />} />
 						{/* 비로그인 상태로만 접근 가능 */}
 						<Route path={Path.login} element={isLoggedIn ? <Navigate to={'/'} /> : <LoginPage />} />
+						{!isLoggedIn && <Route path={Path.login} element={<LoginPage />} />}
 						<Route
 							path={Path.register}
-							element={isLoggedIn ? <Navigate to={'/'} /> : <RegisterPage />}
+							element={isLoggedIn ? <Navigate to={location.pathname} /> : <RegisterPage />}
 						/>
 						{/* 404페이지 */}
 						{/* 로그인 상태로만 접근 가능 */}
-						{isLoggedIn && <Route path={Path.editReview} element={<EditReviewPage />} />}
-						{isLoggedIn && <Route path={Path.createReview} element={<CreateReviewPage />} />}
-						{isLoggedIn && <Route path={Path.myPage} element={<MyPage />} />}
-						{isLoggedIn && <Route path={Path.myBookShelf} element={<MyBookShelf />} />}
-						{isLoggedIn && <Route path={Path.myProfile} element={<MyProfile />} />}
+						<Route
+							path={Path.createReview}
+							element={
+								<PrivateRoute>
+									<CreateReviewPage />
+								</PrivateRoute>
+							}
+						/>
+						<Route
+							path={Path.editReview}
+							element={
+								<PrivateRoute>
+									<EditReviewPage />
+								</PrivateRoute>
+							}
+						/>
+						<Route
+							path={Path.myPage}
+							element={
+								<PrivateRoute>
+									<MyPage />
+								</PrivateRoute>
+							}
+						/>
+						<Route
+							path={Path.myBookShelf}
+							element={
+								<PrivateRoute>
+									<MyBookShelf />
+								</PrivateRoute>
+							}
+						/>
+						<Route
+							path={Path.myProfile}
+							element={
+								<PrivateRoute>
+									<MyProfile />
+								</PrivateRoute>
+							}
+						/>
 					</Route>
 				</Routes>
 			</Suspense>

@@ -1,16 +1,18 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { Navigate } from 'react-router-dom'
+
+import { AdminAuthContext } from 'context/AdminAuthContext'
 
 interface PrivateRouteType {
 	children: React.ReactElement
-	auth: boolean | null
 }
 
-export default function PrivateRoute({ auth, children }: PrivateRouteType): React.ReactElement {
-	if (auth) {
-		return children
-	} else {
-		alert('로그인이 필요합니다.')
+export default function PrivateRoute({ children }: PrivateRouteType): React.ReactElement {
+	const { isLoggedIn } = useContext(AdminAuthContext)
+
+	if (!isLoggedIn) {
 		return <Navigate to={'/login'} />
+	} else {
+		return children
 	}
 }
