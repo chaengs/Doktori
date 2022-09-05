@@ -7,14 +7,7 @@ import styled from 'styled-components'
 import { theme } from 'styles/theme'
 import { NoImageContext } from 'context/NoImageContext'
 
-export default function BookCard({
-	thumbnail,
-	title,
-	authors,
-	contents,
-	publisher,
-	isbn,
-}: BookInfoType) {
+export default function BookCard({ thumbnail, title, authors, contents, publisher }: BookInfoType) {
 	const navigate = useNavigate()
 
 	const [newAuthors, setNewAuthors] = useState<string[] | string>(authors)
