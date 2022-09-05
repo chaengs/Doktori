@@ -25,9 +25,9 @@ export default function LoginPage() {
 
 	const [buttonActive, setButtonActive] = useState<boolean>(true)
 
-	const loginHandler = async () => {
+	const loginHandler = () => {
 		event?.preventDefault()
-		await login(loginEmail, loginPassword)
+		login(loginEmail, loginPassword)
 	}
 
 	const checkEmail = useCallback(
