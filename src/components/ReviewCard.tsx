@@ -68,8 +68,8 @@ const ReviewCardBox = styled.div`
 	cursor: pointer;
 
 	img {
-		width: auto;
-		height: 80%;
+		width: 120px;
+		height: auto;
 		box-shadow: 0px 0px 5px 3px rgba(0, 0, 0, 0.2);
 	}
 

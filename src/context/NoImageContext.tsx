@@ -6,15 +6,15 @@ interface NoImageContextType {
 	onErrorImage: (event: React.SyntheticEvent<HTMLImageElement, Event>) => void
 }
 
+interface ImportChildren {
+	children?: React.ReactNode
+}
+
 export const NoImageContext = createContext<NoImageContextType>({
 	onErrorImage: () => {
 		return
 	},
 })
-
-interface ImportChildren {
-	children?: React.ReactNode
-}
 
 export function NoImageProvider({ children }: ImportChildren) {
 	const onErrorImage = (event: React.SyntheticEvent<HTMLImageElement, Event>) => {

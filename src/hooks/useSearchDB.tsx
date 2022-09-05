@@ -15,7 +15,7 @@ export default function useSearchDB(
 ) {
 	const [data, setData] = useState<DocumentData>()
 
-	const getIsbnData = async () => {
+	const getDataInDB = async () => {
 		const dataByQuery = query(collectionRef, where(keyword, '==', value))
 		const resultData = await getDocs(dataByQuery)
 		const newData = resultData.docs.map((doc) => ({
@@ -25,7 +25,7 @@ export default function useSearchDB(
 		setData(newData)
 	}
 	useEffect(() => {
-		getIsbnData()
+		getDataInDB
 	}, [])
 	return data
 }
