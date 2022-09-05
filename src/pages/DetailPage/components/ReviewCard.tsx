@@ -95,13 +95,14 @@ const WriterInfo = styled.div`
 const ScoreBox = styled.div`
 	margin-top: 5px;
 	font-size: 15px;
+	color: gray;
 	.acorn {
-		opacity: 0.3;
+		opacity: 0.5;
 		cursor: pointer;
 	}
 
 	.green {
-		color: ${theme.color.green};
+		color: ${theme.color.brown};
 		opacity: 1;
 	}
 

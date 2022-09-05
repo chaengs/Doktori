@@ -35,6 +35,7 @@ export default function Header() {
 					{!isLoggedIn && <LinkButton onClick={() => navigate('/register')}>회원가입</LinkButton>}
 				</ButtonContainer>
 			</HeaderContainer>
+			<FooterContainer>푸터</FooterContainer>
 			<Outlet />
 		</>
 	)
@@ -46,6 +47,7 @@ const HeaderContainer = styled.header`
 	background-color: ${theme.color.yellowgreen};
 	display: flex;
 	justify-content: space-between;
+	position: fixed;
 `
 const LogoContainer = styled.div`
 	margin-left: 40px;
@@ -86,4 +88,14 @@ const LinkButton = styled.button`
 		font-size:17px;
 		margin-right:10px;
  	`}
+`
+
+const FooterContainer = styled.div`
+	width: 100vw;
+	height: 70px;
+	background-color: pink;
+	display: flex;
+	justify-content: space-between;
+	/* position: absolute; */
+	/* bottom: 0; */
 `

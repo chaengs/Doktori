@@ -26,14 +26,15 @@ export default React.memo(ScoreBox)
 
 const Score = styled.div`
 	font-size: 30px;
+	color: gray;
 	.acorn {
-		opacity: 0.3;
+		opacity: 0.5;
 		margin: 10px 10px 15px 0;
 		cursor: pointer;
 	}
 
 	.green {
-		color: ${theme.color.green};
+		color: ${theme.color.brown};
 		opacity: 1;
 	}
 
