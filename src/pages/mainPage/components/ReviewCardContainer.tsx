@@ -71,8 +71,13 @@ const Message = styled.p`
 `
 
 const ReviewCardBox = styled.ul`
-	width: 100vw;
-	display: flex;
-	justify-content: space-evenly;
-	flex-wrap: wrap;
+	display: grid;
+	grid-template-columns: repeat(4, 1fr);
+	grid-column-start: 1;
+	row-gap: 10px;
+	column-gap: 10px;
+
+	${({ theme }) => theme.media.mobile`
+	grid-template-columns: 1fr;
+ 	`}
 `

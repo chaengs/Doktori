@@ -61,8 +61,7 @@ const ReviewCardBox = styled.div`
 	background-color: ${theme.color.ivory};
 	border-radius: 7px;
 	box-shadow: 0px 0px 5px 3px rgba(0, 0, 0, 0.2);
-	margin-bottom: 10px;
-	margin-top: 10px;
+	margin: 0 auto;
 	padding: 10px;
 	display: flex;
 	align-items: center;
@@ -77,7 +76,6 @@ const ReviewCardBox = styled.div`
 	${({ theme }) => theme.media.mobile`
 		width: 96vw;
 		height: 180px;
-
 		img {
 			height: 150px;
 		}

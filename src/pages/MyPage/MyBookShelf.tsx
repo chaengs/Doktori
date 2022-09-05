@@ -68,6 +68,7 @@ const Title = styled.h1`
 const ReviewCardContainer = styled.section`
 	width: 100vw;
 	display: flex;
-	justify-content: center;
+	flex-direction: column;
+	align-items: center;
 	flex-wrap: wrap;
 `
