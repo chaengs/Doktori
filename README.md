@@ -4,22 +4,28 @@
 <h1>독토리</h1>
 책의 감상을 다른 독자들과 공유할 수 있는 서비스입니다.  
   
-<a href="https://doktori-1eb0a.web.app">🌰독토리 살펴보기</a>
+<h2><a href="https://doktori-1eb0a.web.app">독토리 살펴보기</a></h2>
 
-<h3>Skills</h3>
+<h3>🌰Skills</h3>
 
 ![React](https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB)
 ![TypeScript](https://img.shields.io/badge/typescript-%23007ACC.svg?style=for-the-badge&logo=typescript&logoColor=white)
 ![Styled Components](https://img.shields.io/badge/styled--components-DB7093?style=for-the-badge&logo=styled-components&logoColor=white)
 ![Firebase](https://img.shields.io/badge/Firebase-039BE5?style=for-the-badge&logo=Firebase&logoColor=white)
 
-<h3>프로젝트 실행 방법</h3>
-1. 프로젝트 클론. 
+<h3>🌰프로젝트 실행 방법</h3>
+<p>1. 프로젝트 클론</p>
   
-2. 패키지 설치
+``
+https://github.com/chaengs/Doktori.git
+``
+  
+<p>2. 패키지 설치</p>
+  
 `` npm install ``
-
-3. 프로젝트 실행
+  
+<p>3. 프로젝트 실행</p>
+  
 `` npm start ``
 
 <h3>프로젝트 구조</h3>
