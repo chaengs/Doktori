@@ -129,7 +129,7 @@ const ReviewContainer = styled.article`
 	justify-content: center;
 	align-items: center;
 	position: relative;
-	top: 5%;
+	top: 10%;
 	${({ theme }) => theme.media.mobile`
 		width: 96%;
 		height: auto;
@@ -197,13 +197,13 @@ const WriterInfo = styled.div`
 const ContentBox = styled.section`
 	width: 65%;
 	font-size: 20px;
-	line-height: 25px;
+	line-height: 30px;
 	background-color: ${theme.color.lightYellowgreen};
 	border-radius: 7px;
 	padding: 10px;
 	${({ theme }) => theme.media.mobile`
 		width: 93%;
-		font-size:${theme.fontSize.mobileTitle};
+		font-size:${theme.fontSize.mobileDesc};
  	`}
 `
 
