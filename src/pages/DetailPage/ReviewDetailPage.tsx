@@ -175,12 +175,13 @@ const BookTitle = styled.p`
 const ScoreBox = styled.div`
 	margin-bottom: 5px;
 	font-size: 20px;
+	color: gray;
 	.acorn {
-		opacity: 0.3;
+		opacity: 0.5;
 	}
 
 	.green {
-		color: ${theme.color.green};
+		color: ${theme.color.brown};
 		opacity: 1;
 	}
 	${({ theme }) => theme.media.mobile`

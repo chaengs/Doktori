@@ -105,14 +105,15 @@ const Title = styled.p`
 `
 const ScoreBox = styled.div`
 	margin-top: 5px;
+	color: gray;
+	font-size: ${theme.fontSize.desktopBookTitle};
 	.acorn {
-		font-size: ${theme.fontSize.desktopBookTitle};
-		opacity: 0.3;
+		opacity: 0.5;
 		cursor: pointer;
 	}
 
 	.green {
-		color: ${theme.color.green};
+		color: ${theme.color.brown};
 		opacity: 1;
 	}
 `

@@ -25,8 +25,6 @@ export default function BookCard({
 		navigate('/bookdetail', {
 			state: {
 				title,
-				contents,
-				isbn,
 			},
 		})
 	}

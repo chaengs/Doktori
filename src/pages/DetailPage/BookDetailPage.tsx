@@ -1,4 +1,4 @@
-import React, { SyntheticEvent, useContext, useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { collection, DocumentData } from 'firebase/firestore'
 
@@ -163,7 +163,7 @@ const Book = styled.div`
 		img {
 			width:100px;
 		}
- 	`}
+	`}
 `
 
 const Title = styled.p`
@@ -171,7 +171,7 @@ const Title = styled.p`
 
 	${({ theme }) => theme.media.mobile`
 			font-size:${theme.fontSize.mobileTitle}
-		 `}
+	`}
 `
 
 const Content = styled.p`
@@ -180,7 +180,7 @@ const Content = styled.p`
 
 	${({ theme }) => theme.media.mobile`
 		font-size:${theme.fontSize.mobileDesc};
- 	`}
+	`}
 `
 
 const ReviewListTitle = styled.p`
