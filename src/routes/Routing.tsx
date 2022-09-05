@@ -15,8 +15,6 @@ import ReviewDetailPage from 'pages/DetailPage/ReviewDetailPage'
 import RegisterPage from 'pages/RegisterPage/RegisterPage'
 import LoginPage from '../pages/LoginPage/LoginPage'
 
-// import EditReviewPage from 'pages/WriteReviewPage/EditReviewPage'
-// import CreateReviewPage from 'pages/WriteReviewPage/CreateReviewPage'
 import MyPage from 'pages/MyPage/MyPage'
 import MyBookShelf from 'pages/MyPage/MyBookShelf'
 import MyProfile from 'pages/MyPage/MyProfile'

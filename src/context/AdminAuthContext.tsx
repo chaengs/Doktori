@@ -46,8 +46,6 @@ export function AdminAuthProvider({ children }: ImportChildren) {
 		setPersistence(firebaseAuth, browserLocalPersistence).then(() => {
 			signInWithEmailAndPassword(firebaseAuth, email, password)
 				.then(() => {
-					// setIsloggedIn(true)
-					localStorage.setItem('localLoggedIn', 'true')
 					localStorage.setItem('userEmail', email)
 					alert('로그인 되었습니다.')
 				})
@@ -64,8 +62,6 @@ export function AdminAuthProvider({ children }: ImportChildren) {
 	const logout = () => {
 		signOut(firebaseAuth)
 			.then(() => {
-				// setIsloggedIn(false)
-				localStorage.removeItem('localLoggedIn')
 				alert('로그아웃 되었습니다.')
 			})
 			.catch((error) => {
