@@ -86,7 +86,7 @@ const { thumbnail, title, authors, contents, datetime, publisher, isbn } = state
 - 처음에는 useNavigate()와 useLocation()을 사용해 사용자가 클릭한 책의 정보를 모두 전송 → 받는 것으로 도서 상세 정보를 표시했습니다.
 - 타 독자의 독후감 정보 페이지에서도 도서 사진이나 제목을 클릭하여 도서의 정보를 볼 수 있도록 수정하던 중 문제를 발견했습니다.
 
-![image](https://user-images.githubusercontent.com/73277502/189903215-3f8e6755-833c-4699-951e-5f94994e2df3.png)
+<img src="https://user-images.githubusercontent.com/73277502/189903215-3f8e6755-833c-4699-951e-5f94994e2df3.png" style="width:500px;"/>
 
 - ReviewDetailPage는 도서의 일부 정보만을 갖고 있었기에 BookDetailPage는 원하는 데이터를 받을 수 없었습니다.
     - 타 컴포넌트에게 data를 100% 의존하는 방식은 안정적이지 않으며, 컴포넌트의 재사용성도 떨어진다는 것을 배웠습니다.
@@ -105,13 +105,13 @@ useEffect(() => {
 - 그리하여 도서 제목(title) 하나만을 받아와 다시 새롭게 API에 데이터를 요청하는 방식으로 수정하여 데이터 요청이 원활해졌고 재사용하기가 용이해졌습니다.
 
 ### 4. Custom Hook
-- DB에 데이터를 요청하는 경우가 자주 있기에 DB에 데이터를 요청하는 useSearchDB 커스텀 훅을 만들었습니다.
-<a></a>
+- DB에 데이터를 요청하는 경우가 자주 있기에 DB에 데이터를 요청하는 useSearchDB 커스텀 훅을 만들었습니다. </br>
+<a href="https://github.com/chaengs/Doktori/blob/main/src/hooks/useSearchDB.tsx">🔗코드 보기</a>
 
 ### 5. 렌더링 최적화
 - `ReviewEditor`의 구성요소는 별도의 컴포넌트 분리가 없었습니다. 때문에 값이 하나만 바뀌어도 모든 요소가 리렌더링이 되었습니다.
 - 각각의 요소를 컴포넌트로 분리하였고 prop의 state가 변하지 않으면 렌더링 되지 않도록 `React.memo`를 사용하였습니다.
-![image](https://user-images.githubusercontent.com/73277502/189903598-8737b8bc-0087-457f-a821-03a845de8c49.png)
+<img src="https://user-images.githubusercontent.com/73277502/189903598-8737b8bc-0087-457f-a821-03a845de8c49.png" style="width:500px;"/>
 - 완독 날짜를 선택하는 DateBox는 부모컴포넌트(ReviewEditor)에서 changeDateHandler라는 함수를 프롭으로 받기 때문에 useCallback으로 함수를 메모이제이션하도록 수정했습니다.
 ```
 const changeDateHandler = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
@@ -122,8 +122,9 @@ const changeDateHandler = useCallback((event: React.ChangeEvent<HTMLInputElement
 ### 6. 도서의 표지 사진이 없을 경우 대체 이미지가 나오도록 처리
 - 도서 검색 API는 카카오의 검색 API를 사용했는데 간혹 표지가 제공되지 않는 도서가 있습니다.
 - 대체 이미지를 띄우도록 하는 함수를 Context API를 이용해 여러 컴포넌트가 쉽게 접근하도록 하였습니다.
-    - 도서 표지를 보여줘야하는 컴포넌트마다 코드를 반복적으로 작성할 필요가 없게 되었습니다
-![image](https://user-images.githubusercontent.com/73277502/189903794-6421b33f-5c6c-4550-8d67-48776627245e.png)
+    - 도서 표지를 보여줘야하는 컴포넌트마다 코드를 반복적으로 작성할 필요가 없게 되었습니다</br>
+<a href="https://github.com/chaengs/Doktori/blob/main/src/context/NoImageContext.tsx">🔗코드 보기</a>
+<img src="https://user-images.githubusercontent.com/73277502/189903794-6421b33f-5c6c-4550-8d67-48776627245e.png" style="width:500px;"/>
 
 
 <h3>🌰프로젝트 실행 방법</h3>
