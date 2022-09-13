@@ -113,6 +113,7 @@ useEffect(() => {
 - 각각의 요소를 컴포넌트로 분리하였고 prop의 state가 변하지 않으면 렌더링 되지 않도록 `React.memo`를 사용하였습니다.
 <img src="https://user-images.githubusercontent.com/73277502/189903598-8737b8bc-0087-457f-a821-03a845de8c49.png" style="width:500px;"/>
 - 완독 날짜를 선택하는 DateBox는 부모컴포넌트(ReviewEditor)에서 changeDateHandler라는 함수를 프롭으로 받기 때문에 useCallback으로 함수를 메모이제이션하도록 수정했습니다.
+
 ```
 const changeDateHandler = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
 		setDate(event.target.value)
